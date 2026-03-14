@@ -89,7 +89,7 @@ export default function Home() {
 
       <div className="absolute inset-0 bg-navy home-overlay" />
       <div className="absolute inset-0 ambient-grid opacity-80" />
-      <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-black/20 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-navy/20 to-transparent" />
 
       <div className="relative z-10 w-full max-w-6xl px-6 py-8 md:py-14">
         <div className="fade-rise flex flex-wrap items-center justify-center gap-2 md:justify-start">
@@ -121,14 +121,14 @@ export default function Home() {
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
               <Link
                 href="/auth"
-                className="flex items-center justify-center h-12 px-8 rounded-xl bg-cream text-navy text-[14px] font-bold font-sans hover:bg-white"
+                className="flex items-center justify-center h-12 px-8 rounded-button bg-cream text-navy text-[14px] font-bold font-sans transition-colors duration-150 hover:bg-silver"
               >
                 Get started
               </Link>
               <button
                 type="button"
                 onClick={handleGuest}
-                className="flex items-center justify-center h-12 px-8 rounded-xl border border-cream/30 text-cream bg-white/8 text-[14px] font-medium font-sans hover:bg-white/14"
+                className="flex items-center justify-center h-12 px-8 rounded-button border border-cream/30 bg-cream/8 text-cream text-[14px] font-medium font-sans transition-colors duration-150 hover:bg-cream/14"
               >
                 Try as guest
               </button>
@@ -136,19 +136,19 @@ export default function Home() {
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
               {QUICK_FACTS.map((fact) => (
-                <div key={fact.label} className="home-stat rounded-2xl px-4 py-4 text-left text-cream">
-                  <div className="font-display text-2xl italic leading-none">{fact.value}</div>
+                <div key={fact.label} className="home-stat rounded-card px-4 py-4 text-left text-cream">
+                  <div className="font-playfair text-2xl italic leading-none">{fact.value}</div>
                   <p className="mt-2 text-[12px] leading-5 text-cream/72 font-sans">{fact.label}</p>
                 </div>
               ))}
             </div>
           </section>
 
-          <aside className="fade-rise delay-2 glass-panel rounded-[28px] p-5 text-left sm:p-6">
+          <aside className="fade-rise delay-2 glass-panel rounded-card p-5 text-left sm:p-6">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="section-eyebrow text-cream/70">Choose your language</p>
-                <h2 className="mt-2 font-display text-[30px] italic leading-tight text-cream">
+                <h2 className="mt-2 font-playfair text-[30px] italic leading-tight text-cream">
                   Start in the language that feels most comfortable.
                 </h2>
               </div>
@@ -164,10 +164,10 @@ export default function Home() {
                   key={code}
                   type="button"
                   onClick={() => handleLang(code)}
-                  className={`rounded-xl border px-3 py-3 text-[14px] text-center font-sans ${
+                  className={`rounded-button border px-3 py-3 text-[14px] text-center font-sans ${
                     selectedLang === code
                       ? 'lang-card-active bg-cream text-charcoal'
-                      : 'lang-card bg-white/92 text-charcoal hover:bg-white'
+                      : 'lang-card bg-cream/92 text-charcoal hover:bg-cream'
                   }`}
                 >
                   {label}

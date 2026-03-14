@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ImmigrationStatus {
+  citizen
+  permanent_resident
+  work_permit
+  student_visa
+  refugee
+  asylum_seeker
+  undocumented
+  unknown
+}
+
+enum AgeBand {
+  AGE_0_17
+  AGE_18_25
+  AGE_26_35
+  AGE_36_45
+  AGE_46_55
+  AGE_56_64
+  AGE_65_PLUS
+}
+
+enum EmploymentStatus {
+  student
+  employed
+  self_employed
+  unemployed
+  retiree
+}
+
+enum BenefitsStatus {
+  yes
+  no
+  unknown
+}
+
+enum IncomeBand {
+  low
+  medium
+  high
+  prefer_not_to_say
+}
+
+enum SpecialCategory {
+  refugee
+  temp_foreign_worker
+  intl_student
+  asylum_seeker
+}
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String?         @unique
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String?
+  accounts      Account[]
+  sessions      Session[]
+  profile       Profile?
+  consentLogs   ConsentLog[]
+  authenticators Authenticator[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  @@map("users")
+}
+
+model Account {
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  refresh_token_expires_in Int?
+  user               User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@id([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@id([sessionToken])
+  @@index([userId])
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+  @@unique([token])
+  @@map("verification_tokens")
+}
+
+model Authenticator {
+  credentialID         String
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+  user                 User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+  @@unique([credentialID])
+  @@map("authenticators")
+}
+
+model Profile {
+  id                  String            @id @default(cuid())
+  userId              String            @unique
+  province            String            @default("unknown")
+  immigrationStatus   ImmigrationStatus @default(unknown)
+  residencyStartDate  String            @default("unknown")
+  ageBand             AgeBand           @default(AGE_18_25)
+  employmentStatus    EmploymentStatus  @default(unemployed)
+  hasEmployerBenefits BenefitsStatus    @default(unknown)
+  dependants          Json
+  incomeBand          IncomeBand        @default(prefer_not_to_say)
+  specialCategory     SpecialCategory?
+  user                User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+
+  @@map("profiles")
+}
+
+model ConsentLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  metadata  Json?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@map("consent_log")
+}

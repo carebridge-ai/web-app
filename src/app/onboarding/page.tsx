@@ -6,6 +6,7 @@ import {
   MapPin, Shield, Calendar, User, Briefcase,
   HeartHandshake, Users, DollarSign, Tag, Minus, Plus,
 } from 'lucide-react'
+import { PageShell, SurfaceCard } from '@/components/ui/layout-shell'
 import { UserProfile, EMPTY_PROFILE } from '@/lib/profile'
 import { useProfile } from '@/lib/profile-context'
 import { useGuest } from '@/lib/guest-context'
@@ -143,10 +144,10 @@ function Tile({
     <button
       type="button"
       onClick={onClick}
-      className={`flex items-center gap-3 w-full min-h-[48px] px-4 py-3 rounded-xl border text-start font-sans text-[14px] text-charcoal transition-colors duration-150 ${
+      className={`flex min-h-[48px] w-full items-center gap-3 rounded-button border px-4 py-3 text-start font-sans text-[14px] text-charcoal transition-colors duration-150 ${
         selected
           ? 'border-sage bg-sage/10'
-          : 'border-tan bg-white hover:border-sage'
+          : 'border-tan bg-cream hover:border-sage'
       }`}
     >
       {children}
@@ -259,8 +260,8 @@ export default function OnboardingPage() {
 
   if (step >= TOTAL_STEPS) {
     return (
-      <main className="min-h-screen bg-cream flex flex-col items-center justify-center px-6 py-10">
-        <div className="w-full max-w-md surface-panel rounded-[30px] p-8 flex flex-col items-center gap-6 text-center fade-rise">
+      <PageShell centered className="flex-col">
+        <SurfaceCard className="fade-rise flex w-full max-w-md flex-col items-center gap-6 p-8 text-center">
           <p className="section-eyebrow text-steel">Final step</p>
           <h1 className="onboarding-heading text-charcoal">
             Your information stays safe.
@@ -272,34 +273,34 @@ export default function OnboardingPage() {
             <button
               type="button"
               onClick={handleSave}
-              className="h-12 rounded-xl bg-navy text-cream text-[14px] font-bold font-sans w-full transition-colors duration-150 hover:bg-navy-hover"
+              className="btn-primary"
             >
               Save my profile
             </button>
             <button
               type="button"
               onClick={handleContinueWithout}
-              className="h-12 rounded-xl border border-tan text-charcoal text-[14px] font-medium font-sans w-full transition-colors duration-150 hover:border-sage"
+              className="btn-secondary"
             >
               Continue without saving
             </button>
           </div>
-        </div>
-      </main>
+        </SurfaceCard>
+      </PageShell>
     )
   }
 
   /* ── Step screens ───────────────────────────────────────── */
 
   return (
-    <main className="min-h-screen bg-cream flex flex-col">
+    <PageShell className="flex flex-col">
       <div className="flex-1 flex flex-col items-center px-6 py-8 md:py-10">
-        <div className="w-full max-w-[720px] mx-auto surface-panel rounded-[30px] p-5 sm:p-7 md:p-8 flex flex-col gap-5 fade-rise">
+        <SurfaceCard className="mx-auto flex w-full max-w-[720px] flex-col gap-5 p-5 fade-rise sm:p-7 md:p-8">
           <div className="flex items-center justify-between gap-3">
             <button
               type="button"
               onClick={previous}
-              className="rounded-full border border-tan bg-white px-4 py-2 font-sans text-[13px] font-medium text-charcoal hover:border-sage"
+              className="btn-pill"
             >
               Back
             </button>
@@ -339,7 +340,7 @@ export default function OnboardingPage() {
                   onChange={(e) => {
                     if (e.target.value) selectAndNext('province', e.target.value)
                   }}
-                  className="w-full h-12 px-4 rounded-xl border border-tan bg-white font-sans text-[14px] text-charcoal transition-colors duration-150 focus:outline-none focus:border-sage appearance-none cursor-pointer"
+                  className="input-field cursor-pointer appearance-none"
                 >
                   <option value="" disabled>Select your province or state</option>
                   <optgroup label="Canada">
@@ -378,7 +379,7 @@ export default function OnboardingPage() {
                   <select
                     value={resMonth}
                     onChange={(e) => setResMonth(e.target.value)}
-                    className="flex-1 h-12 px-4 rounded-xl border border-tan bg-white font-sans text-[14px] text-charcoal transition-colors duration-150 focus:outline-none focus:border-sage"
+                    className="input-field flex-1"
                   >
                     <option value="">Month</option>
                     {MONTHS.map((m, i) => (
@@ -388,7 +389,7 @@ export default function OnboardingPage() {
                   <select
                     value={resYear}
                     onChange={(e) => setResYear(e.target.value)}
-                    className="flex-1 h-12 px-4 rounded-xl border border-tan bg-white font-sans text-[14px] text-charcoal transition-colors duration-150 focus:outline-none focus:border-sage"
+                    className="input-field flex-1"
                   >
                     <option value="">Year</option>
                     {Array.from({ length: 50 }, (_, i) => new Date().getFullYear() - i).map((y) => (
@@ -403,7 +404,7 @@ export default function OnboardingPage() {
                       update('residencyStartDate', `${resYear}-${resMonth}`)
                       next()
                     }}
-                    className="h-12 rounded-xl bg-navy text-cream text-[14px] font-bold font-sans w-full transition-colors duration-150 hover:bg-navy-hover"
+                    className="btn-primary"
                   >
                     Continue
                   </button>
@@ -466,7 +467,7 @@ export default function OnboardingPage() {
             {step === 6 && (
               <div className="flex flex-col gap-3">
                 {/* Spouse toggle */}
-                <div className="flex items-center justify-between px-4 py-4 rounded-xl border border-tan bg-white">
+                <div className="flex items-center justify-between rounded-card border border-tan bg-cream px-4 py-4">
                   <span className="font-sans text-[14px] text-charcoal">
                     Do you have a spouse or partner?
                   </span>
@@ -483,7 +484,7 @@ export default function OnboardingPage() {
                     }`}
                   >
                     <span
-                      className={`absolute top-0.5 start-0.5 w-6 h-6 rounded-full bg-white transition-transform duration-150 ${
+                      className={`absolute top-0.5 start-0.5 h-6 w-6 rounded-full bg-cream transition-transform duration-150 ${
                         profile.dependants.spouse ? 'ltr:translate-x-5 rtl:-translate-x-5' : ''
                       }`}
                     />
@@ -491,7 +492,7 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* Children stepper */}
-                <div className="flex items-center justify-between px-4 py-4 rounded-xl border border-tan bg-white">
+                <div className="flex items-center justify-between rounded-card border border-tan bg-cream px-4 py-4">
                   <span className="font-sans text-[14px] text-charcoal">Children</span>
                   <div className="flex items-center gap-3">
                     <button
@@ -502,7 +503,7 @@ export default function OnboardingPage() {
                           children: Math.max(0, profile.dependants.children - 1),
                         })
                       }
-                      className="w-9 h-9 flex items-center justify-center rounded-xl border border-tan text-steel transition-colors duration-150 hover:border-sage"
+                      className="icon-button"
                     >
                       <Minus size={16} strokeWidth={1.5} />
                     </button>
@@ -517,7 +518,7 @@ export default function OnboardingPage() {
                           children: profile.dependants.children + 1,
                         })
                       }
-                      className="w-9 h-9 flex items-center justify-center rounded-xl border border-tan text-steel transition-colors duration-150 hover:border-sage"
+                      className="icon-button"
                     >
                       <Plus size={16} strokeWidth={1.5} />
                     </button>
@@ -527,7 +528,7 @@ export default function OnboardingPage() {
                 <button
                   type="button"
                   onClick={next}
-                  className="h-12 rounded-xl bg-navy text-cream text-[14px] font-bold font-sans w-full transition-colors duration-150 hover:bg-navy-hover"
+                  className="btn-primary"
                 >
                   Continue
                 </button>
@@ -567,10 +568,10 @@ export default function OnboardingPage() {
                               : [...prev, value]
                           )
                         }}
-                        className={`px-4 py-2 rounded-full border font-sans text-[13px] transition-colors duration-150 ${
+                        className={`option-chip ${
                           isSelected
                             ? 'border-sage bg-sage/10 text-charcoal'
-                            : 'border-tan bg-white text-charcoal hover:border-sage'
+                            : 'border-tan bg-cream text-charcoal hover:border-sage'
                         }`}
                       >
                         {label}
@@ -583,10 +584,10 @@ export default function OnboardingPage() {
                       setNoneSpecial(true)
                       setSpecialSelections([])
                     }}
-                    className={`px-4 py-2 rounded-full border font-sans text-[13px] transition-colors duration-150 ${
+                    className={`option-chip ${
                       noneSpecial
                         ? 'border-sage bg-sage/10 text-charcoal'
-                        : 'border-tan bg-white text-charcoal hover:border-sage'
+                        : 'border-tan bg-cream text-charcoal hover:border-sage'
                     }`}
                   >
                     None of these
@@ -604,7 +605,7 @@ export default function OnboardingPage() {
                       )
                       next()
                     }}
-                    className="h-12 rounded-xl bg-navy text-cream text-[14px] font-bold font-sans w-full transition-colors duration-150 hover:bg-navy-hover"
+                    className="btn-primary"
                   >
                     Continue
                   </button>
@@ -620,13 +621,13 @@ export default function OnboardingPage() {
           >
             Skip
           </button>
-        </div>
+        </SurfaceCard>
       </div>
 
       {/* Disclaimer */}
       <p className="py-4 text-center text-mist font-sans text-[11px] leading-[1.4]">
         This is not medical advice. In an emergency, call 911.
       </p>
-    </main>
+    </PageShell>
   )
 }

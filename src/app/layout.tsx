@@ -5,12 +5,15 @@ import { ProfileProvider } from "@/lib/profile-context";
 import "./globals.css";
 
 const playfairDisplay = Playfair_Display({
-  variable: "--font-display",
+  variable: "--font-playfair",
+  style: ["italic"],
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
 const dmSans = DM_Sans({
-  variable: "--font-body",
+  variable: "--font-sans",
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
 });
 
@@ -25,10 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${playfairDisplay.variable} ${dmSans.variable} antialiased`}
-      >
+    <html lang="en" className={`${playfairDisplay.variable} ${dmSans.variable}`}>
+      <body className="font-sans antialiased">
         <GuestProvider>
           <ProfileProvider>{children}</ProfileProvider>
         </GuestProvider>
