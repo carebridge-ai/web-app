@@ -49,6 +49,19 @@ enum IncomeBand {
   prefer_not_to_say
 }
 
+enum MetalTier {
+  bronze
+  silver
+  gold
+  platinum
+}
+
+enum PlanType {
+  HMO
+  PPO
+  EPO
+}
+
 enum SpecialCategory {
   refugee
   temp_foreign_worker
@@ -164,4 +177,28 @@ model ConsentLog {
 
   @@index([userId, createdAt])
   @@map("consent_log")
+}
+
+model Plan {
+  id                String    @id @default(cuid())
+  planCode          String    @unique
+  name              String
+  carrier           String
+  state             String
+  metalTier         MetalTier
+  planType          PlanType
+  monthlyPremium    Int
+  deductible        Int
+  maxOutOfPocket    Int
+  coinsuranceRate   Int
+  primaryCareCopay  Int
+  specialistCopay   Int
+  formulary         Json
+  providerNetwork   Json
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([state, metalTier])
+  @@index([carrier, state])
+  @@map("plans")
 }

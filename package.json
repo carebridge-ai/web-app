@@ -10,6 +10,12 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "ts-node": {
+    "project": "tsconfig.seed.json"
+  },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.58",
     "@anthropic-ai/sdk": "^0.78.0",
@@ -43,6 +49,7 @@
     "dotenv": "^17.3.1",
     "prisma": "^7.5.0",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

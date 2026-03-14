@@ -197,6 +197,26 @@ exports.Prisma.ConsentLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PlanScalarFieldEnum = {
+  id: 'id',
+  planCode: 'planCode',
+  name: 'name',
+  carrier: 'carrier',
+  state: 'state',
+  metalTier: 'metalTier',
+  planType: 'planType',
+  monthlyPremium: 'monthlyPremium',
+  deductible: 'deductible',
+  maxOutOfPocket: 'maxOutOfPocket',
+  coinsuranceRate: 'coinsuranceRate',
+  primaryCareCopay: 'primaryCareCopay',
+  specialistCopay: 'specialistCopay',
+  formulary: 'formulary',
+  providerNetwork: 'providerNetwork',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -275,6 +295,19 @@ exports.SpecialCategory = exports.$Enums.SpecialCategory = {
   asylum_seeker: 'asylum_seeker'
 };
 
+exports.MetalTier = exports.$Enums.MetalTier = {
+  bronze: 'bronze',
+  silver: 'silver',
+  gold: 'gold',
+  platinum: 'platinum'
+};
+
+exports.PlanType = exports.$Enums.PlanType = {
+  HMO: 'HMO',
+  PPO: 'PPO',
+  EPO: 'EPO'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
@@ -282,7 +315,8 @@ exports.Prisma.ModelName = {
   VerificationToken: 'VerificationToken',
   Authenticator: 'Authenticator',
   Profile: 'Profile',
-  ConsentLog: 'ConsentLog'
+  ConsentLog: 'ConsentLog',
+  Plan: 'Plan'
 };
 
 /**
