@@ -35,13 +35,21 @@ if (!response.ok) {
 }
 
 const payload = await response.json()
-const rows = Array.isArray(payload.data?.results) ? payload.data.results : Array.isArray(payload.results) ? payload.results : []
+const rows = Array.isArray(payload.data?.results)
+  ? payload.data.results
+  : Array.isArray(payload.results)
+    ? payload.results
+    : Array.isArray(payload.data)
+      ? payload.data
+      : []
 
 const lookup = {}
 
 for (const row of rows) {
   const zip = String(row.zip ?? row.ZIP ?? '').padStart(5, '0')
-  const county = String(row.county ?? row.COUNTY ?? '').padStart(5, '0')
+  const county = String(
+    row.county ?? row.COUNTY ?? row.geoid ?? row.GEOID ?? row.stcounty ?? row.STCOUNTY ?? '',
+  ).padStart(5, '0')
   const ratio = Number(row.tot_ratio ?? row.TOT_RATIO ?? row.res_ratio ?? row.RES_RATIO ?? 0)
 
   if (!zip || !county) {
