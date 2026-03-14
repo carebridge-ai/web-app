@@ -25,6 +25,17 @@ export type CoverageMatch = CoverageDocChunk & {
   score: number
 }
 
+const PREFERRED_DOC_HINTS = [
+  'sunlife',
+  'standard plan',
+  'basic plan',
+  'enhanced plan',
+  'ohip',
+  'interim federal health program',
+  'canadian dental care plan',
+  'public service health care plan',
+]
+
 const DOC_EXTENSIONS = new Set(['.md', '.txt'])
 const DEFAULT_DOCS_ROOT = path.resolve(process.cwd(), '..', 'docs-source')
 
@@ -42,6 +53,16 @@ function tokenize(value: string) {
     .replace(/[^a-z0-9\s]/g, ' ')
     .split(/\s+/)
     .filter((token) => token.length >= 3)
+}
+
+function countOccurrences(text: string, terms: string[]) {
+  const normalized = text.toLowerCase()
+  return terms.reduce((total, term) => total + (normalized.includes(term) ? 1 : 0), 0)
+}
+
+function getQueryHints(query: string) {
+  const normalizedQuery = query.toLowerCase()
+  return PREFERRED_DOC_HINTS.filter((hint) => normalizedQuery.includes(hint))
 }
 
 function chunkMarkdown(content: string) {
@@ -137,25 +158,34 @@ export async function searchCoverageDocs(query: string, topK = 5) {
   }
 
   const queryTokens = tokenize(normalizedQuery)
+  const queryHints = getQueryHints(normalizedQuery)
   const chunks = await loadCoverageChunks()
 
   const matches = chunks
     .map((chunk) => {
+      const lowerTitle = chunk.title.toLowerCase()
+      const lowerPath = chunk.relativePath.toLowerCase()
+      const lowerContent = chunk.content.toLowerCase()
       const tokenMatches = queryTokens.reduce((total, token) => {
         if (chunk.keywords.includes(token)) {
           return total + 3
         }
 
-        if (chunk.content.toLowerCase().includes(token)) {
+        if (lowerContent.includes(token)) {
           return total + 1
         }
 
         return total
       }, 0)
 
-      const phraseBonus = chunk.content.toLowerCase().includes(normalizedQuery.toLowerCase()) ? 8 : 0
-      const titleBonus = chunk.title.toLowerCase().includes(normalizedQuery.toLowerCase()) ? 10 : 0
-      const score = tokenMatches + phraseBonus + titleBonus
+      const phraseBonus = lowerContent.includes(normalizedQuery.toLowerCase()) ? 8 : 0
+      const titleBonus = lowerTitle.includes(normalizedQuery.toLowerCase()) ? 10 : 0
+      const hintBonus = queryHints.length
+        ? countOccurrences(`${lowerTitle} ${lowerPath}`, queryHints) * 12 + countOccurrences(lowerContent, queryHints) * 4
+        : 0
+      const planDocBonus = /plan|sunlife|ohip|dental|federal health|coverage/.test(lowerTitle) ? 3 : 0
+      const policyPenalty = /public service health care plan directive/.test(lowerTitle) && queryHints.some((hint) => hint.includes('sunlife')) ? -10 : 0
+      const score = tokenMatches + phraseBonus + titleBonus + hintBonus + planDocBonus + policyPenalty
 
       return {
         ...chunk,

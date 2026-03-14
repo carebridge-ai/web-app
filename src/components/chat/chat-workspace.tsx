@@ -8,14 +8,52 @@ type Source = {
   score: number
 }
 
+type HistoryMessage = {
+  id: string
+  role: string
+  content: string
+  sequence: number
+}
+
+type HistoryConversation = {
+  id: string
+  title: string
+  latestQuestion: string | null
+  latestAnswer: string | null
+  updatedAt: string
+  messages: HistoryMessage[]
+  retrievalHits: Source[]
+}
+
 export function ChatWorkspace() {
   const [question, setQuestion] = useState('What does the Sunlife standard plan say about prescription drug coverage and major exclusions?')
   const [answer, setAnswer] = useState('')
   const [sources, setSources] = useState<Source[]>([])
+  const [history, setHistory] = useState<HistoryConversation[]>([])
   const [conversationId, setConversationId] = useState('')
   const [guestSessionId, setGuestSessionId] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+
+  async function loadHistory(nextGuestSessionId: string) {
+    const response = await fetch('/api/chat/history', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        guestSessionId: nextGuestSessionId,
+      }),
+    })
+
+    const payload = (await response.json()) as {
+      conversations?: HistoryConversation[]
+    }
+
+    if (response.ok) {
+      setHistory(payload.conversations ?? [])
+    }
+  }
 
   useEffect(() => {
     const storedConversationId = window.localStorage.getItem('carebridge.chat.conversationId')
@@ -28,6 +66,7 @@ export function ChatWorkspace() {
 
     setGuestSessionId(nextGuestSessionId)
     window.localStorage.setItem('carebridge.chat.guestSessionId', nextGuestSessionId)
+    void loadHistory(nextGuestSessionId)
   }, [])
 
   async function handleAsk() {
@@ -72,6 +111,10 @@ export function ChatWorkspace() {
         setConversationId(payload.conversationId)
         window.localStorage.setItem('carebridge.chat.conversationId', payload.conversationId)
       }
+
+      if (guestSessionId) {
+        void loadHistory(guestSessionId)
+      }
     } catch (caughtError) {
       setError(caughtError instanceof Error ? caughtError.message : 'Something went wrong.')
     } finally {
@@ -80,7 +123,48 @@ export function ChatWorkspace() {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+    <div className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr_0.85fr]">
+      <aside className="surface-panel rounded-card flex flex-col gap-4 p-6">
+        <div className="flex flex-col gap-2">
+          <p className="section-eyebrow text-steel">Recent chats</p>
+          <h3 className="font-playfair text-[24px] italic leading-tight text-charcoal">Saved sessions</h3>
+          <p className="font-sans text-[14px] leading-6 text-steel">
+            Conversations stored in Prisma for this signed-in or guest session.
+          </p>
+        </div>
+
+        <div className="flex max-h-[620px] flex-col gap-3 overflow-y-auto pr-1">
+          {history.length ? (
+            history.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => {
+                  setConversationId(item.id)
+                  setAnswer(item.latestAnswer ?? '')
+                  setQuestion(item.latestQuestion ?? '')
+                  setSources(item.retrievalHits)
+                  window.localStorage.setItem('carebridge.chat.conversationId', item.id)
+                }}
+                className="rounded-card border border-tan bg-cream p-4 text-left transition-colors hover:bg-[#f1e8df]"
+              >
+                <p className="font-sans text-[14px] font-medium text-charcoal">{item.title}</p>
+                <p className="mt-2 line-clamp-3 font-sans text-[13px] leading-6 text-steel">
+                  {item.latestQuestion ?? 'No question saved yet.'}
+                </p>
+                <p className="mt-2 font-sans text-[12px] uppercase tracking-[0.18em] text-steel">
+                  {new Date(item.updatedAt).toLocaleString()}
+                </p>
+              </button>
+            ))
+          ) : (
+            <div className="rounded-card border border-dashed border-tan bg-cream p-4 font-sans text-[14px] leading-6 text-steel">
+              No saved chats yet. Ask your first question to create one.
+            </div>
+          )}
+        </div>
+      </aside>
+
       <section className="surface-panel rounded-card flex flex-col gap-4 p-6 sm:p-8">
         <div className="flex flex-col gap-2">
           <p className="section-eyebrow text-steel">Coverage copilot</p>
