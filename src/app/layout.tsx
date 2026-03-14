@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans } from "next/font/google";
+import { GuestProvider } from "@/lib/guest-context";
 import "./globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -27,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${playfairDisplay.variable} ${dmSans.variable} antialiased`}
       >
-        {children}
+        <GuestProvider>{children}</GuestProvider>
       </body>
     </html>
   );
