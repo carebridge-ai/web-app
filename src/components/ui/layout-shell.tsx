@@ -20,7 +20,7 @@ export function PageShell({
   return (
     <Component
       className={joinClasses(
-        'min-h-screen bg-cream px-6 py-10',
+        'min-h-screen bg-ivory px-6 py-10',
         centered && 'flex items-center justify-center',
         className
       )}

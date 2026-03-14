@@ -26,6 +26,7 @@ export interface UserProfile {
     | 'intl_student'
     | 'asylum_seeker'
     | null
+  language: string
 }
 
 export const EMPTY_PROFILE: UserProfile = {
@@ -38,4 +39,5 @@ export const EMPTY_PROFILE: UserProfile = {
   dependants: { spouse: false, children: 0 },
   incomeBand: 'prefer_not_to_say',
   specialCategory: null,
+  language: 'en',
 }

@@ -161,6 +161,7 @@ model Profile {
   dependants          Json
   incomeBand          IncomeBand        @default(prefer_not_to_say)
   specialCategory     SpecialCategory?
+  language            String            @default("en")
   user                User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt           DateTime          @default(now())
   updatedAt           DateTime          @updatedAt

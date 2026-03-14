@@ -126,9 +126,9 @@ export function ChatWorkspace() {
     <div className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr_0.85fr]">
       <aside className="surface-panel rounded-card flex flex-col gap-4 p-6">
         <div className="flex flex-col gap-2">
-          <p className="section-eyebrow text-steel">Recent chats</p>
-          <h3 className="font-playfair text-[24px] italic leading-tight text-charcoal">Saved sessions</h3>
-          <p className="font-sans text-[14px] leading-6 text-steel">
+          <p className="section-eyebrow text-driftwood">Recent chats</p>
+          <h3 className="font-cormorant text-[24px] italic leading-tight text-espresso">Saved sessions</h3>
+          <p className="font-serif text-[14px] leading-6 text-driftwood">
             Conversations stored in Prisma for this signed-in or guest session.
           </p>
         </div>
@@ -146,19 +146,19 @@ export function ChatWorkspace() {
                   setSources(item.retrievalHits)
                   window.localStorage.setItem('carebridge.chat.conversationId', item.id)
                 }}
-                className="rounded-card border border-tan bg-cream p-4 text-left transition-colors hover:bg-[#f1e8df]"
+                className="rounded-card border border-biscuit bg-parchment p-4 text-left transition-colors hover:border-sage"
               >
-                <p className="font-sans text-[14px] font-medium text-charcoal">{item.title}</p>
-                <p className="mt-2 line-clamp-3 font-sans text-[13px] leading-6 text-steel">
+                <p className="font-serif text-[14px] font-medium text-espresso">{item.title}</p>
+                <p className="mt-2 line-clamp-3 font-serif text-[13px] leading-6 text-driftwood">
                   {item.latestQuestion ?? 'No question saved yet.'}
                 </p>
-                <p className="mt-2 font-sans text-[12px] uppercase tracking-[0.18em] text-steel">
+                <p className="mt-2 font-serif text-[12px] uppercase tracking-[0.18em] text-sandstone">
                   {new Date(item.updatedAt).toLocaleString()}
                 </p>
               </button>
             ))
           ) : (
-            <div className="rounded-card border border-dashed border-tan bg-cream p-4 font-sans text-[14px] leading-6 text-steel">
+            <div className="rounded-card border border-dashed border-biscuit bg-parchment p-4 font-serif text-[14px] leading-6 text-driftwood">
               No saved chats yet. Ask your first question to create one.
             </div>
           )}
@@ -167,17 +167,17 @@ export function ChatWorkspace() {
 
       <section className="surface-panel rounded-card flex flex-col gap-4 p-6 sm:p-8">
         <div className="flex flex-col gap-2">
-          <p className="section-eyebrow text-steel">Coverage copilot</p>
-          <h2 className="font-playfair text-[30px] italic leading-tight text-charcoal">
+          <p className="section-eyebrow text-driftwood">Coverage copilot</p>
+          <h2 className="font-cormorant text-[30px] italic leading-tight text-espresso">
             Ask policy questions against your real source documents.
           </h2>
-          <p className="font-sans text-[15px] leading-7 text-steel">
+          <p className="font-serif text-[15px] leading-[1.7] text-driftwood">
             This chat now grounds answers in the `docs-source` coverage repository and can be paired with patient medical feature extraction on the server.
           </p>
         </div>
 
         <label className="flex flex-col gap-2">
-          <span className="font-sans text-[13px] font-medium text-charcoal">Question</span>
+          <span className="font-serif text-[13px] font-medium text-espresso">Question</span>
           <textarea
             value={question}
             onChange={(event) => setQuestion(event.target.value)}
@@ -188,24 +188,40 @@ export function ChatWorkspace() {
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <button type="button" onClick={handleAsk} className="btn-primary sm:max-w-[220px]" disabled={isLoading}>
-            {isLoading ? 'Thinking...' : 'Ask Carebridge'}
+            {isLoading ? 'Thinking...' : 'Ask CareBridge'}
           </button>
-          {error ? <p className="font-sans text-[14px] text-coral">{error}</p> : null}
+          {error ? <p className="font-serif text-[14px] text-terracotta">{error}</p> : null}
         </div>
 
-        <div className="rounded-card border border-tan bg-cream p-4">
-          <p className="font-sans text-[13px] font-medium text-charcoal">Answer</p>
-          <p className="mt-3 whitespace-pre-wrap font-sans text-[14px] leading-7 text-steel">
+        {isLoading && (
+          <div className="flex items-center gap-2 px-1">
+            <span className="font-cormorant italic text-[12px] text-driftwood">CareBridge AI</span>
+            <div className="flex gap-1">
+              <span className="typing-dot h-1.5 w-1.5 rounded-full bg-driftwood" />
+              <span className="typing-dot h-1.5 w-1.5 rounded-full bg-driftwood" />
+              <span className="typing-dot h-1.5 w-1.5 rounded-full bg-driftwood" />
+            </div>
+          </div>
+        )}
+
+        <div className="rounded-card border border-biscuit bg-parchment p-4">
+          <p className="font-serif text-[13px] font-medium text-espresso">Answer</p>
+          <p className="mt-3 whitespace-pre-wrap font-serif text-[15px] leading-[1.7] text-driftwood">
             {answer || 'Your answer will appear here with document-grounded guidance.'}
           </p>
+          {answer && (
+            <p className="mt-3 font-serif text-[11px] leading-[1.5] text-sandstone">
+              CareBridge AI provides estimates only. Verify with your state marketplace before enrolling.
+            </p>
+          )}
         </div>
       </section>
 
       <aside className="surface-panel rounded-card flex flex-col gap-4 p-6">
         <div className="flex flex-col gap-2">
-          <p className="section-eyebrow text-steel">Retrieved sources</p>
-          <h3 className="font-playfair text-[24px] italic leading-tight text-charcoal">Grounding context</h3>
-          <p className="font-sans text-[14px] leading-6 text-steel">
+          <p className="section-eyebrow text-driftwood">Retrieved sources</p>
+          <h3 className="font-cormorant text-[24px] italic leading-tight text-espresso">Grounding context</h3>
+          <p className="font-serif text-[14px] leading-6 text-driftwood">
             Top matching documents used for the latest answer.
           </p>
         </div>
@@ -213,14 +229,14 @@ export function ChatWorkspace() {
         <div className="flex flex-col gap-3">
           {sources.length ? (
             sources.map((source) => (
-              <div key={`${source.relativePath}-${source.score}`} className="rounded-card border border-tan bg-cream p-4">
-                <p className="font-sans text-[14px] font-medium text-charcoal">{source.title}</p>
-                <p className="mt-1 font-sans text-[13px] leading-6 text-steel">{source.relativePath}</p>
-                <p className="mt-2 font-sans text-[12px] uppercase tracking-[0.18em] text-steel">Match score {source.score}</p>
+              <div key={`${source.relativePath}-${source.score}`} className="rounded-card border border-biscuit bg-parchment p-4">
+                <p className="font-serif text-[14px] font-medium text-espresso">{source.title}</p>
+                <p className="mt-1 font-serif text-[13px] leading-6 text-driftwood">{source.relativePath}</p>
+                <p className="mt-2 font-serif text-[12px] uppercase tracking-[0.18em] text-sandstone">Match score {source.score}</p>
               </div>
             ))
           ) : (
-            <div className="rounded-card border border-dashed border-tan bg-cream p-4 font-sans text-[14px] leading-6 text-steel">
+            <div className="rounded-card border border-dashed border-biscuit bg-parchment p-4 font-serif text-[14px] leading-6 text-driftwood">
               No sources yet. Ask a question to run retrieval.
             </div>
           )}

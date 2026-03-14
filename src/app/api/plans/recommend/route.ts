@@ -23,25 +23,30 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid recommendation payload.' }, { status: 400 })
   }
 
-  const plans = await getRecommendedPlans(parsed.data)
+  try {
+    const plans = await getRecommendedPlans(parsed.data)
 
-  return NextResponse.json({
-    ok: true,
-    plans: plans.map((plan) => ({
-      id: plan.id,
-      planCode: plan.planCode,
-      name: plan.name,
-      carrier: plan.carrier,
-      state: plan.state,
-      metalTier: plan.metalTier,
-      planType: plan.planType,
-      monthlyPremium: plan.monthlyPremium,
-      deductible: plan.deductible,
-      maxOutOfPocket: plan.maxOutOfPocket,
-      score: plan.score,
-      countyFips: plan.countyFips,
-      matchReasons: plan.matchReasons,
-      explanation: plan.explanation,
-    })),
-  })
+    return NextResponse.json({
+      ok: true,
+      plans: plans.map((plan) => ({
+        id: plan.id,
+        planCode: plan.planCode,
+        name: plan.name,
+        carrier: plan.carrier,
+        state: plan.state,
+        metalTier: plan.metalTier,
+        planType: plan.planType,
+        monthlyPremium: plan.monthlyPremium,
+        deductible: plan.deductible,
+        maxOutOfPocket: plan.maxOutOfPocket,
+        score: plan.score,
+        countyFips: plan.countyFips,
+        matchReasons: plan.matchReasons,
+        explanation: plan.explanation,
+      })),
+    })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Failed to fetch plan recommendations.'
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
 }

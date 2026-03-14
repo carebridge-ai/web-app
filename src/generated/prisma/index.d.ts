@@ -7666,6 +7666,7 @@ export namespace Prisma {
     hasEmployerBenefits: $Enums.BenefitsStatus | null
     incomeBand: $Enums.IncomeBand | null
     specialCategory: $Enums.SpecialCategory | null
+    language: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7681,6 +7682,7 @@ export namespace Prisma {
     hasEmployerBenefits: $Enums.BenefitsStatus | null
     incomeBand: $Enums.IncomeBand | null
     specialCategory: $Enums.SpecialCategory | null
+    language: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7697,6 +7699,7 @@ export namespace Prisma {
     dependants: number
     incomeBand: number
     specialCategory: number
+    language: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7714,6 +7717,7 @@ export namespace Prisma {
     hasEmployerBenefits?: true
     incomeBand?: true
     specialCategory?: true
+    language?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7729,6 +7733,7 @@ export namespace Prisma {
     hasEmployerBenefits?: true
     incomeBand?: true
     specialCategory?: true
+    language?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7745,6 +7750,7 @@ export namespace Prisma {
     dependants?: true
     incomeBand?: true
     specialCategory?: true
+    language?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7834,6 +7840,7 @@ export namespace Prisma {
     dependants: JsonValue
     incomeBand: $Enums.IncomeBand
     specialCategory: $Enums.SpecialCategory | null
+    language: string
     createdAt: Date
     updatedAt: Date
     _count: ProfileCountAggregateOutputType | null
@@ -7867,6 +7874,7 @@ export namespace Prisma {
     dependants?: boolean
     incomeBand?: boolean
     specialCategory?: boolean
+    language?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7884,6 +7892,7 @@ export namespace Prisma {
     dependants?: boolean
     incomeBand?: boolean
     specialCategory?: boolean
+    language?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7901,6 +7910,7 @@ export namespace Prisma {
     dependants?: boolean
     incomeBand?: boolean
     specialCategory?: boolean
+    language?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7918,11 +7928,12 @@ export namespace Prisma {
     dependants?: boolean
     incomeBand?: boolean
     specialCategory?: boolean
+    language?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "province" | "immigrationStatus" | "residencyStartDate" | "ageBand" | "employmentStatus" | "hasEmployerBenefits" | "dependants" | "incomeBand" | "specialCategory" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "province" | "immigrationStatus" | "residencyStartDate" | "ageBand" | "employmentStatus" | "hasEmployerBenefits" | "dependants" | "incomeBand" | "specialCategory" | "language" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -7950,6 +7961,7 @@ export namespace Prisma {
       dependants: Prisma.JsonValue
       incomeBand: $Enums.IncomeBand
       specialCategory: $Enums.SpecialCategory | null
+      language: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["profile"]>
@@ -8387,6 +8399,7 @@ export namespace Prisma {
     readonly dependants: FieldRef<"Profile", 'Json'>
     readonly incomeBand: FieldRef<"Profile", 'IncomeBand'>
     readonly specialCategory: FieldRef<"Profile", 'SpecialCategory'>
+    readonly language: FieldRef<"Profile", 'String'>
     readonly createdAt: FieldRef<"Profile", 'DateTime'>
     readonly updatedAt: FieldRef<"Profile", 'DateTime'>
   }
@@ -14633,6 +14646,7 @@ export namespace Prisma {
     dependants: 'dependants',
     incomeBand: 'incomeBand',
     specialCategory: 'specialCategory',
+    language: 'language',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -15338,6 +15352,7 @@ export namespace Prisma {
     dependants?: JsonFilter<"Profile">
     incomeBand?: EnumIncomeBandFilter<"Profile"> | $Enums.IncomeBand
     specialCategory?: EnumSpecialCategoryNullableFilter<"Profile"> | $Enums.SpecialCategory | null
+    language?: StringFilter<"Profile"> | string
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -15355,6 +15370,7 @@ export namespace Prisma {
     dependants?: SortOrder
     incomeBand?: SortOrder
     specialCategory?: SortOrderInput | SortOrder
+    language?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -15375,6 +15391,7 @@ export namespace Prisma {
     dependants?: JsonFilter<"Profile">
     incomeBand?: EnumIncomeBandFilter<"Profile"> | $Enums.IncomeBand
     specialCategory?: EnumSpecialCategoryNullableFilter<"Profile"> | $Enums.SpecialCategory | null
+    language?: StringFilter<"Profile"> | string
     createdAt?: DateTimeFilter<"Profile"> | Date | string
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -15392,6 +15409,7 @@ export namespace Prisma {
     dependants?: SortOrder
     incomeBand?: SortOrder
     specialCategory?: SortOrderInput | SortOrder
+    language?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProfileCountOrderByAggregateInput
@@ -15414,6 +15432,7 @@ export namespace Prisma {
     dependants?: JsonWithAggregatesFilter<"Profile">
     incomeBand?: EnumIncomeBandWithAggregatesFilter<"Profile"> | $Enums.IncomeBand
     specialCategory?: EnumSpecialCategoryNullableWithAggregatesFilter<"Profile"> | $Enums.SpecialCategory | null
+    language?: StringWithAggregatesFilter<"Profile"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Profile"> | Date | string
   }
@@ -16225,6 +16244,7 @@ export namespace Prisma {
     dependants: JsonNullValueInput | InputJsonValue
     incomeBand?: $Enums.IncomeBand
     specialCategory?: $Enums.SpecialCategory | null
+    language?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutProfileInput
@@ -16242,6 +16262,7 @@ export namespace Prisma {
     dependants: JsonNullValueInput | InputJsonValue
     incomeBand?: $Enums.IncomeBand
     specialCategory?: $Enums.SpecialCategory | null
+    language?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16257,6 +16278,7 @@ export namespace Prisma {
     dependants?: JsonNullValueInput | InputJsonValue
     incomeBand?: EnumIncomeBandFieldUpdateOperationsInput | $Enums.IncomeBand
     specialCategory?: NullableEnumSpecialCategoryFieldUpdateOperationsInput | $Enums.SpecialCategory | null
+    language?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProfileNestedInput
@@ -16274,6 +16296,7 @@ export namespace Prisma {
     dependants?: JsonNullValueInput | InputJsonValue
     incomeBand?: EnumIncomeBandFieldUpdateOperationsInput | $Enums.IncomeBand
     specialCategory?: NullableEnumSpecialCategoryFieldUpdateOperationsInput | $Enums.SpecialCategory | null
+    language?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16290,6 +16313,7 @@ export namespace Prisma {
     dependants: JsonNullValueInput | InputJsonValue
     incomeBand?: $Enums.IncomeBand
     specialCategory?: $Enums.SpecialCategory | null
+    language?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16305,6 +16329,7 @@ export namespace Prisma {
     dependants?: JsonNullValueInput | InputJsonValue
     incomeBand?: EnumIncomeBandFieldUpdateOperationsInput | $Enums.IncomeBand
     specialCategory?: NullableEnumSpecialCategoryFieldUpdateOperationsInput | $Enums.SpecialCategory | null
+    language?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16321,6 +16346,7 @@ export namespace Prisma {
     dependants?: JsonNullValueInput | InputJsonValue
     incomeBand?: EnumIncomeBandFieldUpdateOperationsInput | $Enums.IncomeBand
     specialCategory?: NullableEnumSpecialCategoryFieldUpdateOperationsInput | $Enums.SpecialCategory | null
+    language?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17294,6 +17320,7 @@ export namespace Prisma {
     dependants?: SortOrder
     incomeBand?: SortOrder
     specialCategory?: SortOrder
+    language?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17309,6 +17336,7 @@ export namespace Prisma {
     hasEmployerBenefits?: SortOrder
     incomeBand?: SortOrder
     specialCategory?: SortOrder
+    language?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17324,6 +17352,7 @@ export namespace Prisma {
     hasEmployerBenefits?: SortOrder
     incomeBand?: SortOrder
     specialCategory?: SortOrder
+    language?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18705,6 +18734,7 @@ export namespace Prisma {
     dependants: JsonNullValueInput | InputJsonValue
     incomeBand?: $Enums.IncomeBand
     specialCategory?: $Enums.SpecialCategory | null
+    language?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18720,6 +18750,7 @@ export namespace Prisma {
     dependants: JsonNullValueInput | InputJsonValue
     incomeBand?: $Enums.IncomeBand
     specialCategory?: $Enums.SpecialCategory | null
+    language?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18908,6 +18939,7 @@ export namespace Prisma {
     dependants?: JsonNullValueInput | InputJsonValue
     incomeBand?: EnumIncomeBandFieldUpdateOperationsInput | $Enums.IncomeBand
     specialCategory?: NullableEnumSpecialCategoryFieldUpdateOperationsInput | $Enums.SpecialCategory | null
+    language?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18923,6 +18955,7 @@ export namespace Prisma {
     dependants?: JsonNullValueInput | InputJsonValue
     incomeBand?: EnumIncomeBandFieldUpdateOperationsInput | $Enums.IncomeBand
     specialCategory?: NullableEnumSpecialCategoryFieldUpdateOperationsInput | $Enums.SpecialCategory | null
+    language?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

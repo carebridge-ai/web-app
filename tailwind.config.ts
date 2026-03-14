@@ -9,19 +9,23 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: "#1C2B3A",
-        cream: "#F5F0EA",
-        charcoal: "#2B2B2B",
-        steel: "#7B8D9A",
-        mist: "#B3B3B3",
+        ivory: "#FAF6F0",
+        parchment: "#FFFDF8",
+        espresso: "#2C1810",
+        walnut: "#5C4033",
+        driftwood: "#8B7355",
+        sandstone: "#B8A690",
         sage: "#C2DFD0",
-        tan: "#D2C2AF",
-        silver: "#D4D4D4",
-        coral: "#D4917A",
+        biscuit: "#D9CDBF",
+        latte: "#E8DDD0",
+        terracotta: "#C4785C",
+        mahogany: "#1C1210",
+        "cream-text": "#FAF0E4",
       },
       fontFamily: {
-        playfair: ["var(--font-playfair)", "serif"],
-        sans: ["var(--font-sans)", "sans-serif"],
+        cormorant: ["var(--font-cormorant)", "serif"],
+        serif: ["var(--font-serif)", "serif"],
+        caveat: ["var(--font-caveat)", "cursive"],
       },
       borderRadius: {
         card: "16px",

@@ -87,18 +87,18 @@ export default function AuthPage() {
     <PageShell centered>
       <SurfaceCard className="fade-rise flex w-full max-w-[460px] flex-col gap-6 p-6 sm:p-7">
         <div className="text-center">
-          <p className="section-eyebrow text-steel">Secure access</p>
-          <h1 className="font-playfair italic text-[28px] leading-[1.2] text-charcoal">
-            Caregiver AI
+          <p className="section-eyebrow text-driftwood">Secure access</p>
+          <h1 className="font-cormorant italic text-[28px] leading-[1.2] text-espresso">
+            CareBridge AI
           </h1>
-          <p className="mt-2 font-sans text-[14px] leading-6 text-steel">
+          <p className="mt-2 font-serif text-[14px] leading-6 text-driftwood">
             Sign in to save your conversations, language, and care profile across visits.
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 rounded-card bg-cream/80 p-2 text-center">
+        <div className="grid grid-cols-3 gap-2 rounded-card bg-latte/80 p-2 text-center">
           {['Private', 'Multilingual', 'Free to try'].map((item) => (
-            <div key={item} className="rounded-button bg-cream px-3 py-2 font-sans text-[12px] font-medium text-steel">
+            <div key={item} className="rounded-button bg-parchment px-3 py-2 font-serif text-[12px] font-medium text-driftwood">
               {item}
             </div>
           ))}
@@ -123,16 +123,15 @@ export default function AuthPage() {
           </button>
         </div>
 
-        {/* Divider — tan */}
         <div className="flex items-center gap-3">
-          <div className="flex-1 h-px bg-tan" />
-          <span className="font-sans text-[12px] text-mist">or</span>
-          <div className="flex-1 h-px bg-tan" />
+          <div className="flex-1 h-px bg-biscuit" />
+          <span className="font-serif text-[12px] text-sandstone">or</span>
+          <div className="flex-1 h-px bg-biscuit" />
         </div>
 
         <div className="flex flex-col gap-3">
           <div className="relative">
-            <Mail size={20} strokeWidth={1.5} className="absolute start-4 top-1/2 -translate-y-1/2 text-steel pointer-events-none" />
+            <Mail size={20} strokeWidth={1.5} className="absolute start-4 top-1/2 -translate-y-1/2 text-driftwood pointer-events-none" />
             <input
               type="email"
               placeholder="Email"
@@ -152,13 +151,13 @@ export default function AuthPage() {
             />
 
             {mode === 'signup' && (
-              <p className="px-1 font-sans text-[12px] leading-[1.5] text-steel">
+              <p className="px-1 font-serif text-[12px] leading-[1.5] text-driftwood">
                 Use a strong password so your care information stays protected.
               </p>
             )}
 
           {error && (
-            <p className="font-sans text-[12px] leading-[1.4] text-coral">
+            <p className="font-serif text-[12px] leading-[1.4] text-terracotta">
               {error}
             </p>
           )}
@@ -167,7 +166,7 @@ export default function AuthPage() {
               type="button"
               onClick={handleEmailAuth}
               disabled={loading || !email || !password}
-              className="btn-primary disabled:cursor-not-allowed disabled:bg-silver disabled:text-mist"
+              className="btn-primary disabled:cursor-not-allowed disabled:bg-latte disabled:text-sandstone"
             >
               {loading ? 'Please wait...' : mode === 'signin' ? 'Sign in' : 'Create account'}
           </button>
@@ -175,7 +174,7 @@ export default function AuthPage() {
           <button
             type="button"
             onClick={() => { setMode((m) => m === 'signin' ? 'signup' : 'signin'); setError('') }}
-            className="font-sans text-[13px] text-steel text-center transition-colors duration-150 hover:text-charcoal"
+            className="font-serif text-[13px] text-driftwood text-center transition-colors duration-150 hover:text-espresso"
           >
             {mode === 'signin'
               ? "Don't have an account? Create one"
@@ -183,7 +182,6 @@ export default function AuthPage() {
           </button>
         </div>
 
-        {/* Guest */}
           <button
             type="button"
             onClick={handleGuest}

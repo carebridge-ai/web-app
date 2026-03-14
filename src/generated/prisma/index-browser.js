@@ -185,6 +185,7 @@ exports.Prisma.ProfileScalarFieldEnum = {
   dependants: 'dependants',
   incomeBand: 'incomeBand',
   specialCategory: 'specialCategory',
+  language: 'language',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

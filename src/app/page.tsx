@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useGuest } from '@/lib/guest-context'
+import { useProfile } from '@/lib/profile-context'
 
 const WORD = 'Hospital'
 const TICK_MS = 120
@@ -32,6 +33,7 @@ const QUICK_FACTS = [
 export default function Home() {
   const router = useRouter()
   const { setGuest } = useGuest()
+  const { profile } = useProfile()
 
   const [typed, setTyped] = useState('')
   const [cursorVisible, setCursorVisible] = useState(true)
@@ -39,8 +41,11 @@ export default function Home() {
   const [selectedLang, setSelectedLang] = useState('en')
 
   useEffect(() => {
+    // Load language: prefer saved profile language, then localStorage
+    const profileLang = profile?.language
     const savedLang = localStorage.getItem('lang')
-    if (savedLang) setSelectedLang(savedLang)
+    const lang = profileLang || savedLang
+    if (lang) setSelectedLang(lang)
 
     let index = 0
     intervalRef.current = setInterval(() => {
@@ -75,16 +80,16 @@ export default function Home() {
         sizes="100vw"
       />
 
-      <div className="absolute inset-0 bg-navy home-overlay" />
+      <div className="absolute inset-0 bg-mahogany home-overlay" />
       <div className="absolute inset-0 ambient-grid opacity-80" />
-      <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-navy/20 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-mahogany/20 to-transparent" />
 
       <div className="relative z-10 w-full max-w-6xl px-6 py-8 md:py-14">
         <div className="fade-rise flex flex-wrap items-center justify-center gap-2 md:justify-start">
           {TRUST_POINTS.map((point) => (
             <span
               key={point}
-              className="trust-pill rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-cream/90"
+              className="trust-pill rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-cream-text/90"
             >
               {point}
             </span>
@@ -93,8 +98,8 @@ export default function Home() {
 
         <div className="mt-6 grid items-end gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
           <section className="fade-rise delay-1 max-w-3xl text-center lg:text-left">
-            <span className="home-brand text-cream">Caregiver AI</span>
-            <h1 className="home-headline mt-5 text-cream">
+            <span className="home-brand text-cream-text">CareBridge AI</span>
+            <h1 className="home-headline mt-5 text-cream-text">
               Never be scared to go to the
               <br />
               <span>
@@ -102,21 +107,24 @@ export default function Home() {
                 {cursorVisible && <span className="home-cursor">|</span>}
               </span>
             </h1>
-            <p className="home-subtitle mt-5 max-w-2xl text-cream/82 font-sans lg:text-lg">
+            <p className="home-caveat mt-3 text-cream-text/85">
+              Your guide to the right coverage.
+            </p>
+            <p className="home-subtitle mt-4 max-w-2xl text-cream-text/82">
               Calm, private support for families navigating care, coverage, and unfamiliar medical systems.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
               <Link
                 href="/auth"
-                className="flex items-center justify-center h-12 px-8 rounded-button bg-cream text-navy text-[14px] font-bold font-sans transition-colors duration-150 hover:bg-silver"
+                className="flex items-center justify-center h-12 px-8 rounded-button bg-mahogany text-cream-text text-[14px] font-semibold font-serif transition-all duration-150 hover:border-sage border border-transparent"
               >
-                Get started
+                Get Started
               </Link>
               <button
                 type="button"
                 onClick={handleGuest}
-                className="flex items-center justify-center h-12 px-8 rounded-button border border-cream/30 bg-cream/8 text-cream text-[14px] font-medium font-sans transition-colors duration-150 hover:bg-cream/14"
+                className="flex items-center justify-center h-12 px-8 rounded-button border border-cream-text/30 bg-cream-text/8 text-cream-text text-[14px] font-serif transition-colors duration-150 hover:bg-cream-text/14"
               >
                 Try as guest
               </button>
@@ -124,9 +132,9 @@ export default function Home() {
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
               {QUICK_FACTS.map((fact) => (
-                <div key={fact.label} className="home-stat rounded-card px-4 py-4 text-left text-cream">
-                  <div className="font-playfair text-2xl italic leading-none">{fact.value}</div>
-                  <p className="mt-2 text-[12px] leading-5 text-cream/72 font-sans">{fact.label}</p>
+                <div key={fact.label} className="home-stat rounded-card px-4 py-4 text-left text-cream-text">
+                  <div className="font-cormorant text-2xl italic leading-none">{fact.value}</div>
+                  <p className="mt-2 text-[12px] leading-5 text-cream-text/72 font-serif">{fact.label}</p>
                 </div>
               ))}
             </div>
@@ -135,14 +143,14 @@ export default function Home() {
           <aside className="fade-rise delay-2 glass-panel rounded-card p-5 text-left sm:p-6">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="section-eyebrow text-cream/70">Choose your language</p>
-                <h2 className="mt-2 font-playfair text-[30px] italic leading-tight text-cream">
+                <p className="section-eyebrow text-cream-text/70">Choose your language</p>
+                <h2 className="mt-2 font-cormorant text-[30px] italic leading-tight text-cream-text">
                   Start in the language that feels most comfortable.
                 </h2>
               </div>
             </div>
 
-            <p className="mt-3 font-sans text-[14px] leading-6 text-cream/76">
+            <p className="mt-3 font-serif text-[14px] leading-6 text-cream-text/76">
               We save your preference locally now and to your profile later if you sign in.
             </p>
 
@@ -152,10 +160,10 @@ export default function Home() {
                   key={code}
                   type="button"
                   onClick={() => handleLang(code)}
-                  className={`rounded-button border px-3 py-3 text-[14px] text-center font-sans ${
+                  className={`rounded-button border px-3 py-3 text-[14px] text-center font-serif ${
                     selectedLang === code
-                      ? 'lang-card-active bg-cream text-charcoal'
-                      : 'lang-card bg-cream/92 text-charcoal hover:bg-cream'
+                      ? 'lang-card-active bg-parchment text-espresso'
+                      : 'lang-card bg-parchment/92 text-espresso hover:bg-parchment'
                   }`}
                 >
                   {label}
@@ -166,7 +174,7 @@ export default function Home() {
         </div>
       </div>
 
-      <p className="absolute bottom-4 inset-x-0 text-center text-mist font-sans home-disclaimer">
+      <p className="absolute bottom-4 inset-x-0 text-center font-serif home-disclaimer">
         This is not medical advice. In an emergency, call 911.
       </p>
     </main>

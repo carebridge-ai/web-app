@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   MapPin, Shield, Calendar, User, Briefcase,
@@ -143,10 +143,10 @@ function Tile({
     <button
       type="button"
       onClick={onClick}
-      className={`flex min-h-[48px] w-full items-center gap-3 rounded-button border px-4 py-3 text-start font-sans text-[14px] text-charcoal transition-colors duration-150 ${
+      className={`flex min-h-[48px] w-full items-center gap-3 rounded-button border px-4 py-3 text-start font-serif text-[14px] text-espresso transition-colors duration-150 ${
         selected
           ? 'border-sage bg-sage/10'
-          : 'border-tan bg-cream hover:border-sage'
+          : 'border-biscuit bg-parchment hover:border-sage'
       }`}
     >
       {children}
@@ -165,6 +165,14 @@ export default function OnboardingPage() {
 
   const [step, setStep] = useState(0)
   const [profile, setLocal] = useState<UserProfile>({ ...EMPTY_PROFILE })
+
+  // Pick up language from localStorage (set on landing page)
+  useEffect(() => {
+    const savedLang = localStorage.getItem('lang')
+    if (savedLang) {
+      setLocal((prev) => ({ ...prev, language: savedLang }))
+    }
+  }, [])
 
   // Residency date
   const [resMonth, setResMonth] = useState('')
@@ -261,11 +269,11 @@ export default function OnboardingPage() {
     return (
       <PageShell centered className="flex-col">
         <SurfaceCard className="fade-rise flex w-full max-w-md flex-col items-center gap-6 p-8 text-center">
-          <p className="section-eyebrow text-steel">Final step</p>
-          <h1 className="onboarding-heading text-charcoal">
-            Your information stays safe.
+          <p className="section-eyebrow text-driftwood">Final step</p>
+          <h1 className="onboarding-heading text-espresso">
+            Before We Begin
           </h1>
-          <p className="font-sans text-[15px] leading-[1.6] text-steel max-w-sm">
+          <p className="font-serif text-[15px] leading-[1.7] text-driftwood max-w-sm">
             Everything is encrypted and protected. Only you can see it. Delete it all anytime.
           </p>
           <div className="flex flex-col gap-3 w-full">
@@ -274,14 +282,14 @@ export default function OnboardingPage() {
               onClick={handleSave}
               className="btn-primary"
             >
-              Save my profile
+              I Understand and Agree
             </button>
             <button
               type="button"
               onClick={handleContinueWithout}
-              className="btn-secondary"
+              className="text-sandstone font-serif text-[13px] transition-colors duration-150 hover:text-driftwood"
             >
-              Continue without saving
+              Return to Home
             </button>
           </div>
         </SurfaceCard>
@@ -294,7 +302,7 @@ export default function OnboardingPage() {
   return (
     <PageShell className="flex flex-col">
       <div className="flex-1 flex flex-col items-center px-6 py-8 md:py-10">
-        <SurfaceCard className="mx-auto flex w-full max-w-[720px] flex-col gap-5 p-5 fade-rise sm:p-7 md:p-8">
+        <SurfaceCard className="mx-auto flex w-full max-w-[720px] flex-col gap-5 p-5 page-enter sm:p-7 md:p-8">
           <div className="flex items-center justify-between gap-3">
             <button
               type="button"
@@ -303,12 +311,12 @@ export default function OnboardingPage() {
             >
               Back
             </button>
-            <div className="font-sans text-[12px] font-medium uppercase tracking-[0.18em] text-steel">
+            <div className="font-serif text-[12px] font-medium uppercase tracking-[0.18em] text-driftwood">
               Step {displayStep} of {effectiveTotal}
             </div>
           </div>
 
-          <div className="progress-shell h-2 w-full overflow-hidden rounded-full bg-silver/90">
+          <div className="progress-shell h-1 w-full overflow-hidden rounded-full bg-latte">
             <div
               className="h-full rounded-full bg-sage transition-all duration-300"
               style={{ width: `${(displayStep / effectiveTotal) * 100}%` }}
@@ -316,16 +324,16 @@ export default function OnboardingPage() {
           </div>
 
           <div className="flex items-center gap-3">
-            <Icon size={20} strokeWidth={1.5} className="text-steel shrink-0" />
+            <Icon size={20} strokeWidth={1.5} className="text-driftwood shrink-0" />
             <div>
-              <p className="section-eyebrow text-steel">Care profile</p>
-              <h1 className="onboarding-heading text-charcoal">
+              <p className="section-eyebrow text-driftwood">Care profile</p>
+              <h1 className="onboarding-heading text-espresso">
                 {STEP_TITLES[step]}
               </h1>
             </div>
           </div>
 
-          <p className="-mt-1 max-w-xl font-sans text-[14px] leading-6 text-steel">
+          <p className="-mt-1 max-w-xl font-serif text-[15px] leading-[1.7] text-driftwood">
             {STEP_HELP[step]}
           </p>
 
@@ -465,9 +473,8 @@ export default function OnboardingPage() {
             {/* ── Step 6: Family / dependants ──────────────── */}
             {step === 6 && (
               <div className="flex flex-col gap-3">
-                {/* Spouse toggle */}
-                <div className="flex items-center justify-between rounded-card border border-tan bg-cream px-4 py-4">
-                  <span className="font-sans text-[14px] text-charcoal">
+                <div className="flex items-center justify-between rounded-card border border-biscuit bg-parchment px-4 py-4">
+                  <span className="font-serif text-[14px] text-espresso">
                     Do you have a spouse or partner?
                   </span>
                   <button
@@ -479,20 +486,19 @@ export default function OnboardingPage() {
                       })
                     }
                     className={`relative w-12 h-7 rounded-full transition-colors duration-150 ${
-                      profile.dependants.spouse ? 'bg-sage' : 'bg-silver'
+                      profile.dependants.spouse ? 'bg-sage' : 'bg-latte'
                     }`}
                   >
                     <span
-                      className={`absolute top-0.5 start-0.5 h-6 w-6 rounded-full bg-cream transition-transform duration-150 ${
+                      className={`absolute top-0.5 start-0.5 h-6 w-6 rounded-full bg-parchment transition-transform duration-150 ${
                         profile.dependants.spouse ? 'ltr:translate-x-5 rtl:-translate-x-5' : ''
                       }`}
                     />
                   </button>
                 </div>
 
-                {/* Children stepper */}
-                <div className="flex items-center justify-between rounded-card border border-tan bg-cream px-4 py-4">
-                  <span className="font-sans text-[14px] text-charcoal">Children</span>
+                <div className="flex items-center justify-between rounded-card border border-biscuit bg-parchment px-4 py-4">
+                  <span className="font-serif text-[14px] text-espresso">Children</span>
                   <div className="flex items-center gap-3">
                     <button
                       type="button"
@@ -506,7 +512,7 @@ export default function OnboardingPage() {
                     >
                       <Minus size={16} strokeWidth={1.5} />
                     </button>
-                    <span className="font-sans text-[15px] text-charcoal w-6 text-center">
+                    <span className="font-serif text-[15px] text-espresso w-6 text-center">
                       {profile.dependants.children}
                     </span>
                     <button
@@ -553,7 +559,7 @@ export default function OnboardingPage() {
             {step === 8 && (
               <div className="flex flex-col gap-3">
                 <div className="flex flex-wrap gap-2">
-                  {SPECIAL_OPTIONS.map(({ value, label }) => {
+                  {SPECIAL_OPTIONS.map(({ value, label }, index) => {
                     const isSelected = specialSelections.includes(value)
                     return (
                       <button
@@ -567,10 +573,10 @@ export default function OnboardingPage() {
                               : [...prev, value]
                           )
                         }}
-                        className={`option-chip ${
+                        className={`option-chip stagger-item chip-delay-${index} ${
                           isSelected
-                            ? 'border-sage bg-sage/10 text-charcoal'
-                            : 'border-tan bg-cream text-charcoal hover:border-sage'
+                            ? 'border-sage bg-sage/10 text-espresso'
+                            : 'border-biscuit bg-parchment text-espresso hover:border-sage'
                         }`}
                       >
                         {label}
@@ -583,10 +589,10 @@ export default function OnboardingPage() {
                       setNoneSpecial(true)
                       setSpecialSelections([])
                     }}
-                    className={`option-chip ${
+                    className={`option-chip stagger-item chip-delay-4 ${
                       noneSpecial
-                        ? 'border-sage bg-sage/10 text-charcoal'
-                        : 'border-tan bg-cream text-charcoal hover:border-sage'
+                        ? 'border-sage bg-sage/10 text-espresso'
+                        : 'border-biscuit bg-parchment text-espresso hover:border-sage'
                     }`}
                   >
                     None of these
@@ -616,15 +622,14 @@ export default function OnboardingPage() {
           <button
             type="button"
             onClick={skip}
-            className="text-mist font-sans text-[13px] transition-colors duration-150 hover:text-steel self-center mt-2"
+            className="text-sandstone font-serif text-[13px] transition-colors duration-150 hover:text-driftwood self-center mt-2"
           >
             Skip
           </button>
         </SurfaceCard>
       </div>
 
-      {/* Disclaimer */}
-      <p className="py-4 text-center text-mist font-sans text-[11px] leading-[1.4]">
+      <p className="py-4 text-center text-sandstone font-serif text-[11px] leading-[1.5]">
         This is not medical advice. In an emergency, call 911.
       </p>
     </PageShell>

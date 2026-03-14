@@ -16,6 +16,7 @@ const profileSchema = z.object({
   }),
   incomeBand: z.enum(['low', 'medium', 'high', 'prefer_not_to_say']),
   specialCategory: z.enum(['refugee', 'temp_foreign_worker', 'intl_student', 'asylum_seeker']).nullable(),
+  language: z.string().default('en'),
 })
 
 const ageBandMap = {
@@ -27,6 +28,53 @@ const ageBandMap = {
   '56-64': 'AGE_56_64',
   '65+': 'AGE_65_PLUS',
 } as const
+
+const reverseAgeBandMap: Record<string, string> = {
+  AGE_0_17: '0-17',
+  AGE_18_25: '18-25',
+  AGE_26_35: '26-35',
+  AGE_36_45: '36-45',
+  AGE_46_55: '46-55',
+  AGE_56_64: '56-64',
+  AGE_65_PLUS: '65+',
+}
+
+export async function GET() {
+  const session = await auth()
+
+  if (!session?.user?.id) {
+    return NextResponse.json({ profile: null }, { status: 200 })
+  }
+
+  try {
+    const dbProfile = await prisma.profile.findUnique({
+      where: { userId: session.user.id },
+    })
+
+    if (!dbProfile) {
+      return NextResponse.json({ profile: null }, { status: 200 })
+    }
+
+    const dependants = dbProfile.dependants as { spouse: boolean; children: number } | null
+
+    return NextResponse.json({
+      profile: {
+        province: dbProfile.province,
+        immigrationStatus: dbProfile.immigrationStatus,
+        residencyStartDate: dbProfile.residencyStartDate,
+        ageBand: reverseAgeBandMap[dbProfile.ageBand] ?? '18-25',
+        employmentStatus: dbProfile.employmentStatus,
+        hasEmployerBenefits: dbProfile.hasEmployerBenefits,
+        dependants: dependants ?? { spouse: false, children: 0 },
+        incomeBand: dbProfile.incomeBand,
+        specialCategory: dbProfile.specialCategory,
+        language: dbProfile.language,
+      },
+    })
+  } catch {
+    return NextResponse.json({ profile: null }, { status: 200 })
+  }
+}
 
 export async function POST(request: Request) {
   const session = await auth()
@@ -57,6 +105,7 @@ export async function POST(request: Request) {
       dependants: profile.dependants,
       incomeBand: profile.incomeBand,
       specialCategory: profile.specialCategory,
+      language: profile.language,
     },
     update: {
       province: profile.province,
@@ -68,6 +117,7 @@ export async function POST(request: Request) {
       dependants: profile.dependants,
       incomeBand: profile.incomeBand,
       specialCategory: profile.specialCategory,
+      language: profile.language,
     },
   })
 

@@ -93,28 +93,28 @@ export function PlanRecommendationPanel() {
   return (
     <section className="surface-panel rounded-card flex flex-col gap-4 p-6 sm:p-8">
       <div className="flex flex-col gap-2">
-        <p className="section-eyebrow text-steel">Plan matching</p>
-        <h2 className="font-playfair text-[30px] italic leading-tight text-charcoal">
+        <p className="section-eyebrow text-driftwood">Plan matching</p>
+        <h2 className="font-cormorant text-[30px] italic leading-tight text-espresso">
           Find plans by ZIP, medications, and providers.
         </h2>
-        <p className="font-sans text-[15px] leading-7 text-steel">
+        <p className="font-serif text-[15px] leading-[1.7] text-driftwood">
           Recommendations use your saved onboarding location when available, then rank mock plans with ZIP-to-county resolution and formulary/provider matches.
         </p>
       </div>
 
       <div className="grid gap-3 md:grid-cols-3">
         <label className="flex flex-col gap-2">
-          <span className="font-sans text-[13px] font-medium text-charcoal">ZIP code</span>
+          <span className="font-serif text-[13px] font-medium text-espresso">ZIP code</span>
           <input value={zip} onChange={(event) => setZip(event.target.value)} className="input-field" />
         </label>
         <label className="flex flex-col gap-2 md:col-span-2">
-          <span className="font-sans text-[13px] font-medium text-charcoal">Medications</span>
+          <span className="font-serif text-[13px] font-medium text-espresso">Medications</span>
           <input value={medications} onChange={(event) => setMedications(event.target.value)} className="input-field" />
         </label>
       </div>
 
       <label className="flex flex-col gap-2">
-        <span className="font-sans text-[13px] font-medium text-charcoal">Preferred providers</span>
+        <span className="font-serif text-[13px] font-medium text-espresso">Preferred providers</span>
         <input value={providers} onChange={(event) => setProviders(event.target.value)} className="input-field" />
       </label>
 
@@ -122,38 +122,44 @@ export function PlanRecommendationPanel() {
         <button type="button" onClick={handleRecommend} className="btn-primary sm:max-w-[240px]" disabled={isLoading}>
           {isLoading ? 'Ranking plans...' : 'Find recommendations'}
         </button>
-        <p className="font-sans text-[13px] text-steel">
-          Using state: <span className="font-medium text-charcoal">{inferredState || 'New York fallback'}</span>
+        <p className="font-serif text-[13px] text-driftwood">
+          Using state: <span className="font-medium text-espresso">{inferredState || 'New York fallback'}</span>
         </p>
-        {error ? <p className="font-sans text-[14px] text-coral">{error}</p> : null}
+        {error ? <p className="font-serif text-[14px] text-terracotta">{error}</p> : null}
       </div>
 
       <div className="grid gap-3">
         {plans.length ? (
-          plans.slice(0, 6).map((plan) => (
-            <div key={plan.id} className="rounded-card border border-tan bg-cream p-4">
+          plans.slice(0, 6).map((plan, index) => (
+            <div
+              key={plan.id}
+              className={`rounded-card border bg-parchment p-5 stagger-item ${
+                index === 0 ? 'border-sage' : 'border-biscuit'
+              }`}
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
               <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <p className="font-sans text-[15px] font-medium text-charcoal">{plan.name}</p>
-                  <p className="font-sans text-[13px] leading-6 text-steel">
+                  <p className="font-cormorant italic text-[18px] leading-tight text-espresso">{plan.name}</p>
+                  <p className="font-serif text-[13px] leading-6 text-driftwood">
                     {plan.carrier} · {plan.metalTier} · {plan.planType}
                   </p>
                 </div>
-                <p className="font-sans text-[12px] uppercase tracking-[0.18em] text-steel">Score {plan.score}</p>
+                <p className="font-serif text-[12px] uppercase tracking-[0.18em] text-sandstone">Score {plan.score}</p>
               </div>
 
               <div className="mt-3 grid gap-2 sm:grid-cols-3">
-                <p className="font-sans text-[13px] text-steel">Premium: <span className="text-charcoal">${plan.monthlyPremium}/mo</span></p>
-                <p className="font-sans text-[13px] text-steel">Deductible: <span className="text-charcoal">${plan.deductible}</span></p>
-                <p className="font-sans text-[13px] text-steel">Max OOP: <span className="text-charcoal">${plan.maxOutOfPocket}</span></p>
+                <p className="font-serif text-[13px] text-driftwood">Premium: <span className="font-serif text-[28px] font-bold text-espresso">${plan.monthlyPremium}</span><span className="text-driftwood">/mo</span></p>
+                <p className="font-serif text-[13px] text-driftwood">Deductible: <span className="text-espresso">${plan.deductible}</span></p>
+                <p className="font-serif text-[13px] text-driftwood">Max OOP: <span className="text-espresso">${plan.maxOutOfPocket}</span></p>
               </div>
 
-              <p className="mt-3 font-sans text-[13px] leading-6 text-steel">{plan.explanation}</p>
-              <p className="mt-2 font-sans text-[13px] leading-6 text-steel">{plan.matchReasons.join(' • ')}</p>
+              <p className="mt-3 font-serif text-[13px] leading-[1.6] text-driftwood">{plan.explanation}</p>
+              <p className="mt-2 font-serif text-[13px] leading-[1.6] text-driftwood">{plan.matchReasons.join(' · ')}</p>
             </div>
           ))
         ) : (
-          <div className="rounded-card border border-dashed border-tan bg-cream p-4 font-sans text-[14px] leading-6 text-steel">
+          <div className="rounded-card border border-dashed border-biscuit bg-parchment p-4 font-serif text-[14px] leading-6 text-driftwood">
             No recommendations yet. Run a ZIP-based search to see ranked plan matches.
           </div>
         )}
