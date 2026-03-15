@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { auth } from '@/auth'
 import { prisma } from '@/lib/prisma'
+import type { Prisma } from '@/generated/prisma'
 import { loadUserPortfolio } from '@/lib/portfolio'
 
 export const runtime = 'nodejs'
@@ -115,7 +116,7 @@ export async function PATCH(request: Request) {
           create: {
             userId,
             ...updateData,
-            dependants: (updateData.dependants ?? { spouse: false, children: 0 }) as import('@prisma/client').Prisma.InputJsonValue,
+            dependants: (updateData.dependants ?? { spouse: false, children: 0 }) as Prisma.InputJsonValue,
           },
         })
       }
@@ -136,14 +137,14 @@ export async function PATCH(request: Request) {
           update: updateData,
           create: {
             userId,
-            conditions: (updateData.conditions ?? []) as import('@prisma/client').Prisma.InputJsonValue,
-            medications: (updateData.medications ?? []) as import('@prisma/client').Prisma.InputJsonValue,
-            allergies: (updateData.allergies ?? []) as import('@prisma/client').Prisma.InputJsonValue,
-            surgeries: (updateData.surgeries ?? []) as import('@prisma/client').Prisma.InputJsonValue,
-            familyHistory: (updateData.familyHistory ?? []) as import('@prisma/client').Prisma.InputJsonValue,
-            immunizations: [] as import('@prisma/client').Prisma.InputJsonValue,
-            labResults: [] as import('@prisma/client').Prisma.InputJsonValue,
-            riskFactors: (updateData.riskFactors ?? []) as import('@prisma/client').Prisma.InputJsonValue,
+            conditions: (updateData.conditions ?? []) as Prisma.InputJsonValue,
+            medications: (updateData.medications ?? []) as Prisma.InputJsonValue,
+            allergies: (updateData.allergies ?? []) as Prisma.InputJsonValue,
+            surgeries: (updateData.surgeries ?? []) as Prisma.InputJsonValue,
+            familyHistory: (updateData.familyHistory ?? []) as Prisma.InputJsonValue,
+            immunizations: [] as Prisma.InputJsonValue,
+            labResults: [] as Prisma.InputJsonValue,
+            riskFactors: (updateData.riskFactors ?? []) as Prisma.InputJsonValue,
           },
         })
       }

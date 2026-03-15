@@ -1,6 +1,7 @@
 import 'server-only'
 
 import { readFile } from 'fs/promises'
+import { createRequire } from 'module'
 import { z } from 'zod'
 import { generateStructuredObject } from '@/lib/llm-client'
 
@@ -30,7 +31,14 @@ export async function extractTextFromDocument(
 }
 
 async function extractFromPdf(filePath: string): Promise<string> {
-  const { PDFParse } = await import('pdf-parse')
+  const require = createRequire(import.meta.url)
+  const pdfParse = require('pdf-parse') as {
+    PDFParse?: new (data: Uint8Array) => { getText: () => Promise<{ text: string }> }
+  }
+  const PDFParse = pdfParse.PDFParse
+
+  if (!PDFParse) throw new Error('PDF parser is unavailable in this runtime.')
+
   const buffer = await readFile(filePath)
   const data = new Uint8Array(buffer)
   const parser = new PDFParse(data)
