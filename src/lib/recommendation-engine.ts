@@ -7,6 +7,7 @@ import { searchCoverageDocs } from '@/lib/coverage-docs'
 import type { UserProfile } from '@/lib/profile'
 import type { MedicalMlFeatures } from '@/lib/medical-feature-pipeline'
 import type { ExtractedPlanData, PlanMlFeatures } from '@/lib/plan-feature-pipeline'
+import { getTop3Recommendations, type MlPlanScore } from '@/lib/ml/plan-recommender'
 
 const recommendationModel =
   process.env.CARE_CHAT_MODEL ?? process.env.LLM_MODEL ?? 'qwen/qwen3-32b'
@@ -337,29 +338,68 @@ export async function generateRecommendation(input: RecommendationInput): Promis
   // Step 1: Deterministic eligibility rules
   const eligibilitySignals = evaluateEligibilityRules(input.profile)
 
-  // Step 2: Load extracted plan data from DB
+  // Step 2: ML classifier — score all plans and get top 3
+  const eligibilityForMl = eligibilitySignals.map((s) => ({
+    planType: s.planType,
+    eligible: s.eligible,
+  }))
+  const mlResult = await getTop3Recommendations(
+    input.profile,
+    input.medicalFeatures,
+    eligibilityForMl,
+  ).catch(() => null)
+
+  // Step 3: Load extracted plan data from DB
   const extractedPlans = await loadExtractedPlans()
 
-  // Step 3: Search coverage docs for relevant excerpts
+  // Step 4: Search coverage docs for relevant excerpts
   const searchQuery = buildSearchQuery(input)
   const coverageMatches = await searchCoverageDocs(searchQuery, 6).catch(() => [])
   const coverageDocExcerpts = coverageMatches
     .map((m, i) => `[Source ${i + 1}] ${m.title}\n${m.content.slice(0, 1200)}`)
     .join('\n\n')
 
-  // Step 4: Build full context
+  // Step 5: Build full context including ML rankings
+  const mlContext = mlResult ? buildMlContext(mlResult.top3, mlResult.modelInfo) : ''
   const context = buildRecommendationContext(input, eligibilitySignals, extractedPlans, coverageDocExcerpts)
 
-  // Step 5: LLM generates the final recommendation
+  // Step 6: LLM generates the final recommendation, informed by ML rankings
   const recommendation = await generateStructuredObject({
     model: recommendationModel,
     schema: fullRecommendationSchema,
     maxTokens: 4000,
     system: RECOMMENDATION_SYSTEM_PROMPT,
-    prompt: `Generate a personalized healthcare coverage recommendation for this user.\n\n${context}`,
+    prompt: `Generate a personalized healthcare coverage recommendation for this user.
+
+${mlContext ? `== ML CLASSIFIER RANKINGS (decision tree model) ==\n${mlContext}\n\nUse these ML rankings as a strong signal for your final ranking. The classifier has been trained on patient-plan matching patterns. You may adjust rankings based on context the model cannot capture (e.g., specific medication needs, provider preferences), but explain any deviations.\n\n` : ''}${context}`,
   })
 
   return recommendation
+}
+
+function buildMlContext(top3: MlPlanScore[], modelInfo: { trained: boolean; featureImportances: Array<{ feature: string; importance: number }> }): string {
+  if (top3.length === 0) return ''
+
+  const lines = [`Model status: ${modelInfo.trained ? 'Trained decision tree classifier' : 'Heuristic scoring (no trained model)'}`]
+
+  if (modelInfo.featureImportances.length > 0) {
+    lines.push(`Top decision factors: ${modelInfo.featureImportances.slice(0, 5).map((f) => f.feature).join(', ')}`)
+  }
+
+  lines.push('')
+
+  for (const plan of top3) {
+    lines.push(`#${plan.mlScore} ${plan.planName} (${plan.carrier})`)
+    lines.push(`  ML Score: ${plan.mlScore}/100, Match: ${plan.matchLabel} (${Math.round(plan.matchProbability * 100)}% confidence)`)
+    lines.push(`  Factors: ${plan.decisionFactors.join('; ')}`)
+    lines.push(`  Highlights: ${plan.coverageHighlights.join(', ')}`)
+    if (plan.gaps.length > 0) {
+      lines.push(`  Gaps: ${plan.gaps.join('; ')}`)
+    }
+    lines.push('')
+  }
+
+  return lines.join('\n')
 }
 
 function buildSearchQuery(input: RecommendationInput): string {

@@ -41,3 +41,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ML model files (large, regenerated via /api/ml/train)
+/data/models/*.json
