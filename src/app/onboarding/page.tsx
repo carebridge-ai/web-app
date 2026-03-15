@@ -286,7 +286,7 @@ export default function OnboardingPage() {
             </button>
             <button
               type="button"
-              onClick={handleContinueWithout}
+              onClick={() => router.push('/')}
               className="text-sandstone font-serif text-[13px] transition-colors duration-150 hover:text-driftwood"
             >
               Return to Home

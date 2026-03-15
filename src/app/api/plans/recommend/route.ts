@@ -10,8 +10,13 @@ import { lookupStateByZip } from '@/lib/zip-county'
 
 export const runtime = 'nodejs'
 
+const CA_PROVINCES = new Set([
+  'ON', 'BC', 'QC', 'AB', 'MB', 'SK', 'NS', 'NB', 'NL', 'PE', 'NT', 'YT', 'NU',
+])
+
 const schema = z.object({
-  zip: z.string().min(5).max(5),
+  zip: z.string().min(5).max(5).optional(),
+  province: z.string().optional(),
   age: z.number().int().positive().optional().default(30),
   income: z.number().positive().optional(),
   householdSize: z.number().int().positive().optional().default(1),
@@ -19,6 +24,8 @@ const schema = z.object({
   providers: z.array(z.string()).optional().default([]),
   maxMonthlyPremium: z.number().positive().optional(),
   usesTobacco: z.boolean().optional().default(false),
+}).refine((data) => data.zip || data.province, {
+  message: 'Either zip or province is required.',
 })
 
 /**
@@ -53,6 +60,63 @@ function incomeBandFromIncome(income: number): string {
   return 'high'
 }
 
+/**
+ * Search for Canadian plans from the ExtractedPlan table.
+ * Returns plans matching the user's province or federal plans available nationwide.
+ */
+async function searchCanadianPlans(province: string): Promise<{ plans: NormalizedPlan[]; total: number }> {
+  const rows = await prisma.extractedPlan.findMany({
+    where: {
+      OR: [
+        { jurisdiction: { contains: province, mode: 'insensitive' as const } },
+        { jurisdiction: { in: ['Canada', 'canada', 'Federal', 'federal'] } },
+        // Include plans with broad jurisdiction like "All provinces"
+        { jurisdiction: { contains: 'All', mode: 'insensitive' as const } },
+      ],
+    },
+  })
+
+  // Also include private plans that don't restrict by jurisdiction
+  const privateRows = await prisma.extractedPlan.findMany({
+    where: {
+      planType: { in: ['private_individual', 'private_group'] },
+      id: { notIn: rows.map((r) => r.id) },
+    },
+  })
+
+  const allRows = [...rows, ...privateRows]
+
+  const plans: NormalizedPlan[] = allRows.map((row) => {
+    const extracted = row.extractedData as unknown as import('@/lib/plan-feature-pipeline').ExtractedPlanData
+    const features = row.mlFeatures as unknown as import('@/lib/plan-feature-pipeline').PlanMlFeatures
+
+    const coveredBenefits = (extracted.benefits ?? []).filter((b) => b.covered)
+
+    return {
+      id: row.id,
+      name: extracted.planName,
+      carrier: extracted.carrier,
+      metalTier: extracted.planType.includes('public') ? 'public' : 'private',
+      planType: extracted.planType.replace(/_/g, ' '),
+      monthlyPremium: features?.monthlyPremiumEstimate ?? 0,
+      deductible: features?.deductible ?? 0,
+      maxOutOfPocket: features?.maxOutOfPocket ?? 0,
+      qualityRating: null,
+      formularyUrl: null,
+      providerDirectoryUrl: null,
+      brochureUrl: null,
+      benefits: coveredBenefits.slice(0, 15).map((b) => ({
+        name: b.category.replace(/_/g, ' '),
+        covered: b.covered,
+        copay: b.copay ?? 0,
+        coinsurance: b.reimbursementPct ?? 0,
+      })),
+    }
+  })
+
+  return { plans, total: plans.length }
+}
+
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null)
   const parsed = schema.safeParse(body)
@@ -61,21 +125,24 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid request.', details: parsed.error.flatten() }, { status: 400 })
   }
 
-  const { zip, age, income, householdSize, medications, providers, maxMonthlyPremium, usesTobacco } = parsed.data
+  const { zip, province, age, income, householdSize, medications, providers, maxMonthlyPremium, usesTobacco } = parsed.data
+  const isCanadian = province ? CA_PROVINCES.has(province.toUpperCase()) : false
 
   try {
-    // Run all API calls in parallel
-    const [cmsResult, drugResults, providerResults] = await Promise.all([
-      // 1. CMS Marketplace — search plans by ZIP
-      searchPlans({
-        zipCode: zip,
-        income,
-        people: [{ age, uses_tobacco: usesTobacco }],
-        limit: 10,
-      }).catch((err) => {
-        console.error('CMS API error:', err)
-        return { plans: [] as never[], total: 0 }
-      }),
+    // Run drug + provider lookups in parallel with plan search
+    const [planSearchResult, drugResults, providerResults] = await Promise.all([
+      // 1. Plan search — CMS for US, database for Canada
+      isCanadian
+        ? searchCanadianPlans(province!)
+        : searchPlans({
+            zipCode: zip!,
+            income,
+            people: [{ age, uses_tobacco: usesTobacco }],
+            limit: 10,
+          }).catch((err) => {
+            console.error('CMS API error:', err)
+            return { plans: [] as CmsPlan[], total: 0 }
+          }),
 
       // 2. RxNorm + OpenFDA — look up each medication
       Promise.all(
@@ -97,21 +164,34 @@ export async function POST(request: Request) {
         })
       ),
 
-      // 3. NPI Registry — look up each provider
-      Promise.all(
-        providers.slice(0, 3).map((prov) => {
-          const params = parseProviderQuery(prov)
-          return searchProviders({ ...params, postalCode: zip, limit: 3 }).catch(() => ({
-            result_count: 0,
-            results: [],
-          }))
-        })
-      ),
+      // 3. NPI Registry — look up each provider (skip for Canadian searches)
+      isCanadian
+        ? Promise.resolve([])
+        : Promise.all(
+            providers.slice(0, 3).map((prov) => {
+              const params = parseProviderQuery(prov)
+              return searchProviders({ ...params, postalCode: zip, limit: 3 }).catch(() => ({
+                result_count: 0,
+                results: [],
+              }))
+            })
+          ),
     ])
 
-    // Normalize CMS plans
-    const normalizedPlans = cmsResult.plans.map(normalizeCmsPlan)
-    await persistCmsPlans(cmsResult.plans, normalizedPlans, zip)
+    // Normalize plans based on source
+    let normalizedPlans: NormalizedPlan[]
+    let totalAvailable: number
+
+    if (isCanadian) {
+      const caResult = planSearchResult as { plans: NormalizedPlan[]; total: number }
+      normalizedPlans = caResult.plans
+      totalAvailable = caResult.total
+    } else {
+      const cmsResult = planSearchResult as { plans: CmsPlan[]; total: number }
+      normalizedPlans = cmsResult.plans.map(normalizeCmsPlan)
+      await persistCmsPlans(cmsResult.plans, normalizedPlans, zip!)
+      totalAvailable = cmsResult.total
+    }
 
     // Filter by budget if specified
     const filteredPlans = maxMonthlyPremium
@@ -119,7 +199,7 @@ export async function POST(request: Request) {
       : normalizedPlans
 
     // Normalize provider results
-    const foundProviders = providerResults.flatMap((r) =>
+    const foundProviders = (providerResults as Array<{ result_count: number; results: Parameters<typeof normalizeProvider>[0][] }>).flatMap((r) =>
       r.results.slice(0, 2).map(normalizeProvider)
     )
 
@@ -137,7 +217,7 @@ export async function POST(request: Request) {
             body: JSON.stringify({
               profile: {
                 ageBand: ageBandFromAge(age),
-                province: lookupStateByZip(zip) ?? 'unknown',
+                province: province ?? lookupStateByZip(zip ?? '') ?? 'unknown',
                 incomeBand: income ? incomeBandFromIncome(income) : 'medium',
                 employmentStatus: 'employed',
                 hasEmployerBenefits: 'unknown',
@@ -186,7 +266,7 @@ export async function POST(request: Request) {
       plans: mlScoredPlans,
       drugs: drugResults,
       providers: foundProviders,
-      zip,
+      zip: zip ?? province ?? '',
       age,
       income,
       householdSize,
@@ -246,7 +326,7 @@ export async function POST(request: Request) {
         interactionCount: d.interactions.length,
       })),
       providerInfo: foundProviders,
-      totalPlansAvailable: cmsResult.total,
+      totalPlansAvailable: totalAvailable,
     })
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Failed to fetch recommendations.'

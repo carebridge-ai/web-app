@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { getToken } from 'next-auth/jwt'
 
-const PROTECTED = ['/chat', '/insurance', '/hospitals', '/onboarding']
+const PROTECTED = ['/chat', '/insurance', '/hospitals', '/onboarding', '/medical']
 
 export async function proxy(request: NextRequest) {
   const response = NextResponse.next({ request })

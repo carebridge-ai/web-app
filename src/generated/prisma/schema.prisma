@@ -70,26 +70,27 @@ enum SpecialCategory {
 }
 
 model User {
-  id                String             @id @default(cuid())
-  name              String?
-  email             String?            @unique
-  emailVerified     DateTime?
-  image             String?
-  passwordHash      String?
-  accounts          Account[]
-  sessions          Session[]
-  profile           Profile?
-  medicalProfile    MedicalProfile?
-  memories          UserMemory[]
-  consentLogs       ConsentLog[]
-  authenticators    Authenticator[]
-  chatConversations ChatConversation[]
-  coverageScores    CoverageScore[]
-  lifeEvents        LifeEvent[]
-  medicalShareLinks MedicalShareLink[]
-  notifications     Notification[]
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
+  id                  String               @id @default(cuid())
+  name                String?
+  email               String?              @unique
+  emailVerified       DateTime?
+  image               String?
+  passwordHash        String?
+  accounts            Account[]
+  sessions            Session[]
+  profile             Profile?
+  medicalProfile      MedicalProfile?
+  memories            UserMemory[]
+  consentLogs         ConsentLog[]
+  authenticators      Authenticator[]
+  chatConversations   ChatConversation[]
+  coverageScores      CoverageScore[]
+  lifeEvents          LifeEvent[]
+  medicalShareLinks   MedicalShareLink[]
+  notifications       Notification[]
+  passwordResetTokens PasswordResetToken[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
 
   @@map("users")
 }
@@ -372,6 +373,20 @@ model MedicalShareLink {
 
   @@index([token])
   @@map("medical_share_links")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  token     String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId, createdAt])
+  @@map("password_reset_tokens")
 }
 
 model Notification {

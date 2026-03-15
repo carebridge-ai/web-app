@@ -272,7 +272,6 @@ export async function POST(request: Request) {
  */
 async function buildLiveContext(message: string): Promise<string> {
   const parts: string[] = []
-  const lowerMsg = message.toLowerCase()
 
   // Common drug keywords that suggest the user is asking about a medication
   const drugPatterns = /\b(medication|drug|prescription|medicine|taking|dosage|side effect|interaction|generic|brand)\b/i

@@ -54,9 +54,7 @@ export function ChatTabsLayout({
 
   // Chat state (lifted from ChatWorkspace)
   const { profile } = useProfile()
-  const [question, setQuestion] = useState(
-    'What does the Sunlife standard plan say about prescription drug coverage and major exclusions?'
-  )
+  const [question, setQuestion] = useState('')
   const [answer, setAnswer] = useState('')
   const [sources, setSources] = useState<Source[]>([])
   const [history, setHistory] = useState<HistoryConversation[]>([])
@@ -353,7 +351,7 @@ export function ChatTabsLayout({
             </p>
             {answer && (
               <p className="mt-3 font-serif text-[11px] leading-[1.5] text-sandstone">
-                CareBridge AI provides estimates only. Verify with your state marketplace before
+                CareBridge AI provides estimates only. Verify with your provincial health authority or insurer before
                 enrolling.
               </p>
             )}

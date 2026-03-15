@@ -340,6 +340,15 @@ exports.Prisma.MedicalShareLinkScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -461,6 +470,7 @@ exports.Prisma.ModelName = {
   CoverageScore: 'CoverageScore',
   LifeEvent: 'LifeEvent',
   MedicalShareLink: 'MedicalShareLink',
+  PasswordResetToken: 'PasswordResetToken',
   Notification: 'Notification'
 };
 

@@ -56,8 +56,13 @@ const AGE_BAND_MIDPOINTS: Record<string, number> = {
   '65+': 67,
 }
 
+const CA_PROVINCES = new Set([
+  'ON', 'BC', 'QC', 'AB', 'MB', 'SK', 'NS', 'NB', 'NL', 'PE', 'NT', 'YT', 'NU',
+])
+
 export function PlanRecommendationPanel() {
   const { profile } = useProfile()
+  const isCanadian = profile?.province ? CA_PROVINCES.has(profile.province.toUpperCase()) : false
   const [zip, setZip] = useState('')
   const [medications, setMedications] = useState('')
   const [providers, setProviders] = useState('')
@@ -70,10 +75,12 @@ export function PlanRecommendationPanel() {
   const [error, setError] = useState('')
 
   async function handleRecommend() {
-    const trimmedZip = zip.trim()
-    if (!trimmedZip || trimmedZip.length !== 5) {
-      setError('Enter a valid 5-digit ZIP code.')
-      return
+    if (!isCanadian) {
+      const trimmedZip = zip.trim()
+      if (!trimmedZip || trimmedZip.length !== 5) {
+        setError('Enter a valid 5-digit ZIP code.')
+        return
+      }
     }
 
     setIsLoading(true)
@@ -84,16 +91,23 @@ export function PlanRecommendationPanel() {
         ? AGE_BAND_MIDPOINTS[profile.ageBand] ?? 30
         : 30
 
+      const body: Record<string, unknown> = {
+        age,
+        medications: medications.split(',').map((s) => s.trim()).filter(Boolean),
+        providers: providers.split(',').map((s) => s.trim()).filter(Boolean),
+        maxMonthlyPremium: 800,
+      }
+
+      if (isCanadian) {
+        body.province = profile!.province
+      } else {
+        body.zip = zip.trim()
+      }
+
       const response = await fetch('/api/plans/recommend', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          zip: trimmedZip,
-          age,
-          medications: medications.split(',').map((s) => s.trim()).filter(Boolean),
-          providers: providers.split(',').map((s) => s.trim()).filter(Boolean),
-          maxMonthlyPremium: 800,
-        }),
+        body: JSON.stringify(body),
       })
 
       const payload = (await response.json()) as {
@@ -126,24 +140,35 @@ export function PlanRecommendationPanel() {
       <div className="flex flex-col gap-2">
         <p className="section-eyebrow text-driftwood">Live plan search</p>
         <h2 className="font-cormorant text-[30px] italic leading-tight text-espresso">
-          Find real plans by ZIP code.
+          {isCanadian ? 'Find plans for your province.' : 'Find real plans by ZIP code.'}
         </h2>
         <p className="font-serif text-[15px] leading-[1.7] text-driftwood">
-          Plans come from the CMS Healthcare.gov Marketplace API. Medications are verified against RxNorm and OpenFDA. Providers are looked up in the NPI Registry.
+          {isCanadian
+            ? 'Plans come from our Canadian coverage database including Sun Life, provincial health plans, and federal programs. Medications are verified against RxNorm and OpenFDA.'
+            : 'Plans come from the CMS Healthcare.gov Marketplace API. Medications are verified against RxNorm and OpenFDA. Providers are looked up in the NPI Registry.'}
         </p>
       </div>
 
       <div className="grid gap-3 md:grid-cols-3">
-        <label className="flex flex-col gap-2">
-          <span className="font-serif text-[13px] font-medium text-espresso">ZIP code</span>
-          <input
-            value={zip}
-            onChange={(e) => setZip(e.target.value)}
-            placeholder="e.g. 77001"
-            maxLength={5}
-            className="input-field"
-          />
-        </label>
+        {isCanadian ? (
+          <div className="flex flex-col gap-2">
+            <span className="font-serif text-[13px] font-medium text-espresso">Province</span>
+            <div className="input-field flex items-center bg-parchment">
+              <span className="font-serif text-[14px] text-espresso">{profile?.province ?? 'Not set'}</span>
+            </div>
+          </div>
+        ) : (
+          <label className="flex flex-col gap-2">
+            <span className="font-serif text-[13px] font-medium text-espresso">ZIP code</span>
+            <input
+              value={zip}
+              onChange={(e) => setZip(e.target.value)}
+              placeholder="e.g. 77001"
+              maxLength={5}
+              className="input-field"
+            />
+          </label>
+        )}
         <label className="flex flex-col gap-2 md:col-span-2">
           <span className="font-serif text-[13px] font-medium text-espresso">Medications (comma-separated)</span>
           <input
@@ -229,12 +254,16 @@ export function PlanRecommendationPanel() {
           <PlanResults plans={plans.slice(0, 3).map((plan, i) => toPlanCardProps(plan, i + 1))} />
           {scenarios.length > 0 && <WhatIfPanel scenarios={scenarios} />}
           <p className="font-serif text-[11px] leading-[1.5] text-sandstone">
-            Plan data from CMS Healthcare.gov Marketplace API. Premiums shown before subsidies. Verify details at healthcare.gov before enrolling.
+            {isCanadian
+              ? 'Plan data from our Canadian coverage database. Verify details with your provincial health authority or insurer before enrolling.'
+              : 'Plan data from CMS Healthcare.gov Marketplace API. Premiums shown before subsidies. Verify details at healthcare.gov before enrolling.'}
           </p>
         </>
       ) : !isLoading ? (
         <div className="rounded-card border border-dashed border-biscuit bg-parchment p-4 font-serif text-[14px] leading-6 text-driftwood">
-          Enter your ZIP code and click "Find plans" to search the CMS Marketplace.
+          {isCanadian
+            ? 'Click "Find plans" to search available plans for your province.'
+            : 'Enter your ZIP code and click "Find plans" to search the CMS Marketplace.'}
         </div>
       ) : null}
     </section>
