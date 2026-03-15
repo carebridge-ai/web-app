@@ -88,6 +88,7 @@ model User {
   lifeEvents       LifeEvent[]
   medicalShareLinks MedicalShareLink[]
   notifications    Notification[]
+  passwordResetTokens PasswordResetToken[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 
@@ -372,6 +373,20 @@ model MedicalShareLink {
 
   @@index([token])
   @@map("medical_share_links")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId, createdAt])
+  @@map("password_reset_tokens")
 }
 
 model Notification {

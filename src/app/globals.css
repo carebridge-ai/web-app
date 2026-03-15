@@ -131,31 +131,44 @@ textarea:focus-visible {
 }
 
 .glass-panel {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--color-mahogany) 26%, transparent), color-mix(in srgb, var(--color-mahogany) 14%, transparent));
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--color-cream-text) 8%, transparent) 0%, transparent 40%),
+    linear-gradient(180deg, color-mix(in srgb, var(--color-mahogany) 26%, transparent), color-mix(in srgb, var(--color-mahogany) 14%, transparent));
   border: 1px solid color-mix(in srgb, var(--color-cream-text) 18%, transparent);
   backdrop-filter: blur(18px);
+  box-shadow: inset 0 1px 1px color-mix(in srgb, var(--color-cream-text) 10%, transparent),
+              0 8px 32px color-mix(in srgb, var(--color-mahogany) 30%, transparent);
 }
 
 .surface-panel {
-  background: var(--color-parchment);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, white 6%, transparent) 0%, transparent 40%),
+    var(--color-parchment);
   border: 1px solid var(--color-biscuit);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 15%, transparent),
+              0 4px 16px color-mix(in srgb, var(--color-espresso) 6%, transparent);
 }
 
 .surface-panel-strong {
-  background: var(--color-parchment);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, white 8%, transparent) 0%, transparent 40%),
+    var(--color-parchment);
   border: 1px solid color-mix(in srgb, var(--color-biscuit) 90%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 18%, transparent),
+              0 4px 16px color-mix(in srgb, var(--color-espresso) 8%, transparent);
 }
 
 @layer components {
   .btn-primary {
     height: 3rem;
     width: 100%;
-    border-radius: 12px;
-    background-color: var(--color-mahogany);
+    border-radius: 9999px;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--color-cream-text) 10%, transparent) 0%, transparent 40%), var(--color-mahogany);
     color: var(--color-cream-text);
     font-family: var(--font-serif), Georgia, serif;
     font-size: 14px;
     font-weight: 600;
+    box-shadow: inset 0 1px 1px color-mix(in srgb, var(--color-cream-text) 12%, transparent);
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, opacity 150ms ease;
   }
 
@@ -163,18 +176,19 @@ textarea:focus-visible {
     height: 3rem;
     width: 100%;
     border: 1px solid var(--color-biscuit);
-    border-radius: 12px;
-    background-color: var(--color-parchment);
+    border-radius: 9999px;
+    background: linear-gradient(160deg, color-mix(in srgb, white 8%, transparent) 0%, transparent 40%), var(--color-parchment);
     color: var(--color-espresso);
     font-family: var(--font-serif), Georgia, serif;
     font-size: 14px;
     font-weight: 400;
+    box-shadow: inset 0 1px 0 color-mix(in srgb, white 15%, transparent);
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, opacity 150ms ease;
   }
 
   .btn-tertiary {
     border: 1px solid transparent;
-    border-radius: 12px;
+    border-radius: 9999px;
     padding: 0.75rem 1rem;
     color: var(--color-sandstone);
     text-align: center;
@@ -199,14 +213,15 @@ textarea:focus-visible {
     height: 3rem;
     width: 100%;
     border: 1px solid var(--color-biscuit);
-    border-radius: 12px;
-    background-color: var(--color-parchment);
+    border-radius: 20px;
+    background: linear-gradient(160deg, color-mix(in srgb, white 5%, transparent) 0%, transparent 40%), var(--color-parchment);
     padding-inline: 1rem;
     color: var(--color-espresso);
     outline: none;
     font-family: var(--font-serif), Georgia, serif;
     font-size: 14px;
     line-height: 1.5;
+    box-shadow: inset 0 1px 0 color-mix(in srgb, white 12%, transparent);
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, opacity 150ms ease;
   }
 
@@ -221,19 +236,22 @@ textarea:focus-visible {
     align-items: center;
     justify-content: center;
     border: 1px solid var(--color-biscuit);
-    border-radius: 12px;
+    border-radius: 9999px;
+    background: linear-gradient(160deg, color-mix(in srgb, white 6%, transparent) 0%, transparent 40%), var(--color-parchment);
     color: var(--color-driftwood);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, white 12%, transparent);
     transition: color 150ms ease, border-color 150ms ease, opacity 150ms ease;
   }
 
   .option-chip {
     border: 1px solid var(--color-biscuit);
-    border-radius: 12px;
-    background-color: var(--color-parchment);
+    border-radius: 9999px;
+    background: linear-gradient(160deg, color-mix(in srgb, white 6%, transparent) 0%, transparent 40%), var(--color-parchment);
     padding: 0.5rem 1rem;
     color: var(--color-espresso);
     font-family: var(--font-serif), Georgia, serif;
     font-size: 14px;
+    box-shadow: inset 0 1px 0 color-mix(in srgb, white 12%, transparent);
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, opacity 150ms ease;
   }
 
@@ -370,18 +388,37 @@ textarea:focus-visible {
 
 .trust-pill {
   border: 1px solid color-mix(in srgb, var(--color-cream-text) 22%, transparent);
-  background: color-mix(in srgb, var(--color-cream-text) 9%, transparent);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--color-cream-text) 14%, transparent) 0%, transparent 50%),
+    color-mix(in srgb, var(--color-cream-text) 9%, transparent);
   backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-cream-text) 12%, transparent);
 }
 
 .home-stat {
   border: 1px solid color-mix(in srgb, var(--color-cream-text) 12%, transparent);
-  background: color-mix(in srgb, var(--color-mahogany) 22%, transparent);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--color-cream-text) 10%, transparent) 0%, transparent 45%),
+    color-mix(in srgb, var(--color-mahogany) 22%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 1px color-mix(in srgb, var(--color-cream-text) 8%, transparent),
+              0 4px 16px color-mix(in srgb, var(--color-mahogany) 20%, transparent);
 }
 
-.lang-card { border-color: var(--color-biscuit); }
+.lang-card {
+  border-color: var(--color-biscuit);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--color-cream-text) 6%, transparent) 0%, transparent 40%), var(--color-parchment);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 15%, transparent);
+}
 .lang-card:hover { border-color: var(--color-sage); }
-.lang-card-active { border-color: var(--color-sage); background-color: color-mix(in srgb, var(--color-sage) 10%, transparent); }
+.lang-card-active {
+  border-color: var(--color-sage);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--color-sage) 18%, transparent) 0%, transparent 45%),
+    color-mix(in srgb, var(--color-sage) 10%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 18%, transparent),
+              0 2px 8px color-mix(in srgb, var(--color-sage) 15%, transparent);
+}
 
 /* ── Onboarding ───────────────────────────────────────────── */
 
@@ -411,20 +448,22 @@ textarea:focus-visible {
 /* ── Chat bubbles ─────────────────────────────────────────── */
 
 .chat-bubble-user {
-  background-color: var(--color-mahogany);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--color-cream-text) 10%, transparent) 0%, transparent 40%), var(--color-mahogany);
   color: var(--color-cream-text);
-  border-radius: 16px 16px 4px 16px;
+  border-radius: 22px 22px 6px 22px;
   padding: 14px;
+  box-shadow: inset 0 1px 1px color-mix(in srgb, var(--color-cream-text) 8%, transparent);
   font-family: var(--font-serif), Georgia, serif;
   font-size: 15px;
   line-height: 1.7;
 }
 
 .chat-bubble-ai {
-  background-color: var(--color-parchment);
+  background: linear-gradient(160deg, color-mix(in srgb, white 6%, transparent) 0%, transparent 40%), var(--color-parchment);
   border: 1px solid var(--color-biscuit);
   color: var(--color-espresso);
-  border-radius: 16px 16px 16px 4px;
+  border-radius: 22px 22px 22px 6px;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 15%, transparent);
   padding: 14px;
   font-family: var(--font-serif), Georgia, serif;
   font-size: 15px;

@@ -28,8 +28,8 @@ const config: Config = {
         caveat: ["var(--font-caveat)", "cursive"],
       },
       borderRadius: {
-        card: "16px",
-        button: "12px",
+        card: "24px",
+        button: "20px",
       },
       boxShadow: {
         DEFAULT: "none",

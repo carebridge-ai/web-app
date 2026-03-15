@@ -5,7 +5,7 @@ import { searchProviders, normalizeProvider } from '@/lib/npi-registry'
 import { lookupDrug, type DrugLookupResult } from '@/lib/rxnorm-client'
 import { generateChatText } from '@/lib/llm-client'
 import { prisma } from '@/lib/prisma'
-import { MetalTier, PlanType } from '@/generated/prisma'
+import { Prisma, MetalTier, PlanType } from '@/generated/prisma'
 import { lookupStateByZip } from '@/lib/zip-county'
 
 export const runtime = 'nodejs'
@@ -354,7 +354,7 @@ async function persistCmsPlans(plans: CmsPlan[], normalizedPlans: NormalizedPlan
           primaryCareCopay: copays.primary,
           specialistCopay: copays.specialist,
           erCopay: copays.er,
-          drugCoverage: plan.formulary_url ? { formularyUrl: plan.formulary_url } : null,
+          drugCoverage: plan.formulary_url ? { formularyUrl: plan.formulary_url } : Prisma.JsonNull,
           coverageDetails: {
             benefits: normalized.benefits,
             qualityRating: normalized.qualityRating,
@@ -363,7 +363,7 @@ async function persistCmsPlans(plans: CmsPlan[], normalizedPlans: NormalizedPlan
             formularyUrl: normalized.formularyUrl,
           },
           eligibility: { zip },
-          features: null,
+          features: Prisma.JsonNull,
           rawData: {
             source: 'cms',
             externalId: plan.id,
@@ -390,7 +390,7 @@ async function persistCmsPlans(plans: CmsPlan[], normalizedPlans: NormalizedPlan
           primaryCareCopay: copays.primary,
           specialistCopay: copays.specialist,
           erCopay: copays.er,
-          drugCoverage: plan.formulary_url ? { formularyUrl: plan.formulary_url } : null,
+          drugCoverage: plan.formulary_url ? { formularyUrl: plan.formulary_url } : Prisma.JsonNull,
           coverageDetails: {
             benefits: normalized.benefits,
             qualityRating: normalized.qualityRating,
@@ -399,7 +399,7 @@ async function persistCmsPlans(plans: CmsPlan[], normalizedPlans: NormalizedPlan
             formularyUrl: normalized.formularyUrl,
           },
           eligibility: { zip },
-          features: null,
+          features: Prisma.JsonNull,
           rawData: {
             source: 'cms',
             externalId: plan.id,
