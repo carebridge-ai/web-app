@@ -206,12 +206,22 @@ exports.Prisma.PlanScalarFieldEnum = {
   state: 'state',
   metalTier: 'metalTier',
   planType: 'planType',
+  source: 'source',
+  type: 'type',
   monthlyPremium: 'monthlyPremium',
+  annualDeductible: 'annualDeductible',
   deductible: 'deductible',
   maxOutOfPocket: 'maxOutOfPocket',
+  outOfPocketMax: 'outOfPocketMax',
   coinsuranceRate: 'coinsuranceRate',
   primaryCareCopay: 'primaryCareCopay',
   specialistCopay: 'specialistCopay',
+  erCopay: 'erCopay',
+  drugCoverage: 'drugCoverage',
+  coverageDetails: 'coverageDetails',
+  eligibility: 'eligibility',
+  features: 'features',
+  rawData: 'rawData',
   formulary: 'formulary',
   providerNetwork: 'providerNetwork',
   createdAt: 'createdAt',
@@ -246,6 +256,17 @@ exports.Prisma.MedicalProfileScalarFieldEnum = {
   rawDocumentIds: 'rawDocumentIds',
   confidence: 'confidence',
   lastUpdated: 'lastUpdated',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.UserMemoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  conversationId: 'conversationId',
+  summary: 'summary',
+  keyDecisions: 'keyDecisions',
+  followUps: 'followUps',
+  emotionalState: 'emotionalState',
   createdAt: 'createdAt'
 };
 
@@ -387,6 +408,7 @@ exports.Prisma.ModelName = {
   Plan: 'Plan',
   ExtractedPlan: 'ExtractedPlan',
   MedicalProfile: 'MedicalProfile',
+  UserMemory: 'UserMemory',
   ChatConversation: 'ChatConversation',
   ChatMessage: 'ChatMessage',
   ChatRetrievalHit: 'ChatRetrievalHit'

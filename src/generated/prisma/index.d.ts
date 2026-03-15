@@ -64,6 +64,11 @@ export type ExtractedPlan = $Result.DefaultSelection<Prisma.$ExtractedPlanPayloa
  */
 export type MedicalProfile = $Result.DefaultSelection<Prisma.$MedicalProfilePayload>
 /**
+ * Model UserMemory
+ * 
+ */
+export type UserMemory = $Result.DefaultSelection<Prisma.$UserMemoryPayload>
+/**
  * Model ChatConversation
  * 
  */
@@ -422,6 +427,16 @@ export class PrismaClient<
     * ```
     */
   get medicalProfile(): Prisma.MedicalProfileDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userMemory`: Exposes CRUD operations for the **UserMemory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserMemories
+    * const userMemories = await prisma.userMemory.findMany()
+    * ```
+    */
+  get userMemory(): Prisma.UserMemoryDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.chatConversation`: Exposes CRUD operations for the **ChatConversation** model.
@@ -896,6 +911,7 @@ export namespace Prisma {
     Plan: 'Plan',
     ExtractedPlan: 'ExtractedPlan',
     MedicalProfile: 'MedicalProfile',
+    UserMemory: 'UserMemory',
     ChatConversation: 'ChatConversation',
     ChatMessage: 'ChatMessage',
     ChatRetrievalHit: 'ChatRetrievalHit'
@@ -914,7 +930,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "profile" | "consentLog" | "plan" | "extractedPlan" | "medicalProfile" | "chatConversation" | "chatMessage" | "chatRetrievalHit"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "profile" | "consentLog" | "plan" | "extractedPlan" | "medicalProfile" | "userMemory" | "chatConversation" | "chatMessage" | "chatRetrievalHit"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1658,6 +1674,80 @@ export namespace Prisma {
           }
         }
       }
+      UserMemory: {
+        payload: Prisma.$UserMemoryPayload<ExtArgs>
+        fields: Prisma.UserMemoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserMemoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMemoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserMemoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMemoryPayload>
+          }
+          findFirst: {
+            args: Prisma.UserMemoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMemoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserMemoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMemoryPayload>
+          }
+          findMany: {
+            args: Prisma.UserMemoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMemoryPayload>[]
+          }
+          create: {
+            args: Prisma.UserMemoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMemoryPayload>
+          }
+          createMany: {
+            args: Prisma.UserMemoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserMemoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMemoryPayload>[]
+          }
+          delete: {
+            args: Prisma.UserMemoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMemoryPayload>
+          }
+          update: {
+            args: Prisma.UserMemoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMemoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserMemoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserMemoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserMemoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMemoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserMemoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserMemoryPayload>
+          }
+          aggregate: {
+            args: Prisma.UserMemoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserMemory>
+          }
+          groupBy: {
+            args: Prisma.UserMemoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserMemoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserMemoryCountArgs<ExtArgs>
+            result: $Utils.Optional<UserMemoryCountAggregateOutputType> | number
+          }
+        }
+      }
       ChatConversation: {
         payload: Prisma.$ChatConversationPayload<ExtArgs>
         fields: Prisma.ChatConversationFieldRefs
@@ -1998,6 +2088,7 @@ export namespace Prisma {
     plan?: PlanOmit
     extractedPlan?: ExtractedPlanOmit
     medicalProfile?: MedicalProfileOmit
+    userMemory?: UserMemoryOmit
     chatConversation?: ChatConversationOmit
     chatMessage?: ChatMessageOmit
     chatRetrievalHit?: ChatRetrievalHitOmit
@@ -2083,6 +2174,7 @@ export namespace Prisma {
   export type UserCountOutputType = {
     accounts: number
     sessions: number
+    memories: number
     consentLogs: number
     authenticators: number
     chatConversations: number
@@ -2091,6 +2183,7 @@ export namespace Prisma {
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+    memories?: boolean | UserCountOutputTypeCountMemoriesArgs
     consentLogs?: boolean | UserCountOutputTypeCountConsentLogsArgs
     authenticators?: boolean | UserCountOutputTypeCountAuthenticatorsArgs
     chatConversations?: boolean | UserCountOutputTypeCountChatConversationsArgs
@@ -2119,6 +2212,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SessionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMemoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMemoryWhereInput
   }
 
   /**
@@ -2379,6 +2479,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     profile?: boolean | User$profileArgs<ExtArgs>
     medicalProfile?: boolean | User$medicalProfileArgs<ExtArgs>
+    memories?: boolean | User$memoriesArgs<ExtArgs>
     consentLogs?: boolean | User$consentLogsArgs<ExtArgs>
     authenticators?: boolean | User$authenticatorsArgs<ExtArgs>
     chatConversations?: boolean | User$chatConversationsArgs<ExtArgs>
@@ -2424,6 +2525,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     profile?: boolean | User$profileArgs<ExtArgs>
     medicalProfile?: boolean | User$medicalProfileArgs<ExtArgs>
+    memories?: boolean | User$memoriesArgs<ExtArgs>
     consentLogs?: boolean | User$consentLogsArgs<ExtArgs>
     authenticators?: boolean | User$authenticatorsArgs<ExtArgs>
     chatConversations?: boolean | User$chatConversationsArgs<ExtArgs>
@@ -2439,6 +2541,7 @@ export namespace Prisma {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       profile: Prisma.$ProfilePayload<ExtArgs> | null
       medicalProfile: Prisma.$MedicalProfilePayload<ExtArgs> | null
+      memories: Prisma.$UserMemoryPayload<ExtArgs>[]
       consentLogs: Prisma.$ConsentLogPayload<ExtArgs>[]
       authenticators: Prisma.$AuthenticatorPayload<ExtArgs>[]
       chatConversations: Prisma.$ChatConversationPayload<ExtArgs>[]
@@ -2850,6 +2953,7 @@ export namespace Prisma {
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     medicalProfile<T extends User$medicalProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$medicalProfileArgs<ExtArgs>>): Prisma__MedicalProfileClient<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    memories<T extends User$memoriesArgs<ExtArgs> = {}>(args?: Subset<T, User$memoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMemoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     consentLogs<T extends User$consentLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$consentLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConsentLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     authenticators<T extends User$authenticatorsArgs<ExtArgs> = {}>(args?: Subset<T, User$authenticatorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthenticatorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     chatConversations<T extends User$chatConversationsArgs<ExtArgs> = {}>(args?: Subset<T, User$chatConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3366,6 +3470,30 @@ export namespace Prisma {
      */
     include?: MedicalProfileInclude<ExtArgs> | null
     where?: MedicalProfileWhereInput
+  }
+
+  /**
+   * User.memories
+   */
+  export type User$memoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryInclude<ExtArgs> | null
+    where?: UserMemoryWhereInput
+    orderBy?: UserMemoryOrderByWithRelationInput | UserMemoryOrderByWithRelationInput[]
+    cursor?: UserMemoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserMemoryScalarFieldEnum | UserMemoryScalarFieldEnum[]
   }
 
   /**
@@ -10099,20 +10227,26 @@ export namespace Prisma {
 
   export type PlanAvgAggregateOutputType = {
     monthlyPremium: number | null
+    annualDeductible: number | null
     deductible: number | null
     maxOutOfPocket: number | null
+    outOfPocketMax: number | null
     coinsuranceRate: number | null
     primaryCareCopay: number | null
     specialistCopay: number | null
+    erCopay: number | null
   }
 
   export type PlanSumAggregateOutputType = {
     monthlyPremium: number | null
+    annualDeductible: number | null
     deductible: number | null
     maxOutOfPocket: number | null
+    outOfPocketMax: number | null
     coinsuranceRate: number | null
     primaryCareCopay: number | null
     specialistCopay: number | null
+    erCopay: number | null
   }
 
   export type PlanMinAggregateOutputType = {
@@ -10123,12 +10257,17 @@ export namespace Prisma {
     state: string | null
     metalTier: $Enums.MetalTier | null
     planType: $Enums.PlanType | null
+    source: string | null
+    type: string | null
     monthlyPremium: number | null
+    annualDeductible: number | null
     deductible: number | null
     maxOutOfPocket: number | null
+    outOfPocketMax: number | null
     coinsuranceRate: number | null
     primaryCareCopay: number | null
     specialistCopay: number | null
+    erCopay: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -10141,12 +10280,17 @@ export namespace Prisma {
     state: string | null
     metalTier: $Enums.MetalTier | null
     planType: $Enums.PlanType | null
+    source: string | null
+    type: string | null
     monthlyPremium: number | null
+    annualDeductible: number | null
     deductible: number | null
     maxOutOfPocket: number | null
+    outOfPocketMax: number | null
     coinsuranceRate: number | null
     primaryCareCopay: number | null
     specialistCopay: number | null
+    erCopay: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -10159,12 +10303,22 @@ export namespace Prisma {
     state: number
     metalTier: number
     planType: number
+    source: number
+    type: number
     monthlyPremium: number
+    annualDeductible: number
     deductible: number
     maxOutOfPocket: number
+    outOfPocketMax: number
     coinsuranceRate: number
     primaryCareCopay: number
     specialistCopay: number
+    erCopay: number
+    drugCoverage: number
+    coverageDetails: number
+    eligibility: number
+    features: number
+    rawData: number
     formulary: number
     providerNetwork: number
     createdAt: number
@@ -10175,20 +10329,26 @@ export namespace Prisma {
 
   export type PlanAvgAggregateInputType = {
     monthlyPremium?: true
+    annualDeductible?: true
     deductible?: true
     maxOutOfPocket?: true
+    outOfPocketMax?: true
     coinsuranceRate?: true
     primaryCareCopay?: true
     specialistCopay?: true
+    erCopay?: true
   }
 
   export type PlanSumAggregateInputType = {
     monthlyPremium?: true
+    annualDeductible?: true
     deductible?: true
     maxOutOfPocket?: true
+    outOfPocketMax?: true
     coinsuranceRate?: true
     primaryCareCopay?: true
     specialistCopay?: true
+    erCopay?: true
   }
 
   export type PlanMinAggregateInputType = {
@@ -10199,12 +10359,17 @@ export namespace Prisma {
     state?: true
     metalTier?: true
     planType?: true
+    source?: true
+    type?: true
     monthlyPremium?: true
+    annualDeductible?: true
     deductible?: true
     maxOutOfPocket?: true
+    outOfPocketMax?: true
     coinsuranceRate?: true
     primaryCareCopay?: true
     specialistCopay?: true
+    erCopay?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -10217,12 +10382,17 @@ export namespace Prisma {
     state?: true
     metalTier?: true
     planType?: true
+    source?: true
+    type?: true
     monthlyPremium?: true
+    annualDeductible?: true
     deductible?: true
     maxOutOfPocket?: true
+    outOfPocketMax?: true
     coinsuranceRate?: true
     primaryCareCopay?: true
     specialistCopay?: true
+    erCopay?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -10235,12 +10405,22 @@ export namespace Prisma {
     state?: true
     metalTier?: true
     planType?: true
+    source?: true
+    type?: true
     monthlyPremium?: true
+    annualDeductible?: true
     deductible?: true
     maxOutOfPocket?: true
+    outOfPocketMax?: true
     coinsuranceRate?: true
     primaryCareCopay?: true
     specialistCopay?: true
+    erCopay?: true
+    drugCoverage?: true
+    coverageDetails?: true
+    eligibility?: true
+    features?: true
+    rawData?: true
     formulary?: true
     providerNetwork?: true
     createdAt?: true
@@ -10342,12 +10522,22 @@ export namespace Prisma {
     state: string
     metalTier: $Enums.MetalTier
     planType: $Enums.PlanType
+    source: string
+    type: string
     monthlyPremium: number
+    annualDeductible: number
     deductible: number
     maxOutOfPocket: number
+    outOfPocketMax: number
     coinsuranceRate: number
     primaryCareCopay: number
     specialistCopay: number
+    erCopay: number
+    drugCoverage: JsonValue | null
+    coverageDetails: JsonValue | null
+    eligibility: JsonValue | null
+    features: JsonValue | null
+    rawData: JsonValue | null
     formulary: JsonValue
     providerNetwork: JsonValue
     createdAt: Date
@@ -10381,12 +10571,22 @@ export namespace Prisma {
     state?: boolean
     metalTier?: boolean
     planType?: boolean
+    source?: boolean
+    type?: boolean
     monthlyPremium?: boolean
+    annualDeductible?: boolean
     deductible?: boolean
     maxOutOfPocket?: boolean
+    outOfPocketMax?: boolean
     coinsuranceRate?: boolean
     primaryCareCopay?: boolean
     specialistCopay?: boolean
+    erCopay?: boolean
+    drugCoverage?: boolean
+    coverageDetails?: boolean
+    eligibility?: boolean
+    features?: boolean
+    rawData?: boolean
     formulary?: boolean
     providerNetwork?: boolean
     createdAt?: boolean
@@ -10401,12 +10601,22 @@ export namespace Prisma {
     state?: boolean
     metalTier?: boolean
     planType?: boolean
+    source?: boolean
+    type?: boolean
     monthlyPremium?: boolean
+    annualDeductible?: boolean
     deductible?: boolean
     maxOutOfPocket?: boolean
+    outOfPocketMax?: boolean
     coinsuranceRate?: boolean
     primaryCareCopay?: boolean
     specialistCopay?: boolean
+    erCopay?: boolean
+    drugCoverage?: boolean
+    coverageDetails?: boolean
+    eligibility?: boolean
+    features?: boolean
+    rawData?: boolean
     formulary?: boolean
     providerNetwork?: boolean
     createdAt?: boolean
@@ -10421,12 +10631,22 @@ export namespace Prisma {
     state?: boolean
     metalTier?: boolean
     planType?: boolean
+    source?: boolean
+    type?: boolean
     monthlyPremium?: boolean
+    annualDeductible?: boolean
     deductible?: boolean
     maxOutOfPocket?: boolean
+    outOfPocketMax?: boolean
     coinsuranceRate?: boolean
     primaryCareCopay?: boolean
     specialistCopay?: boolean
+    erCopay?: boolean
+    drugCoverage?: boolean
+    coverageDetails?: boolean
+    eligibility?: boolean
+    features?: boolean
+    rawData?: boolean
     formulary?: boolean
     providerNetwork?: boolean
     createdAt?: boolean
@@ -10441,19 +10661,29 @@ export namespace Prisma {
     state?: boolean
     metalTier?: boolean
     planType?: boolean
+    source?: boolean
+    type?: boolean
     monthlyPremium?: boolean
+    annualDeductible?: boolean
     deductible?: boolean
     maxOutOfPocket?: boolean
+    outOfPocketMax?: boolean
     coinsuranceRate?: boolean
     primaryCareCopay?: boolean
     specialistCopay?: boolean
+    erCopay?: boolean
+    drugCoverage?: boolean
+    coverageDetails?: boolean
+    eligibility?: boolean
+    features?: boolean
+    rawData?: boolean
     formulary?: boolean
     providerNetwork?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PlanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "planCode" | "name" | "carrier" | "state" | "metalTier" | "planType" | "monthlyPremium" | "deductible" | "maxOutOfPocket" | "coinsuranceRate" | "primaryCareCopay" | "specialistCopay" | "formulary" | "providerNetwork" | "createdAt" | "updatedAt", ExtArgs["result"]["plan"]>
+  export type PlanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "planCode" | "name" | "carrier" | "state" | "metalTier" | "planType" | "source" | "type" | "monthlyPremium" | "annualDeductible" | "deductible" | "maxOutOfPocket" | "outOfPocketMax" | "coinsuranceRate" | "primaryCareCopay" | "specialistCopay" | "erCopay" | "drugCoverage" | "coverageDetails" | "eligibility" | "features" | "rawData" | "formulary" | "providerNetwork" | "createdAt" | "updatedAt", ExtArgs["result"]["plan"]>
 
   export type $PlanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Plan"
@@ -10466,12 +10696,22 @@ export namespace Prisma {
       state: string
       metalTier: $Enums.MetalTier
       planType: $Enums.PlanType
+      source: string
+      type: string
       monthlyPremium: number
+      annualDeductible: number
       deductible: number
       maxOutOfPocket: number
+      outOfPocketMax: number
       coinsuranceRate: number
       primaryCareCopay: number
       specialistCopay: number
+      erCopay: number
+      drugCoverage: Prisma.JsonValue | null
+      coverageDetails: Prisma.JsonValue | null
+      eligibility: Prisma.JsonValue | null
+      features: Prisma.JsonValue | null
+      rawData: Prisma.JsonValue | null
       formulary: Prisma.JsonValue
       providerNetwork: Prisma.JsonValue
       createdAt: Date
@@ -10906,12 +11146,22 @@ export namespace Prisma {
     readonly state: FieldRef<"Plan", 'String'>
     readonly metalTier: FieldRef<"Plan", 'MetalTier'>
     readonly planType: FieldRef<"Plan", 'PlanType'>
+    readonly source: FieldRef<"Plan", 'String'>
+    readonly type: FieldRef<"Plan", 'String'>
     readonly monthlyPremium: FieldRef<"Plan", 'Int'>
+    readonly annualDeductible: FieldRef<"Plan", 'Int'>
     readonly deductible: FieldRef<"Plan", 'Int'>
     readonly maxOutOfPocket: FieldRef<"Plan", 'Int'>
+    readonly outOfPocketMax: FieldRef<"Plan", 'Int'>
     readonly coinsuranceRate: FieldRef<"Plan", 'Int'>
     readonly primaryCareCopay: FieldRef<"Plan", 'Int'>
     readonly specialistCopay: FieldRef<"Plan", 'Int'>
+    readonly erCopay: FieldRef<"Plan", 'Int'>
+    readonly drugCoverage: FieldRef<"Plan", 'Json'>
+    readonly coverageDetails: FieldRef<"Plan", 'Json'>
+    readonly eligibility: FieldRef<"Plan", 'Json'>
+    readonly features: FieldRef<"Plan", 'Json'>
+    readonly rawData: FieldRef<"Plan", 'Json'>
     readonly formulary: FieldRef<"Plan", 'Json'>
     readonly providerNetwork: FieldRef<"Plan", 'Json'>
     readonly createdAt: FieldRef<"Plan", 'DateTime'>
@@ -13532,6 +13782,1100 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MedicalProfileInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserMemory
+   */
+
+  export type AggregateUserMemory = {
+    _count: UserMemoryCountAggregateOutputType | null
+    _min: UserMemoryMinAggregateOutputType | null
+    _max: UserMemoryMaxAggregateOutputType | null
+  }
+
+  export type UserMemoryMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    conversationId: string | null
+    summary: string | null
+    emotionalState: string | null
+    createdAt: Date | null
+  }
+
+  export type UserMemoryMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    conversationId: string | null
+    summary: string | null
+    emotionalState: string | null
+    createdAt: Date | null
+  }
+
+  export type UserMemoryCountAggregateOutputType = {
+    id: number
+    userId: number
+    conversationId: number
+    summary: number
+    keyDecisions: number
+    followUps: number
+    emotionalState: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type UserMemoryMinAggregateInputType = {
+    id?: true
+    userId?: true
+    conversationId?: true
+    summary?: true
+    emotionalState?: true
+    createdAt?: true
+  }
+
+  export type UserMemoryMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    conversationId?: true
+    summary?: true
+    emotionalState?: true
+    createdAt?: true
+  }
+
+  export type UserMemoryCountAggregateInputType = {
+    id?: true
+    userId?: true
+    conversationId?: true
+    summary?: true
+    keyDecisions?: true
+    followUps?: true
+    emotionalState?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type UserMemoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserMemory to aggregate.
+     */
+    where?: UserMemoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMemories to fetch.
+     */
+    orderBy?: UserMemoryOrderByWithRelationInput | UserMemoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserMemoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMemories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMemories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserMemories
+    **/
+    _count?: true | UserMemoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserMemoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserMemoryMaxAggregateInputType
+  }
+
+  export type GetUserMemoryAggregateType<T extends UserMemoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserMemory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserMemory[P]>
+      : GetScalarType<T[P], AggregateUserMemory[P]>
+  }
+
+
+
+
+  export type UserMemoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserMemoryWhereInput
+    orderBy?: UserMemoryOrderByWithAggregationInput | UserMemoryOrderByWithAggregationInput[]
+    by: UserMemoryScalarFieldEnum[] | UserMemoryScalarFieldEnum
+    having?: UserMemoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserMemoryCountAggregateInputType | true
+    _min?: UserMemoryMinAggregateInputType
+    _max?: UserMemoryMaxAggregateInputType
+  }
+
+  export type UserMemoryGroupByOutputType = {
+    id: string
+    userId: string
+    conversationId: string
+    summary: string
+    keyDecisions: JsonValue
+    followUps: JsonValue
+    emotionalState: string | null
+    createdAt: Date
+    _count: UserMemoryCountAggregateOutputType | null
+    _min: UserMemoryMinAggregateOutputType | null
+    _max: UserMemoryMaxAggregateOutputType | null
+  }
+
+  type GetUserMemoryGroupByPayload<T extends UserMemoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserMemoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserMemoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserMemoryGroupByOutputType[P]>
+            : GetScalarType<T[P], UserMemoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserMemorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    conversationId?: boolean
+    summary?: boolean
+    keyDecisions?: boolean
+    followUps?: boolean
+    emotionalState?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMemory"]>
+
+  export type UserMemorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    conversationId?: boolean
+    summary?: boolean
+    keyDecisions?: boolean
+    followUps?: boolean
+    emotionalState?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMemory"]>
+
+  export type UserMemorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    conversationId?: boolean
+    summary?: boolean
+    keyDecisions?: boolean
+    followUps?: boolean
+    emotionalState?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userMemory"]>
+
+  export type UserMemorySelectScalar = {
+    id?: boolean
+    userId?: boolean
+    conversationId?: boolean
+    summary?: boolean
+    keyDecisions?: boolean
+    followUps?: boolean
+    emotionalState?: boolean
+    createdAt?: boolean
+  }
+
+  export type UserMemoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "conversationId" | "summary" | "keyDecisions" | "followUps" | "emotionalState" | "createdAt", ExtArgs["result"]["userMemory"]>
+  export type UserMemoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserMemoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserMemoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserMemoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserMemory"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      conversationId: string
+      summary: string
+      keyDecisions: Prisma.JsonValue
+      followUps: Prisma.JsonValue
+      emotionalState: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["userMemory"]>
+    composites: {}
+  }
+
+  type UserMemoryGetPayload<S extends boolean | null | undefined | UserMemoryDefaultArgs> = $Result.GetResult<Prisma.$UserMemoryPayload, S>
+
+  type UserMemoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserMemoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserMemoryCountAggregateInputType | true
+    }
+
+  export interface UserMemoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserMemory'], meta: { name: 'UserMemory' } }
+    /**
+     * Find zero or one UserMemory that matches the filter.
+     * @param {UserMemoryFindUniqueArgs} args - Arguments to find a UserMemory
+     * @example
+     * // Get one UserMemory
+     * const userMemory = await prisma.userMemory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserMemoryFindUniqueArgs>(args: SelectSubset<T, UserMemoryFindUniqueArgs<ExtArgs>>): Prisma__UserMemoryClient<$Result.GetResult<Prisma.$UserMemoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserMemory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserMemoryFindUniqueOrThrowArgs} args - Arguments to find a UserMemory
+     * @example
+     * // Get one UserMemory
+     * const userMemory = await prisma.userMemory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserMemoryFindUniqueOrThrowArgs>(args: SelectSubset<T, UserMemoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserMemoryClient<$Result.GetResult<Prisma.$UserMemoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserMemory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMemoryFindFirstArgs} args - Arguments to find a UserMemory
+     * @example
+     * // Get one UserMemory
+     * const userMemory = await prisma.userMemory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserMemoryFindFirstArgs>(args?: SelectSubset<T, UserMemoryFindFirstArgs<ExtArgs>>): Prisma__UserMemoryClient<$Result.GetResult<Prisma.$UserMemoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserMemory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMemoryFindFirstOrThrowArgs} args - Arguments to find a UserMemory
+     * @example
+     * // Get one UserMemory
+     * const userMemory = await prisma.userMemory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserMemoryFindFirstOrThrowArgs>(args?: SelectSubset<T, UserMemoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserMemoryClient<$Result.GetResult<Prisma.$UserMemoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserMemories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMemoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserMemories
+     * const userMemories = await prisma.userMemory.findMany()
+     * 
+     * // Get first 10 UserMemories
+     * const userMemories = await prisma.userMemory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userMemoryWithIdOnly = await prisma.userMemory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserMemoryFindManyArgs>(args?: SelectSubset<T, UserMemoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMemoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserMemory.
+     * @param {UserMemoryCreateArgs} args - Arguments to create a UserMemory.
+     * @example
+     * // Create one UserMemory
+     * const UserMemory = await prisma.userMemory.create({
+     *   data: {
+     *     // ... data to create a UserMemory
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserMemoryCreateArgs>(args: SelectSubset<T, UserMemoryCreateArgs<ExtArgs>>): Prisma__UserMemoryClient<$Result.GetResult<Prisma.$UserMemoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserMemories.
+     * @param {UserMemoryCreateManyArgs} args - Arguments to create many UserMemories.
+     * @example
+     * // Create many UserMemories
+     * const userMemory = await prisma.userMemory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserMemoryCreateManyArgs>(args?: SelectSubset<T, UserMemoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserMemories and returns the data saved in the database.
+     * @param {UserMemoryCreateManyAndReturnArgs} args - Arguments to create many UserMemories.
+     * @example
+     * // Create many UserMemories
+     * const userMemory = await prisma.userMemory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserMemories and only return the `id`
+     * const userMemoryWithIdOnly = await prisma.userMemory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserMemoryCreateManyAndReturnArgs>(args?: SelectSubset<T, UserMemoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMemoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserMemory.
+     * @param {UserMemoryDeleteArgs} args - Arguments to delete one UserMemory.
+     * @example
+     * // Delete one UserMemory
+     * const UserMemory = await prisma.userMemory.delete({
+     *   where: {
+     *     // ... filter to delete one UserMemory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserMemoryDeleteArgs>(args: SelectSubset<T, UserMemoryDeleteArgs<ExtArgs>>): Prisma__UserMemoryClient<$Result.GetResult<Prisma.$UserMemoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserMemory.
+     * @param {UserMemoryUpdateArgs} args - Arguments to update one UserMemory.
+     * @example
+     * // Update one UserMemory
+     * const userMemory = await prisma.userMemory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserMemoryUpdateArgs>(args: SelectSubset<T, UserMemoryUpdateArgs<ExtArgs>>): Prisma__UserMemoryClient<$Result.GetResult<Prisma.$UserMemoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserMemories.
+     * @param {UserMemoryDeleteManyArgs} args - Arguments to filter UserMemories to delete.
+     * @example
+     * // Delete a few UserMemories
+     * const { count } = await prisma.userMemory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserMemoryDeleteManyArgs>(args?: SelectSubset<T, UserMemoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserMemories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMemoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserMemories
+     * const userMemory = await prisma.userMemory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserMemoryUpdateManyArgs>(args: SelectSubset<T, UserMemoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserMemories and returns the data updated in the database.
+     * @param {UserMemoryUpdateManyAndReturnArgs} args - Arguments to update many UserMemories.
+     * @example
+     * // Update many UserMemories
+     * const userMemory = await prisma.userMemory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserMemories and only return the `id`
+     * const userMemoryWithIdOnly = await prisma.userMemory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserMemoryUpdateManyAndReturnArgs>(args: SelectSubset<T, UserMemoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserMemoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserMemory.
+     * @param {UserMemoryUpsertArgs} args - Arguments to update or create a UserMemory.
+     * @example
+     * // Update or create a UserMemory
+     * const userMemory = await prisma.userMemory.upsert({
+     *   create: {
+     *     // ... data to create a UserMemory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserMemory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserMemoryUpsertArgs>(args: SelectSubset<T, UserMemoryUpsertArgs<ExtArgs>>): Prisma__UserMemoryClient<$Result.GetResult<Prisma.$UserMemoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserMemories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMemoryCountArgs} args - Arguments to filter UserMemories to count.
+     * @example
+     * // Count the number of UserMemories
+     * const count = await prisma.userMemory.count({
+     *   where: {
+     *     // ... the filter for the UserMemories we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserMemoryCountArgs>(
+      args?: Subset<T, UserMemoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserMemoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserMemory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMemoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserMemoryAggregateArgs>(args: Subset<T, UserMemoryAggregateArgs>): Prisma.PrismaPromise<GetUserMemoryAggregateType<T>>
+
+    /**
+     * Group by UserMemory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserMemoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserMemoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserMemoryGroupByArgs['orderBy'] }
+        : { orderBy?: UserMemoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserMemoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserMemoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserMemory model
+   */
+  readonly fields: UserMemoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserMemory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserMemoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserMemory model
+   */
+  interface UserMemoryFieldRefs {
+    readonly id: FieldRef<"UserMemory", 'String'>
+    readonly userId: FieldRef<"UserMemory", 'String'>
+    readonly conversationId: FieldRef<"UserMemory", 'String'>
+    readonly summary: FieldRef<"UserMemory", 'String'>
+    readonly keyDecisions: FieldRef<"UserMemory", 'Json'>
+    readonly followUps: FieldRef<"UserMemory", 'Json'>
+    readonly emotionalState: FieldRef<"UserMemory", 'String'>
+    readonly createdAt: FieldRef<"UserMemory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserMemory findUnique
+   */
+  export type UserMemoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMemory to fetch.
+     */
+    where: UserMemoryWhereUniqueInput
+  }
+
+  /**
+   * UserMemory findUniqueOrThrow
+   */
+  export type UserMemoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMemory to fetch.
+     */
+    where: UserMemoryWhereUniqueInput
+  }
+
+  /**
+   * UserMemory findFirst
+   */
+  export type UserMemoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMemory to fetch.
+     */
+    where?: UserMemoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMemories to fetch.
+     */
+    orderBy?: UserMemoryOrderByWithRelationInput | UserMemoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserMemories.
+     */
+    cursor?: UserMemoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMemories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMemories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserMemories.
+     */
+    distinct?: UserMemoryScalarFieldEnum | UserMemoryScalarFieldEnum[]
+  }
+
+  /**
+   * UserMemory findFirstOrThrow
+   */
+  export type UserMemoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMemory to fetch.
+     */
+    where?: UserMemoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMemories to fetch.
+     */
+    orderBy?: UserMemoryOrderByWithRelationInput | UserMemoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserMemories.
+     */
+    cursor?: UserMemoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMemories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMemories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserMemories.
+     */
+    distinct?: UserMemoryScalarFieldEnum | UserMemoryScalarFieldEnum[]
+  }
+
+  /**
+   * UserMemory findMany
+   */
+  export type UserMemoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryInclude<ExtArgs> | null
+    /**
+     * Filter, which UserMemories to fetch.
+     */
+    where?: UserMemoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserMemories to fetch.
+     */
+    orderBy?: UserMemoryOrderByWithRelationInput | UserMemoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserMemories.
+     */
+    cursor?: UserMemoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserMemories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserMemories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserMemories.
+     */
+    distinct?: UserMemoryScalarFieldEnum | UserMemoryScalarFieldEnum[]
+  }
+
+  /**
+   * UserMemory create
+   */
+  export type UserMemoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserMemory.
+     */
+    data: XOR<UserMemoryCreateInput, UserMemoryUncheckedCreateInput>
+  }
+
+  /**
+   * UserMemory createMany
+   */
+  export type UserMemoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserMemories.
+     */
+    data: UserMemoryCreateManyInput | UserMemoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserMemory createManyAndReturn
+   */
+  export type UserMemoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserMemories.
+     */
+    data: UserMemoryCreateManyInput | UserMemoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserMemory update
+   */
+  export type UserMemoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserMemory.
+     */
+    data: XOR<UserMemoryUpdateInput, UserMemoryUncheckedUpdateInput>
+    /**
+     * Choose, which UserMemory to update.
+     */
+    where: UserMemoryWhereUniqueInput
+  }
+
+  /**
+   * UserMemory updateMany
+   */
+  export type UserMemoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserMemories.
+     */
+    data: XOR<UserMemoryUpdateManyMutationInput, UserMemoryUncheckedUpdateManyInput>
+    /**
+     * Filter which UserMemories to update
+     */
+    where?: UserMemoryWhereInput
+    /**
+     * Limit how many UserMemories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserMemory updateManyAndReturn
+   */
+  export type UserMemoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * The data used to update UserMemories.
+     */
+    data: XOR<UserMemoryUpdateManyMutationInput, UserMemoryUncheckedUpdateManyInput>
+    /**
+     * Filter which UserMemories to update
+     */
+    where?: UserMemoryWhereInput
+    /**
+     * Limit how many UserMemories to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserMemory upsert
+   */
+  export type UserMemoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserMemory to update in case it exists.
+     */
+    where: UserMemoryWhereUniqueInput
+    /**
+     * In case the UserMemory found by the `where` argument doesn't exist, create a new UserMemory with this data.
+     */
+    create: XOR<UserMemoryCreateInput, UserMemoryUncheckedCreateInput>
+    /**
+     * In case the UserMemory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserMemoryUpdateInput, UserMemoryUncheckedUpdateInput>
+  }
+
+  /**
+   * UserMemory delete
+   */
+  export type UserMemoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryInclude<ExtArgs> | null
+    /**
+     * Filter which UserMemory to delete.
+     */
+    where: UserMemoryWhereUniqueInput
+  }
+
+  /**
+   * UserMemory deleteMany
+   */
+  export type UserMemoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserMemories to delete
+     */
+    where?: UserMemoryWhereInput
+    /**
+     * Limit how many UserMemories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserMemory without action
+   */
+  export type UserMemoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserMemory
+     */
+    select?: UserMemorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserMemory
+     */
+    omit?: UserMemoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserMemoryInclude<ExtArgs> | null
   }
 
 
@@ -17126,12 +18470,22 @@ export namespace Prisma {
     state: 'state',
     metalTier: 'metalTier',
     planType: 'planType',
+    source: 'source',
+    type: 'type',
     monthlyPremium: 'monthlyPremium',
+    annualDeductible: 'annualDeductible',
     deductible: 'deductible',
     maxOutOfPocket: 'maxOutOfPocket',
+    outOfPocketMax: 'outOfPocketMax',
     coinsuranceRate: 'coinsuranceRate',
     primaryCareCopay: 'primaryCareCopay',
     specialistCopay: 'specialistCopay',
+    erCopay: 'erCopay',
+    drugCoverage: 'drugCoverage',
+    coverageDetails: 'coverageDetails',
+    eligibility: 'eligibility',
+    features: 'features',
+    rawData: 'rawData',
     formulary: 'formulary',
     providerNetwork: 'providerNetwork',
     createdAt: 'createdAt',
@@ -17176,6 +18530,20 @@ export namespace Prisma {
   };
 
   export type MedicalProfileScalarFieldEnum = (typeof MedicalProfileScalarFieldEnum)[keyof typeof MedicalProfileScalarFieldEnum]
+
+
+  export const UserMemoryScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    conversationId: 'conversationId',
+    summary: 'summary',
+    keyDecisions: 'keyDecisions',
+    followUps: 'followUps',
+    emotionalState: 'emotionalState',
+    createdAt: 'createdAt'
+  };
+
+  export type UserMemoryScalarFieldEnum = (typeof UserMemoryScalarFieldEnum)[keyof typeof UserMemoryScalarFieldEnum]
 
 
   export const ChatConversationScalarFieldEnum: {
@@ -17484,6 +18852,7 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
     medicalProfile?: XOR<MedicalProfileNullableScalarRelationFilter, MedicalProfileWhereInput> | null
+    memories?: UserMemoryListRelationFilter
     consentLogs?: ConsentLogListRelationFilter
     authenticators?: AuthenticatorListRelationFilter
     chatConversations?: ChatConversationListRelationFilter
@@ -17502,6 +18871,7 @@ export namespace Prisma {
     sessions?: SessionOrderByRelationAggregateInput
     profile?: ProfileOrderByWithRelationInput
     medicalProfile?: MedicalProfileOrderByWithRelationInput
+    memories?: UserMemoryOrderByRelationAggregateInput
     consentLogs?: ConsentLogOrderByRelationAggregateInput
     authenticators?: AuthenticatorOrderByRelationAggregateInput
     chatConversations?: ChatConversationOrderByRelationAggregateInput
@@ -17523,6 +18893,7 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
     medicalProfile?: XOR<MedicalProfileNullableScalarRelationFilter, MedicalProfileWhereInput> | null
+    memories?: UserMemoryListRelationFilter
     consentLogs?: ConsentLogListRelationFilter
     authenticators?: AuthenticatorListRelationFilter
     chatConversations?: ChatConversationListRelationFilter
@@ -17996,12 +19367,22 @@ export namespace Prisma {
     state?: StringFilter<"Plan"> | string
     metalTier?: EnumMetalTierFilter<"Plan"> | $Enums.MetalTier
     planType?: EnumPlanTypeFilter<"Plan"> | $Enums.PlanType
+    source?: StringFilter<"Plan"> | string
+    type?: StringFilter<"Plan"> | string
     monthlyPremium?: IntFilter<"Plan"> | number
+    annualDeductible?: IntFilter<"Plan"> | number
     deductible?: IntFilter<"Plan"> | number
     maxOutOfPocket?: IntFilter<"Plan"> | number
+    outOfPocketMax?: IntFilter<"Plan"> | number
     coinsuranceRate?: IntFilter<"Plan"> | number
     primaryCareCopay?: IntFilter<"Plan"> | number
     specialistCopay?: IntFilter<"Plan"> | number
+    erCopay?: IntFilter<"Plan"> | number
+    drugCoverage?: JsonNullableFilter<"Plan">
+    coverageDetails?: JsonNullableFilter<"Plan">
+    eligibility?: JsonNullableFilter<"Plan">
+    features?: JsonNullableFilter<"Plan">
+    rawData?: JsonNullableFilter<"Plan">
     formulary?: JsonFilter<"Plan">
     providerNetwork?: JsonFilter<"Plan">
     createdAt?: DateTimeFilter<"Plan"> | Date | string
@@ -18016,12 +19397,22 @@ export namespace Prisma {
     state?: SortOrder
     metalTier?: SortOrder
     planType?: SortOrder
+    source?: SortOrder
+    type?: SortOrder
     monthlyPremium?: SortOrder
+    annualDeductible?: SortOrder
     deductible?: SortOrder
     maxOutOfPocket?: SortOrder
+    outOfPocketMax?: SortOrder
     coinsuranceRate?: SortOrder
     primaryCareCopay?: SortOrder
     specialistCopay?: SortOrder
+    erCopay?: SortOrder
+    drugCoverage?: SortOrderInput | SortOrder
+    coverageDetails?: SortOrderInput | SortOrder
+    eligibility?: SortOrderInput | SortOrder
+    features?: SortOrderInput | SortOrder
+    rawData?: SortOrderInput | SortOrder
     formulary?: SortOrder
     providerNetwork?: SortOrder
     createdAt?: SortOrder
@@ -18039,12 +19430,22 @@ export namespace Prisma {
     state?: StringFilter<"Plan"> | string
     metalTier?: EnumMetalTierFilter<"Plan"> | $Enums.MetalTier
     planType?: EnumPlanTypeFilter<"Plan"> | $Enums.PlanType
+    source?: StringFilter<"Plan"> | string
+    type?: StringFilter<"Plan"> | string
     monthlyPremium?: IntFilter<"Plan"> | number
+    annualDeductible?: IntFilter<"Plan"> | number
     deductible?: IntFilter<"Plan"> | number
     maxOutOfPocket?: IntFilter<"Plan"> | number
+    outOfPocketMax?: IntFilter<"Plan"> | number
     coinsuranceRate?: IntFilter<"Plan"> | number
     primaryCareCopay?: IntFilter<"Plan"> | number
     specialistCopay?: IntFilter<"Plan"> | number
+    erCopay?: IntFilter<"Plan"> | number
+    drugCoverage?: JsonNullableFilter<"Plan">
+    coverageDetails?: JsonNullableFilter<"Plan">
+    eligibility?: JsonNullableFilter<"Plan">
+    features?: JsonNullableFilter<"Plan">
+    rawData?: JsonNullableFilter<"Plan">
     formulary?: JsonFilter<"Plan">
     providerNetwork?: JsonFilter<"Plan">
     createdAt?: DateTimeFilter<"Plan"> | Date | string
@@ -18059,12 +19460,22 @@ export namespace Prisma {
     state?: SortOrder
     metalTier?: SortOrder
     planType?: SortOrder
+    source?: SortOrder
+    type?: SortOrder
     monthlyPremium?: SortOrder
+    annualDeductible?: SortOrder
     deductible?: SortOrder
     maxOutOfPocket?: SortOrder
+    outOfPocketMax?: SortOrder
     coinsuranceRate?: SortOrder
     primaryCareCopay?: SortOrder
     specialistCopay?: SortOrder
+    erCopay?: SortOrder
+    drugCoverage?: SortOrderInput | SortOrder
+    coverageDetails?: SortOrderInput | SortOrder
+    eligibility?: SortOrderInput | SortOrder
+    features?: SortOrderInput | SortOrder
+    rawData?: SortOrderInput | SortOrder
     formulary?: SortOrder
     providerNetwork?: SortOrder
     createdAt?: SortOrder
@@ -18087,12 +19498,22 @@ export namespace Prisma {
     state?: StringWithAggregatesFilter<"Plan"> | string
     metalTier?: EnumMetalTierWithAggregatesFilter<"Plan"> | $Enums.MetalTier
     planType?: EnumPlanTypeWithAggregatesFilter<"Plan"> | $Enums.PlanType
+    source?: StringWithAggregatesFilter<"Plan"> | string
+    type?: StringWithAggregatesFilter<"Plan"> | string
     monthlyPremium?: IntWithAggregatesFilter<"Plan"> | number
+    annualDeductible?: IntWithAggregatesFilter<"Plan"> | number
     deductible?: IntWithAggregatesFilter<"Plan"> | number
     maxOutOfPocket?: IntWithAggregatesFilter<"Plan"> | number
+    outOfPocketMax?: IntWithAggregatesFilter<"Plan"> | number
     coinsuranceRate?: IntWithAggregatesFilter<"Plan"> | number
     primaryCareCopay?: IntWithAggregatesFilter<"Plan"> | number
     specialistCopay?: IntWithAggregatesFilter<"Plan"> | number
+    erCopay?: IntWithAggregatesFilter<"Plan"> | number
+    drugCoverage?: JsonNullableWithAggregatesFilter<"Plan">
+    coverageDetails?: JsonNullableWithAggregatesFilter<"Plan">
+    eligibility?: JsonNullableWithAggregatesFilter<"Plan">
+    features?: JsonNullableWithAggregatesFilter<"Plan">
+    rawData?: JsonNullableWithAggregatesFilter<"Plan">
     formulary?: JsonWithAggregatesFilter<"Plan">
     providerNetwork?: JsonWithAggregatesFilter<"Plan">
     createdAt?: DateTimeWithAggregatesFilter<"Plan"> | Date | string
@@ -18281,6 +19702,76 @@ export namespace Prisma {
     confidence?: FloatWithAggregatesFilter<"MedicalProfile"> | number
     lastUpdated?: DateTimeWithAggregatesFilter<"MedicalProfile"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"MedicalProfile"> | Date | string
+  }
+
+  export type UserMemoryWhereInput = {
+    AND?: UserMemoryWhereInput | UserMemoryWhereInput[]
+    OR?: UserMemoryWhereInput[]
+    NOT?: UserMemoryWhereInput | UserMemoryWhereInput[]
+    id?: StringFilter<"UserMemory"> | string
+    userId?: StringFilter<"UserMemory"> | string
+    conversationId?: StringFilter<"UserMemory"> | string
+    summary?: StringFilter<"UserMemory"> | string
+    keyDecisions?: JsonFilter<"UserMemory">
+    followUps?: JsonFilter<"UserMemory">
+    emotionalState?: StringNullableFilter<"UserMemory"> | string | null
+    createdAt?: DateTimeFilter<"UserMemory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserMemoryOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conversationId?: SortOrder
+    summary?: SortOrder
+    keyDecisions?: SortOrder
+    followUps?: SortOrder
+    emotionalState?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserMemoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: UserMemoryWhereInput | UserMemoryWhereInput[]
+    OR?: UserMemoryWhereInput[]
+    NOT?: UserMemoryWhereInput | UserMemoryWhereInput[]
+    userId?: StringFilter<"UserMemory"> | string
+    conversationId?: StringFilter<"UserMemory"> | string
+    summary?: StringFilter<"UserMemory"> | string
+    keyDecisions?: JsonFilter<"UserMemory">
+    followUps?: JsonFilter<"UserMemory">
+    emotionalState?: StringNullableFilter<"UserMemory"> | string | null
+    createdAt?: DateTimeFilter<"UserMemory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type UserMemoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conversationId?: SortOrder
+    summary?: SortOrder
+    keyDecisions?: SortOrder
+    followUps?: SortOrder
+    emotionalState?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: UserMemoryCountOrderByAggregateInput
+    _max?: UserMemoryMaxOrderByAggregateInput
+    _min?: UserMemoryMinOrderByAggregateInput
+  }
+
+  export type UserMemoryScalarWhereWithAggregatesInput = {
+    AND?: UserMemoryScalarWhereWithAggregatesInput | UserMemoryScalarWhereWithAggregatesInput[]
+    OR?: UserMemoryScalarWhereWithAggregatesInput[]
+    NOT?: UserMemoryScalarWhereWithAggregatesInput | UserMemoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserMemory"> | string
+    userId?: StringWithAggregatesFilter<"UserMemory"> | string
+    conversationId?: StringWithAggregatesFilter<"UserMemory"> | string
+    summary?: StringWithAggregatesFilter<"UserMemory"> | string
+    keyDecisions?: JsonWithAggregatesFilter<"UserMemory">
+    followUps?: JsonWithAggregatesFilter<"UserMemory">
+    emotionalState?: StringNullableWithAggregatesFilter<"UserMemory"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"UserMemory"> | Date | string
   }
 
   export type ChatConversationWhereInput = {
@@ -18531,6 +20022,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
+    memories?: UserMemoryCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
@@ -18549,6 +20041,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
+    memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
@@ -18567,6 +20060,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
@@ -18585,6 +20079,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
@@ -19095,12 +20590,22 @@ export namespace Prisma {
     state: string
     metalTier: $Enums.MetalTier
     planType: $Enums.PlanType
+    source?: string
+    type?: string
     monthlyPremium: number
+    annualDeductible?: number
     deductible: number
     maxOutOfPocket: number
+    outOfPocketMax?: number
     coinsuranceRate: number
     primaryCareCopay: number
     specialistCopay: number
+    erCopay?: number
+    drugCoverage?: NullableJsonNullValueInput | InputJsonValue
+    coverageDetails?: NullableJsonNullValueInput | InputJsonValue
+    eligibility?: NullableJsonNullValueInput | InputJsonValue
+    features?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
     formulary: JsonNullValueInput | InputJsonValue
     providerNetwork: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
@@ -19115,12 +20620,22 @@ export namespace Prisma {
     state: string
     metalTier: $Enums.MetalTier
     planType: $Enums.PlanType
+    source?: string
+    type?: string
     monthlyPremium: number
+    annualDeductible?: number
     deductible: number
     maxOutOfPocket: number
+    outOfPocketMax?: number
     coinsuranceRate: number
     primaryCareCopay: number
     specialistCopay: number
+    erCopay?: number
+    drugCoverage?: NullableJsonNullValueInput | InputJsonValue
+    coverageDetails?: NullableJsonNullValueInput | InputJsonValue
+    eligibility?: NullableJsonNullValueInput | InputJsonValue
+    features?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
     formulary: JsonNullValueInput | InputJsonValue
     providerNetwork: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
@@ -19135,12 +20650,22 @@ export namespace Prisma {
     state?: StringFieldUpdateOperationsInput | string
     metalTier?: EnumMetalTierFieldUpdateOperationsInput | $Enums.MetalTier
     planType?: EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+    source?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     monthlyPremium?: IntFieldUpdateOperationsInput | number
+    annualDeductible?: IntFieldUpdateOperationsInput | number
     deductible?: IntFieldUpdateOperationsInput | number
     maxOutOfPocket?: IntFieldUpdateOperationsInput | number
+    outOfPocketMax?: IntFieldUpdateOperationsInput | number
     coinsuranceRate?: IntFieldUpdateOperationsInput | number
     primaryCareCopay?: IntFieldUpdateOperationsInput | number
     specialistCopay?: IntFieldUpdateOperationsInput | number
+    erCopay?: IntFieldUpdateOperationsInput | number
+    drugCoverage?: NullableJsonNullValueInput | InputJsonValue
+    coverageDetails?: NullableJsonNullValueInput | InputJsonValue
+    eligibility?: NullableJsonNullValueInput | InputJsonValue
+    features?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
     formulary?: JsonNullValueInput | InputJsonValue
     providerNetwork?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19155,12 +20680,22 @@ export namespace Prisma {
     state?: StringFieldUpdateOperationsInput | string
     metalTier?: EnumMetalTierFieldUpdateOperationsInput | $Enums.MetalTier
     planType?: EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+    source?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     monthlyPremium?: IntFieldUpdateOperationsInput | number
+    annualDeductible?: IntFieldUpdateOperationsInput | number
     deductible?: IntFieldUpdateOperationsInput | number
     maxOutOfPocket?: IntFieldUpdateOperationsInput | number
+    outOfPocketMax?: IntFieldUpdateOperationsInput | number
     coinsuranceRate?: IntFieldUpdateOperationsInput | number
     primaryCareCopay?: IntFieldUpdateOperationsInput | number
     specialistCopay?: IntFieldUpdateOperationsInput | number
+    erCopay?: IntFieldUpdateOperationsInput | number
+    drugCoverage?: NullableJsonNullValueInput | InputJsonValue
+    coverageDetails?: NullableJsonNullValueInput | InputJsonValue
+    eligibility?: NullableJsonNullValueInput | InputJsonValue
+    features?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
     formulary?: JsonNullValueInput | InputJsonValue
     providerNetwork?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19175,12 +20710,22 @@ export namespace Prisma {
     state: string
     metalTier: $Enums.MetalTier
     planType: $Enums.PlanType
+    source?: string
+    type?: string
     monthlyPremium: number
+    annualDeductible?: number
     deductible: number
     maxOutOfPocket: number
+    outOfPocketMax?: number
     coinsuranceRate: number
     primaryCareCopay: number
     specialistCopay: number
+    erCopay?: number
+    drugCoverage?: NullableJsonNullValueInput | InputJsonValue
+    coverageDetails?: NullableJsonNullValueInput | InputJsonValue
+    eligibility?: NullableJsonNullValueInput | InputJsonValue
+    features?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
     formulary: JsonNullValueInput | InputJsonValue
     providerNetwork: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
@@ -19195,12 +20740,22 @@ export namespace Prisma {
     state?: StringFieldUpdateOperationsInput | string
     metalTier?: EnumMetalTierFieldUpdateOperationsInput | $Enums.MetalTier
     planType?: EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+    source?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     monthlyPremium?: IntFieldUpdateOperationsInput | number
+    annualDeductible?: IntFieldUpdateOperationsInput | number
     deductible?: IntFieldUpdateOperationsInput | number
     maxOutOfPocket?: IntFieldUpdateOperationsInput | number
+    outOfPocketMax?: IntFieldUpdateOperationsInput | number
     coinsuranceRate?: IntFieldUpdateOperationsInput | number
     primaryCareCopay?: IntFieldUpdateOperationsInput | number
     specialistCopay?: IntFieldUpdateOperationsInput | number
+    erCopay?: IntFieldUpdateOperationsInput | number
+    drugCoverage?: NullableJsonNullValueInput | InputJsonValue
+    coverageDetails?: NullableJsonNullValueInput | InputJsonValue
+    eligibility?: NullableJsonNullValueInput | InputJsonValue
+    features?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
     formulary?: JsonNullValueInput | InputJsonValue
     providerNetwork?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19215,12 +20770,22 @@ export namespace Prisma {
     state?: StringFieldUpdateOperationsInput | string
     metalTier?: EnumMetalTierFieldUpdateOperationsInput | $Enums.MetalTier
     planType?: EnumPlanTypeFieldUpdateOperationsInput | $Enums.PlanType
+    source?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     monthlyPremium?: IntFieldUpdateOperationsInput | number
+    annualDeductible?: IntFieldUpdateOperationsInput | number
     deductible?: IntFieldUpdateOperationsInput | number
     maxOutOfPocket?: IntFieldUpdateOperationsInput | number
+    outOfPocketMax?: IntFieldUpdateOperationsInput | number
     coinsuranceRate?: IntFieldUpdateOperationsInput | number
     primaryCareCopay?: IntFieldUpdateOperationsInput | number
     specialistCopay?: IntFieldUpdateOperationsInput | number
+    erCopay?: IntFieldUpdateOperationsInput | number
+    drugCoverage?: NullableJsonNullValueInput | InputJsonValue
+    coverageDetails?: NullableJsonNullValueInput | InputJsonValue
+    eligibility?: NullableJsonNullValueInput | InputJsonValue
+    features?: NullableJsonNullValueInput | InputJsonValue
+    rawData?: NullableJsonNullValueInput | InputJsonValue
     formulary?: JsonNullValueInput | InputJsonValue
     providerNetwork?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19440,6 +21005,82 @@ export namespace Prisma {
     rawDocumentIds?: MedicalProfileUpdaterawDocumentIdsInput | string[]
     confidence?: FloatFieldUpdateOperationsInput | number
     lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMemoryCreateInput = {
+    id?: string
+    conversationId: string
+    summary: string
+    keyDecisions: JsonNullValueInput | InputJsonValue
+    followUps: JsonNullValueInput | InputJsonValue
+    emotionalState?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutMemoriesInput
+  }
+
+  export type UserMemoryUncheckedCreateInput = {
+    id?: string
+    userId: string
+    conversationId: string
+    summary: string
+    keyDecisions: JsonNullValueInput | InputJsonValue
+    followUps: JsonNullValueInput | InputJsonValue
+    emotionalState?: string | null
+    createdAt?: Date | string
+  }
+
+  export type UserMemoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    keyDecisions?: JsonNullValueInput | InputJsonValue
+    followUps?: JsonNullValueInput | InputJsonValue
+    emotionalState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMemoriesNestedInput
+  }
+
+  export type UserMemoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    keyDecisions?: JsonNullValueInput | InputJsonValue
+    followUps?: JsonNullValueInput | InputJsonValue
+    emotionalState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMemoryCreateManyInput = {
+    id?: string
+    userId: string
+    conversationId: string
+    summary: string
+    keyDecisions: JsonNullValueInput | InputJsonValue
+    followUps: JsonNullValueInput | InputJsonValue
+    emotionalState?: string | null
+    createdAt?: Date | string
+  }
+
+  export type UserMemoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    keyDecisions?: JsonNullValueInput | InputJsonValue
+    followUps?: JsonNullValueInput | InputJsonValue
+    emotionalState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMemoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    keyDecisions?: JsonNullValueInput | InputJsonValue
+    followUps?: JsonNullValueInput | InputJsonValue
+    emotionalState?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19774,6 +21415,12 @@ export namespace Prisma {
     isNot?: MedicalProfileWhereInput | null
   }
 
+  export type UserMemoryListRelationFilter = {
+    every?: UserMemoryWhereInput
+    some?: UserMemoryWhereInput
+    none?: UserMemoryWhereInput
+  }
+
   export type ConsentLogListRelationFilter = {
     every?: ConsentLogWhereInput
     some?: ConsentLogWhereInput
@@ -19802,6 +21449,10 @@ export namespace Prisma {
   }
 
   export type SessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserMemoryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -20438,12 +22089,22 @@ export namespace Prisma {
     state?: SortOrder
     metalTier?: SortOrder
     planType?: SortOrder
+    source?: SortOrder
+    type?: SortOrder
     monthlyPremium?: SortOrder
+    annualDeductible?: SortOrder
     deductible?: SortOrder
     maxOutOfPocket?: SortOrder
+    outOfPocketMax?: SortOrder
     coinsuranceRate?: SortOrder
     primaryCareCopay?: SortOrder
     specialistCopay?: SortOrder
+    erCopay?: SortOrder
+    drugCoverage?: SortOrder
+    coverageDetails?: SortOrder
+    eligibility?: SortOrder
+    features?: SortOrder
+    rawData?: SortOrder
     formulary?: SortOrder
     providerNetwork?: SortOrder
     createdAt?: SortOrder
@@ -20452,11 +22113,14 @@ export namespace Prisma {
 
   export type PlanAvgOrderByAggregateInput = {
     monthlyPremium?: SortOrder
+    annualDeductible?: SortOrder
     deductible?: SortOrder
     maxOutOfPocket?: SortOrder
+    outOfPocketMax?: SortOrder
     coinsuranceRate?: SortOrder
     primaryCareCopay?: SortOrder
     specialistCopay?: SortOrder
+    erCopay?: SortOrder
   }
 
   export type PlanMaxOrderByAggregateInput = {
@@ -20467,12 +22131,17 @@ export namespace Prisma {
     state?: SortOrder
     metalTier?: SortOrder
     planType?: SortOrder
+    source?: SortOrder
+    type?: SortOrder
     monthlyPremium?: SortOrder
+    annualDeductible?: SortOrder
     deductible?: SortOrder
     maxOutOfPocket?: SortOrder
+    outOfPocketMax?: SortOrder
     coinsuranceRate?: SortOrder
     primaryCareCopay?: SortOrder
     specialistCopay?: SortOrder
+    erCopay?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20485,23 +22154,31 @@ export namespace Prisma {
     state?: SortOrder
     metalTier?: SortOrder
     planType?: SortOrder
+    source?: SortOrder
+    type?: SortOrder
     monthlyPremium?: SortOrder
+    annualDeductible?: SortOrder
     deductible?: SortOrder
     maxOutOfPocket?: SortOrder
+    outOfPocketMax?: SortOrder
     coinsuranceRate?: SortOrder
     primaryCareCopay?: SortOrder
     specialistCopay?: SortOrder
+    erCopay?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type PlanSumOrderByAggregateInput = {
     monthlyPremium?: SortOrder
+    annualDeductible?: SortOrder
     deductible?: SortOrder
     maxOutOfPocket?: SortOrder
+    outOfPocketMax?: SortOrder
     coinsuranceRate?: SortOrder
     primaryCareCopay?: SortOrder
     specialistCopay?: SortOrder
+    erCopay?: SortOrder
   }
 
   export type EnumMetalTierWithAggregatesFilter<$PrismaModel = never> = {
@@ -20636,6 +22313,35 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type UserMemoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conversationId?: SortOrder
+    summary?: SortOrder
+    keyDecisions?: SortOrder
+    followUps?: SortOrder
+    emotionalState?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserMemoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conversationId?: SortOrder
+    summary?: SortOrder
+    emotionalState?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserMemoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conversationId?: SortOrder
+    summary?: SortOrder
+    emotionalState?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type UserNullableScalarRelationFilter = {
@@ -20808,6 +22514,13 @@ export namespace Prisma {
     connect?: MedicalProfileWhereUniqueInput
   }
 
+  export type UserMemoryCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserMemoryCreateWithoutUserInput, UserMemoryUncheckedCreateWithoutUserInput> | UserMemoryCreateWithoutUserInput[] | UserMemoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMemoryCreateOrConnectWithoutUserInput | UserMemoryCreateOrConnectWithoutUserInput[]
+    createMany?: UserMemoryCreateManyUserInputEnvelope
+    connect?: UserMemoryWhereUniqueInput | UserMemoryWhereUniqueInput[]
+  }
+
   export type ConsentLogCreateNestedManyWithoutUserInput = {
     create?: XOR<ConsentLogCreateWithoutUserInput, ConsentLogUncheckedCreateWithoutUserInput> | ConsentLogCreateWithoutUserInput[] | ConsentLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ConsentLogCreateOrConnectWithoutUserInput | ConsentLogCreateOrConnectWithoutUserInput[]
@@ -20853,6 +22566,13 @@ export namespace Prisma {
     create?: XOR<MedicalProfileCreateWithoutUserInput, MedicalProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: MedicalProfileCreateOrConnectWithoutUserInput
     connect?: MedicalProfileWhereUniqueInput
+  }
+
+  export type UserMemoryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserMemoryCreateWithoutUserInput, UserMemoryUncheckedCreateWithoutUserInput> | UserMemoryCreateWithoutUserInput[] | UserMemoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMemoryCreateOrConnectWithoutUserInput | UserMemoryCreateOrConnectWithoutUserInput[]
+    createMany?: UserMemoryCreateManyUserInputEnvelope
+    connect?: UserMemoryWhereUniqueInput | UserMemoryWhereUniqueInput[]
   }
 
   export type ConsentLogUncheckedCreateNestedManyWithoutUserInput = {
@@ -20938,6 +22658,20 @@ export namespace Prisma {
     delete?: MedicalProfileWhereInput | boolean
     connect?: MedicalProfileWhereUniqueInput
     update?: XOR<XOR<MedicalProfileUpdateToOneWithWhereWithoutUserInput, MedicalProfileUpdateWithoutUserInput>, MedicalProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserMemoryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserMemoryCreateWithoutUserInput, UserMemoryUncheckedCreateWithoutUserInput> | UserMemoryCreateWithoutUserInput[] | UserMemoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMemoryCreateOrConnectWithoutUserInput | UserMemoryCreateOrConnectWithoutUserInput[]
+    upsert?: UserMemoryUpsertWithWhereUniqueWithoutUserInput | UserMemoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserMemoryCreateManyUserInputEnvelope
+    set?: UserMemoryWhereUniqueInput | UserMemoryWhereUniqueInput[]
+    disconnect?: UserMemoryWhereUniqueInput | UserMemoryWhereUniqueInput[]
+    delete?: UserMemoryWhereUniqueInput | UserMemoryWhereUniqueInput[]
+    connect?: UserMemoryWhereUniqueInput | UserMemoryWhereUniqueInput[]
+    update?: UserMemoryUpdateWithWhereUniqueWithoutUserInput | UserMemoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserMemoryUpdateManyWithWhereWithoutUserInput | UserMemoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserMemoryScalarWhereInput | UserMemoryScalarWhereInput[]
   }
 
   export type ConsentLogUpdateManyWithoutUserNestedInput = {
@@ -21028,6 +22762,20 @@ export namespace Prisma {
     delete?: MedicalProfileWhereInput | boolean
     connect?: MedicalProfileWhereUniqueInput
     update?: XOR<XOR<MedicalProfileUpdateToOneWithWhereWithoutUserInput, MedicalProfileUpdateWithoutUserInput>, MedicalProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserMemoryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserMemoryCreateWithoutUserInput, UserMemoryUncheckedCreateWithoutUserInput> | UserMemoryCreateWithoutUserInput[] | UserMemoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserMemoryCreateOrConnectWithoutUserInput | UserMemoryCreateOrConnectWithoutUserInput[]
+    upsert?: UserMemoryUpsertWithWhereUniqueWithoutUserInput | UserMemoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserMemoryCreateManyUserInputEnvelope
+    set?: UserMemoryWhereUniqueInput | UserMemoryWhereUniqueInput[]
+    disconnect?: UserMemoryWhereUniqueInput | UserMemoryWhereUniqueInput[]
+    delete?: UserMemoryWhereUniqueInput | UserMemoryWhereUniqueInput[]
+    connect?: UserMemoryWhereUniqueInput | UserMemoryWhereUniqueInput[]
+    update?: UserMemoryUpdateWithWhereUniqueWithoutUserInput | UserMemoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserMemoryUpdateManyWithWhereWithoutUserInput | UserMemoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserMemoryScalarWhereInput | UserMemoryScalarWhereInput[]
   }
 
   export type ConsentLogUncheckedUpdateManyWithoutUserNestedInput = {
@@ -21223,6 +22971,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutMedicalProfileInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMedicalProfileInput, UserUpdateWithoutMedicalProfileInput>, UserUncheckedUpdateWithoutMedicalProfileInput>
+  }
+
+  export type UserCreateNestedOneWithoutMemoriesInput = {
+    create?: XOR<UserCreateWithoutMemoriesInput, UserUncheckedCreateWithoutMemoriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMemoriesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutMemoriesNestedInput = {
+    create?: XOR<UserCreateWithoutMemoriesInput, UserUncheckedCreateWithoutMemoriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMemoriesInput
+    upsert?: UserUpsertWithoutMemoriesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMemoriesInput, UserUpdateWithoutMemoriesInput>, UserUncheckedUpdateWithoutMemoriesInput>
   }
 
   export type UserCreateNestedOneWithoutChatConversationsInput = {
@@ -21892,6 +23654,36 @@ export namespace Prisma {
     create: XOR<MedicalProfileCreateWithoutUserInput, MedicalProfileUncheckedCreateWithoutUserInput>
   }
 
+  export type UserMemoryCreateWithoutUserInput = {
+    id?: string
+    conversationId: string
+    summary: string
+    keyDecisions: JsonNullValueInput | InputJsonValue
+    followUps: JsonNullValueInput | InputJsonValue
+    emotionalState?: string | null
+    createdAt?: Date | string
+  }
+
+  export type UserMemoryUncheckedCreateWithoutUserInput = {
+    id?: string
+    conversationId: string
+    summary: string
+    keyDecisions: JsonNullValueInput | InputJsonValue
+    followUps: JsonNullValueInput | InputJsonValue
+    emotionalState?: string | null
+    createdAt?: Date | string
+  }
+
+  export type UserMemoryCreateOrConnectWithoutUserInput = {
+    where: UserMemoryWhereUniqueInput
+    create: XOR<UserMemoryCreateWithoutUserInput, UserMemoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserMemoryCreateManyUserInputEnvelope = {
+    data: UserMemoryCreateManyUserInput | UserMemoryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ConsentLogCreateWithoutUserInput = {
     id?: string
     action: string
@@ -22135,6 +23927,36 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserMemoryUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserMemoryWhereUniqueInput
+    update: XOR<UserMemoryUpdateWithoutUserInput, UserMemoryUncheckedUpdateWithoutUserInput>
+    create: XOR<UserMemoryCreateWithoutUserInput, UserMemoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserMemoryUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserMemoryWhereUniqueInput
+    data: XOR<UserMemoryUpdateWithoutUserInput, UserMemoryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserMemoryUpdateManyWithWhereWithoutUserInput = {
+    where: UserMemoryScalarWhereInput
+    data: XOR<UserMemoryUpdateManyMutationInput, UserMemoryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserMemoryScalarWhereInput = {
+    AND?: UserMemoryScalarWhereInput | UserMemoryScalarWhereInput[]
+    OR?: UserMemoryScalarWhereInput[]
+    NOT?: UserMemoryScalarWhereInput | UserMemoryScalarWhereInput[]
+    id?: StringFilter<"UserMemory"> | string
+    userId?: StringFilter<"UserMemory"> | string
+    conversationId?: StringFilter<"UserMemory"> | string
+    summary?: StringFilter<"UserMemory"> | string
+    keyDecisions?: JsonFilter<"UserMemory">
+    followUps?: JsonFilter<"UserMemory">
+    emotionalState?: StringNullableFilter<"UserMemory"> | string | null
+    createdAt?: DateTimeFilter<"UserMemory"> | Date | string
+  }
+
   export type ConsentLogUpsertWithWhereUniqueWithoutUserInput = {
     where: ConsentLogWhereUniqueInput
     update: XOR<ConsentLogUpdateWithoutUserInput, ConsentLogUncheckedUpdateWithoutUserInput>
@@ -22237,6 +24059,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
+    memories?: UserMemoryCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
@@ -22254,6 +24077,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
+    memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
@@ -22287,6 +24111,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
@@ -22304,6 +24129,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
@@ -22321,6 +24147,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
+    memories?: UserMemoryCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
@@ -22338,6 +24165,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
+    memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
@@ -22371,6 +24199,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
@@ -22388,6 +24217,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
@@ -22406,6 +24236,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
+    memories?: UserMemoryCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
   }
@@ -22423,6 +24254,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
+    memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
   }
@@ -22456,6 +24288,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
   }
@@ -22473,6 +24306,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -22489,6 +24323,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
+    memories?: UserMemoryCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
@@ -22506,6 +24341,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
+    memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
@@ -22539,6 +24375,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
@@ -22556,6 +24393,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
@@ -22574,6 +24412,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
+    memories?: UserMemoryCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
   }
@@ -22591,6 +24430,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
+    memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
   }
@@ -22624,6 +24464,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
   }
@@ -22641,6 +24482,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -22657,6 +24499,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
+    memories?: UserMemoryCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
@@ -22674,6 +24517,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
@@ -22707,6 +24551,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
@@ -22724,6 +24569,95 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
+    consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
+    authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutMemoriesInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    passwordHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
+    consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
+    authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
+    chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMemoriesInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    passwordHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
+    consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
+    authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMemoriesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMemoriesInput, UserUncheckedCreateWithoutMemoriesInput>
+  }
+
+  export type UserUpsertWithoutMemoriesInput = {
+    update: XOR<UserUpdateWithoutMemoriesInput, UserUncheckedUpdateWithoutMemoriesInput>
+    create: XOR<UserCreateWithoutMemoriesInput, UserUncheckedCreateWithoutMemoriesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMemoriesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMemoriesInput, UserUncheckedUpdateWithoutMemoriesInput>
+  }
+
+  export type UserUpdateWithoutMemoriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
+    consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
+    authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
+    chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMemoriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
@@ -22742,6 +24676,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
+    memories?: UserMemoryCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
   }
@@ -22759,6 +24694,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
+    memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
   }
@@ -22852,6 +24788,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
   }
@@ -22869,6 +24806,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -23108,6 +25046,16 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type UserMemoryCreateManyUserInput = {
+    id?: string
+    conversationId: string
+    summary: string
+    keyDecisions: JsonNullValueInput | InputJsonValue
+    followUps: JsonNullValueInput | InputJsonValue
+    emotionalState?: string | null
+    createdAt?: Date | string
+  }
+
   export type ConsentLogCreateManyUserInput = {
     id?: string
     action: string
@@ -23205,6 +25153,36 @@ export namespace Prisma {
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMemoryUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    keyDecisions?: JsonNullValueInput | InputJsonValue
+    followUps?: JsonNullValueInput | InputJsonValue
+    emotionalState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMemoryUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    keyDecisions?: JsonNullValueInput | InputJsonValue
+    followUps?: JsonNullValueInput | InputJsonValue
+    emotionalState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserMemoryUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    keyDecisions?: JsonNullValueInput | InputJsonValue
+    followUps?: JsonNullValueInput | InputJsonValue
+    emotionalState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ConsentLogUpdateWithoutUserInput = {

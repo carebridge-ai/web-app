@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { searchPlans, normalizeCmsPlan, type NormalizedPlan } from '@/lib/cms-marketplace'
+import { searchPlans, normalizeCmsPlan, type CmsPlan, type NormalizedPlan } from '@/lib/cms-marketplace'
 import { searchProviders, normalizeProvider } from '@/lib/npi-registry'
 import { lookupDrug, type DrugLookupResult } from '@/lib/rxnorm-client'
 import { generateChatText } from '@/lib/llm-client'
+import { prisma } from '@/lib/prisma'
+import { MetalTier, PlanType } from '@/generated/prisma'
+import { lookupStateByZip } from '@/lib/zip-county'
 
 export const runtime = 'nodejs'
 
@@ -92,6 +95,7 @@ export async function POST(request: Request) {
 
     // Normalize CMS plans
     const normalizedPlans = cmsResult.plans.map(normalizeCmsPlan)
+    await persistCmsPlans(cmsResult.plans, normalizedPlans, zip)
 
     // Filter by budget if specified
     const filteredPlans = maxMonthlyPremium
@@ -151,6 +155,155 @@ type RankedRecommendation = NormalizedPlan & {
   score: number
   matchReasons: string[]
   explanation: string
+}
+
+function mapMetalTier(level: string | null | undefined): MetalTier {
+  const normalized = (level ?? '').toLowerCase()
+  switch (normalized) {
+    case 'bronze':
+      return MetalTier.bronze
+    case 'silver':
+      return MetalTier.silver
+    case 'gold':
+      return MetalTier.gold
+    case 'platinum':
+      return MetalTier.platinum
+    default:
+      return MetalTier.silver
+  }
+}
+
+function mapPlanType(type: string | null | undefined): PlanType {
+  const normalized = (type ?? '').toUpperCase()
+  if (normalized.includes('HMO')) return PlanType.HMO
+  if (normalized.includes('PPO')) return PlanType.PPO
+  if (normalized.includes('EPO')) return PlanType.EPO
+  if (normalized.includes('POS')) return PlanType.PPO
+  return PlanType.PPO
+}
+
+function normalizeCoinsuranceRate(rate: number | null | undefined) {
+  if (typeof rate !== 'number' || Number.isNaN(rate)) return 0
+  const normalized = rate <= 1 ? rate * 100 : rate
+  return Math.max(0, Math.min(100, Math.round(normalized)))
+}
+
+function findCopay(benefits: NormalizedPlan['benefits'], keywords: string[]) {
+  const matches = benefits.find((benefit) => {
+    const name = benefit.name.toLowerCase()
+    return keywords.some((keyword) => name.includes(keyword))
+  })
+  return Math.max(0, Math.round(matches?.copay ?? 0))
+}
+
+function findCoinsurance(benefits: NormalizedPlan['benefits']) {
+  const match = benefits.find((benefit) => typeof benefit.coinsurance === 'number')
+  return normalizeCoinsuranceRate(match?.coinsurance ?? 0)
+}
+
+function resolvePlanState(plan: CmsPlan, zip: string) {
+  const candidate = (plan as { state?: string; state_code?: string }) ?? {}
+  const planState = candidate.state ?? candidate.state_code
+  if (planState) return planState.toString()
+  return lookupStateByZip(zip) ?? 'unknown'
+}
+
+async function persistCmsPlans(plans: CmsPlan[], normalizedPlans: NormalizedPlan[], zip: string) {
+  if (!plans.length) return
+
+  const normalizedById = new Map(normalizedPlans.map((plan) => [plan.id, plan]))
+
+  await Promise.all(
+    plans.map(async (plan) => {
+      const normalized = normalizedById.get(plan.id)
+      if (!normalized) return
+
+      const copays = {
+        primary: findCopay(normalized.benefits, ['primary care', 'pcp']),
+        specialist: findCopay(normalized.benefits, ['specialist']),
+        er: findCopay(normalized.benefits, ['emergency', 'er']),
+      }
+
+      const planCode = `cms:${plan.id}`
+
+      await prisma.plan.upsert({
+        where: { planCode },
+        create: {
+          planCode,
+          name: normalized.name,
+          carrier: normalized.carrier,
+          state: resolvePlanState(plan, zip),
+          metalTier: mapMetalTier(plan.metal_level),
+          planType: mapPlanType(plan.type),
+          source: 'cms',
+          type: 'private',
+          monthlyPremium: Math.round(normalized.monthlyPremium ?? 0),
+          annualDeductible: Math.round(normalized.deductible ?? 0),
+          deductible: Math.round(normalized.deductible ?? 0),
+          maxOutOfPocket: Math.round(normalized.maxOutOfPocket ?? 0),
+          outOfPocketMax: Math.round(normalized.maxOutOfPocket ?? 0),
+          coinsuranceRate: findCoinsurance(normalized.benefits),
+          primaryCareCopay: copays.primary,
+          specialistCopay: copays.specialist,
+          erCopay: copays.er,
+          drugCoverage: plan.formulary_url ? { formularyUrl: plan.formulary_url } : null,
+          coverageDetails: {
+            benefits: normalized.benefits,
+            qualityRating: normalized.qualityRating,
+            brochureUrl: normalized.brochureUrl,
+            providerDirectoryUrl: normalized.providerDirectoryUrl,
+            formularyUrl: normalized.formularyUrl,
+          },
+          eligibility: { zip },
+          features: null,
+          rawData: {
+            source: 'cms',
+            externalId: plan.id,
+            fetchedAt: new Date().toISOString(),
+            plan,
+          },
+          formulary: plan.formulary_url ? { url: plan.formulary_url } : {},
+          providerNetwork: plan.provider_directory_url ? { url: plan.provider_directory_url } : {},
+        },
+        update: {
+          name: normalized.name,
+          carrier: normalized.carrier,
+          state: resolvePlanState(plan, zip),
+          metalTier: mapMetalTier(plan.metal_level),
+          planType: mapPlanType(plan.type),
+          source: 'cms',
+          type: 'private',
+          monthlyPremium: Math.round(normalized.monthlyPremium ?? 0),
+          annualDeductible: Math.round(normalized.deductible ?? 0),
+          deductible: Math.round(normalized.deductible ?? 0),
+          maxOutOfPocket: Math.round(normalized.maxOutOfPocket ?? 0),
+          outOfPocketMax: Math.round(normalized.maxOutOfPocket ?? 0),
+          coinsuranceRate: findCoinsurance(normalized.benefits),
+          primaryCareCopay: copays.primary,
+          specialistCopay: copays.specialist,
+          erCopay: copays.er,
+          drugCoverage: plan.formulary_url ? { formularyUrl: plan.formulary_url } : null,
+          coverageDetails: {
+            benefits: normalized.benefits,
+            qualityRating: normalized.qualityRating,
+            brochureUrl: normalized.brochureUrl,
+            providerDirectoryUrl: normalized.providerDirectoryUrl,
+            formularyUrl: normalized.formularyUrl,
+          },
+          eligibility: { zip },
+          features: null,
+          rawData: {
+            source: 'cms',
+            externalId: plan.id,
+            fetchedAt: new Date().toISOString(),
+            plan,
+          },
+          formulary: plan.formulary_url ? { url: plan.formulary_url } : {},
+          providerNetwork: plan.provider_directory_url ? { url: plan.provider_directory_url } : {},
+        },
+      })
+    })
+  )
 }
 
 function buildLlmContext(params: {

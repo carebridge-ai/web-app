@@ -80,6 +80,7 @@ model User {
   sessions          Session[]
   profile           Profile?
   medicalProfile    MedicalProfile?
+  memories          UserMemory[]
   consentLogs       ConsentLog[]
   authenticators    Authenticator[]
   chatConversations ChatConversation[]
@@ -190,12 +191,22 @@ model Plan {
   state            String
   metalTier        MetalTier
   planType         PlanType
+  source           String    @default("manual") // e.g. "sunlife", "manulife", "bluecross", "manual"
+  type             String    @default("private") // e.g. "provincial", "federal", "private", "employer"
   monthlyPremium   Int
-  deductible       Int
+  annualDeductible Int       @default(0)
+  deductible       Int // kept for backwards compat
   maxOutOfPocket   Int
+  outOfPocketMax   Int       @default(0)
   coinsuranceRate  Int
   primaryCareCopay Int
   specialistCopay  Int
+  erCopay          Int       @default(0)
+  drugCoverage     Json? // { formularyTier, brandCopay, genericCopay, specialtyCopay, ... }
+  coverageDetails  Json? // { dental, vision, mental, physio, ... }
+  eligibility      Json? // { provinces, immigrationStatuses, ageBands, ... }
+  features         Json? // ML feature vectors for recommendation engine
+  rawData          Json? // Original ingested data before normalization
   formulary        Json
   providerNetwork  Json
   createdAt        DateTime  @default(now())
@@ -203,6 +214,8 @@ model Plan {
 
   @@index([state, metalTier])
   @@index([carrier, state])
+  @@index([source])
+  @@index([type])
   @@map("plans")
 }
 
@@ -242,6 +255,22 @@ model MedicalProfile {
   createdAt      DateTime @default(now())
 
   @@map("medical_profiles")
+}
+
+model UserMemory {
+  id             String   @id @default(cuid())
+  userId         String
+  conversationId String
+  summary        String
+  keyDecisions   Json // Array of key decisions made during the conversation
+  followUps      Json // Array of follow-up items identified
+  emotionalState String?
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([conversationId])
+  @@map("user_memories")
 }
 
 model ChatConversation {
