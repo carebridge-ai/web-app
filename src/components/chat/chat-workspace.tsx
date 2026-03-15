@@ -231,8 +231,8 @@ export function ChatWorkspace() {
 
         <div className="flex flex-col gap-3">
           {sources.length ? (
-            sources.map((source) => (
-              <div key={`${source.relativePath}-${source.score}`} className="rounded-card border border-biscuit bg-parchment p-4">
+            sources.map((source, idx) => (
+              <div key={`${source.relativePath}-${source.score}-${idx}`} className="rounded-card border border-biscuit bg-parchment p-4">
                 <p className="font-serif text-[14px] font-medium text-espresso">{source.title}</p>
                 <p className="mt-1 font-serif text-[13px] leading-6 text-driftwood">{source.relativePath}</p>
                 <p className="mt-2 font-serif text-[12px] uppercase tracking-[0.18em] text-sandstone">Match score {source.score}</p>

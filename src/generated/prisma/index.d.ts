@@ -59,6 +59,11 @@ export type Plan = $Result.DefaultSelection<Prisma.$PlanPayload>
  */
 export type ExtractedPlan = $Result.DefaultSelection<Prisma.$ExtractedPlanPayload>
 /**
+ * Model MedicalProfile
+ * 
+ */
+export type MedicalProfile = $Result.DefaultSelection<Prisma.$MedicalProfilePayload>
+/**
  * Model ChatConversation
  * 
  */
@@ -407,6 +412,16 @@ export class PrismaClient<
     * ```
     */
   get extractedPlan(): Prisma.ExtractedPlanDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.medicalProfile`: Exposes CRUD operations for the **MedicalProfile** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MedicalProfiles
+    * const medicalProfiles = await prisma.medicalProfile.findMany()
+    * ```
+    */
+  get medicalProfile(): Prisma.MedicalProfileDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.chatConversation`: Exposes CRUD operations for the **ChatConversation** model.
@@ -880,6 +895,7 @@ export namespace Prisma {
     ConsentLog: 'ConsentLog',
     Plan: 'Plan',
     ExtractedPlan: 'ExtractedPlan',
+    MedicalProfile: 'MedicalProfile',
     ChatConversation: 'ChatConversation',
     ChatMessage: 'ChatMessage',
     ChatRetrievalHit: 'ChatRetrievalHit'
@@ -898,7 +914,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "profile" | "consentLog" | "plan" | "extractedPlan" | "chatConversation" | "chatMessage" | "chatRetrievalHit"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "profile" | "consentLog" | "plan" | "extractedPlan" | "medicalProfile" | "chatConversation" | "chatMessage" | "chatRetrievalHit"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1568,6 +1584,80 @@ export namespace Prisma {
           }
         }
       }
+      MedicalProfile: {
+        payload: Prisma.$MedicalProfilePayload<ExtArgs>
+        fields: Prisma.MedicalProfileFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MedicalProfileFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalProfilePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MedicalProfileFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalProfilePayload>
+          }
+          findFirst: {
+            args: Prisma.MedicalProfileFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalProfilePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MedicalProfileFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalProfilePayload>
+          }
+          findMany: {
+            args: Prisma.MedicalProfileFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalProfilePayload>[]
+          }
+          create: {
+            args: Prisma.MedicalProfileCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalProfilePayload>
+          }
+          createMany: {
+            args: Prisma.MedicalProfileCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MedicalProfileCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalProfilePayload>[]
+          }
+          delete: {
+            args: Prisma.MedicalProfileDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalProfilePayload>
+          }
+          update: {
+            args: Prisma.MedicalProfileUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalProfilePayload>
+          }
+          deleteMany: {
+            args: Prisma.MedicalProfileDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MedicalProfileUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MedicalProfileUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalProfilePayload>[]
+          }
+          upsert: {
+            args: Prisma.MedicalProfileUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalProfilePayload>
+          }
+          aggregate: {
+            args: Prisma.MedicalProfileAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMedicalProfile>
+          }
+          groupBy: {
+            args: Prisma.MedicalProfileGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MedicalProfileGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MedicalProfileCountArgs<ExtArgs>
+            result: $Utils.Optional<MedicalProfileCountAggregateOutputType> | number
+          }
+        }
+      }
       ChatConversation: {
         payload: Prisma.$ChatConversationPayload<ExtArgs>
         fields: Prisma.ChatConversationFieldRefs
@@ -1907,6 +1997,7 @@ export namespace Prisma {
     consentLog?: ConsentLogOmit
     plan?: PlanOmit
     extractedPlan?: ExtractedPlanOmit
+    medicalProfile?: MedicalProfileOmit
     chatConversation?: ChatConversationOmit
     chatMessage?: ChatMessageOmit
     chatRetrievalHit?: ChatRetrievalHitOmit
@@ -2287,6 +2378,7 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     profile?: boolean | User$profileArgs<ExtArgs>
+    medicalProfile?: boolean | User$medicalProfileArgs<ExtArgs>
     consentLogs?: boolean | User$consentLogsArgs<ExtArgs>
     authenticators?: boolean | User$authenticatorsArgs<ExtArgs>
     chatConversations?: boolean | User$chatConversationsArgs<ExtArgs>
@@ -2331,6 +2423,7 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     profile?: boolean | User$profileArgs<ExtArgs>
+    medicalProfile?: boolean | User$medicalProfileArgs<ExtArgs>
     consentLogs?: boolean | User$consentLogsArgs<ExtArgs>
     authenticators?: boolean | User$authenticatorsArgs<ExtArgs>
     chatConversations?: boolean | User$chatConversationsArgs<ExtArgs>
@@ -2345,6 +2438,7 @@ export namespace Prisma {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       profile: Prisma.$ProfilePayload<ExtArgs> | null
+      medicalProfile: Prisma.$MedicalProfilePayload<ExtArgs> | null
       consentLogs: Prisma.$ConsentLogPayload<ExtArgs>[]
       authenticators: Prisma.$AuthenticatorPayload<ExtArgs>[]
       chatConversations: Prisma.$ChatConversationPayload<ExtArgs>[]
@@ -2755,6 +2849,7 @@ export namespace Prisma {
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    medicalProfile<T extends User$medicalProfileArgs<ExtArgs> = {}>(args?: Subset<T, User$medicalProfileArgs<ExtArgs>>): Prisma__MedicalProfileClient<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     consentLogs<T extends User$consentLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$consentLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConsentLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     authenticators<T extends User$authenticatorsArgs<ExtArgs> = {}>(args?: Subset<T, User$authenticatorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthenticatorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     chatConversations<T extends User$chatConversationsArgs<ExtArgs> = {}>(args?: Subset<T, User$chatConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3252,6 +3347,25 @@ export namespace Prisma {
      */
     include?: ProfileInclude<ExtArgs> | null
     where?: ProfileWhereInput
+  }
+
+  /**
+   * User.medicalProfile
+   */
+  export type User$medicalProfileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileInclude<ExtArgs> | null
+    where?: MedicalProfileWhereInput
   }
 
   /**
@@ -12244,6 +12358,1184 @@ export namespace Prisma {
 
 
   /**
+   * Model MedicalProfile
+   */
+
+  export type AggregateMedicalProfile = {
+    _count: MedicalProfileCountAggregateOutputType | null
+    _avg: MedicalProfileAvgAggregateOutputType | null
+    _sum: MedicalProfileSumAggregateOutputType | null
+    _min: MedicalProfileMinAggregateOutputType | null
+    _max: MedicalProfileMaxAggregateOutputType | null
+  }
+
+  export type MedicalProfileAvgAggregateOutputType = {
+    confidence: number | null
+  }
+
+  export type MedicalProfileSumAggregateOutputType = {
+    confidence: number | null
+  }
+
+  export type MedicalProfileMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    confidence: number | null
+    lastUpdated: Date | null
+    createdAt: Date | null
+  }
+
+  export type MedicalProfileMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    confidence: number | null
+    lastUpdated: Date | null
+    createdAt: Date | null
+  }
+
+  export type MedicalProfileCountAggregateOutputType = {
+    id: number
+    userId: number
+    conditions: number
+    medications: number
+    allergies: number
+    surgeries: number
+    familyHistory: number
+    immunizations: number
+    labResults: number
+    riskFactors: number
+    rawDocumentIds: number
+    confidence: number
+    lastUpdated: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MedicalProfileAvgAggregateInputType = {
+    confidence?: true
+  }
+
+  export type MedicalProfileSumAggregateInputType = {
+    confidence?: true
+  }
+
+  export type MedicalProfileMinAggregateInputType = {
+    id?: true
+    userId?: true
+    confidence?: true
+    lastUpdated?: true
+    createdAt?: true
+  }
+
+  export type MedicalProfileMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    confidence?: true
+    lastUpdated?: true
+    createdAt?: true
+  }
+
+  export type MedicalProfileCountAggregateInputType = {
+    id?: true
+    userId?: true
+    conditions?: true
+    medications?: true
+    allergies?: true
+    surgeries?: true
+    familyHistory?: true
+    immunizations?: true
+    labResults?: true
+    riskFactors?: true
+    rawDocumentIds?: true
+    confidence?: true
+    lastUpdated?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MedicalProfileAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MedicalProfile to aggregate.
+     */
+    where?: MedicalProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MedicalProfiles to fetch.
+     */
+    orderBy?: MedicalProfileOrderByWithRelationInput | MedicalProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MedicalProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MedicalProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MedicalProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MedicalProfiles
+    **/
+    _count?: true | MedicalProfileCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MedicalProfileAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MedicalProfileSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MedicalProfileMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MedicalProfileMaxAggregateInputType
+  }
+
+  export type GetMedicalProfileAggregateType<T extends MedicalProfileAggregateArgs> = {
+        [P in keyof T & keyof AggregateMedicalProfile]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMedicalProfile[P]>
+      : GetScalarType<T[P], AggregateMedicalProfile[P]>
+  }
+
+
+
+
+  export type MedicalProfileGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MedicalProfileWhereInput
+    orderBy?: MedicalProfileOrderByWithAggregationInput | MedicalProfileOrderByWithAggregationInput[]
+    by: MedicalProfileScalarFieldEnum[] | MedicalProfileScalarFieldEnum
+    having?: MedicalProfileScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MedicalProfileCountAggregateInputType | true
+    _avg?: MedicalProfileAvgAggregateInputType
+    _sum?: MedicalProfileSumAggregateInputType
+    _min?: MedicalProfileMinAggregateInputType
+    _max?: MedicalProfileMaxAggregateInputType
+  }
+
+  export type MedicalProfileGroupByOutputType = {
+    id: string
+    userId: string
+    conditions: JsonValue
+    medications: JsonValue
+    allergies: JsonValue
+    surgeries: JsonValue
+    familyHistory: JsonValue
+    immunizations: JsonValue
+    labResults: JsonValue
+    riskFactors: JsonValue
+    rawDocumentIds: string[]
+    confidence: number
+    lastUpdated: Date
+    createdAt: Date
+    _count: MedicalProfileCountAggregateOutputType | null
+    _avg: MedicalProfileAvgAggregateOutputType | null
+    _sum: MedicalProfileSumAggregateOutputType | null
+    _min: MedicalProfileMinAggregateOutputType | null
+    _max: MedicalProfileMaxAggregateOutputType | null
+  }
+
+  type GetMedicalProfileGroupByPayload<T extends MedicalProfileGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MedicalProfileGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MedicalProfileGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MedicalProfileGroupByOutputType[P]>
+            : GetScalarType<T[P], MedicalProfileGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MedicalProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    conditions?: boolean
+    medications?: boolean
+    allergies?: boolean
+    surgeries?: boolean
+    familyHistory?: boolean
+    immunizations?: boolean
+    labResults?: boolean
+    riskFactors?: boolean
+    rawDocumentIds?: boolean
+    confidence?: boolean
+    lastUpdated?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["medicalProfile"]>
+
+  export type MedicalProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    conditions?: boolean
+    medications?: boolean
+    allergies?: boolean
+    surgeries?: boolean
+    familyHistory?: boolean
+    immunizations?: boolean
+    labResults?: boolean
+    riskFactors?: boolean
+    rawDocumentIds?: boolean
+    confidence?: boolean
+    lastUpdated?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["medicalProfile"]>
+
+  export type MedicalProfileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    conditions?: boolean
+    medications?: boolean
+    allergies?: boolean
+    surgeries?: boolean
+    familyHistory?: boolean
+    immunizations?: boolean
+    labResults?: boolean
+    riskFactors?: boolean
+    rawDocumentIds?: boolean
+    confidence?: boolean
+    lastUpdated?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["medicalProfile"]>
+
+  export type MedicalProfileSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    conditions?: boolean
+    medications?: boolean
+    allergies?: boolean
+    surgeries?: boolean
+    familyHistory?: boolean
+    immunizations?: boolean
+    labResults?: boolean
+    riskFactors?: boolean
+    rawDocumentIds?: boolean
+    confidence?: boolean
+    lastUpdated?: boolean
+    createdAt?: boolean
+  }
+
+  export type MedicalProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "conditions" | "medications" | "allergies" | "surgeries" | "familyHistory" | "immunizations" | "labResults" | "riskFactors" | "rawDocumentIds" | "confidence" | "lastUpdated" | "createdAt", ExtArgs["result"]["medicalProfile"]>
+  export type MedicalProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MedicalProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MedicalProfileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MedicalProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MedicalProfile"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      conditions: Prisma.JsonValue
+      medications: Prisma.JsonValue
+      allergies: Prisma.JsonValue
+      surgeries: Prisma.JsonValue
+      familyHistory: Prisma.JsonValue
+      immunizations: Prisma.JsonValue
+      labResults: Prisma.JsonValue
+      riskFactors: Prisma.JsonValue
+      rawDocumentIds: string[]
+      confidence: number
+      lastUpdated: Date
+      createdAt: Date
+    }, ExtArgs["result"]["medicalProfile"]>
+    composites: {}
+  }
+
+  type MedicalProfileGetPayload<S extends boolean | null | undefined | MedicalProfileDefaultArgs> = $Result.GetResult<Prisma.$MedicalProfilePayload, S>
+
+  type MedicalProfileCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MedicalProfileFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MedicalProfileCountAggregateInputType | true
+    }
+
+  export interface MedicalProfileDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MedicalProfile'], meta: { name: 'MedicalProfile' } }
+    /**
+     * Find zero or one MedicalProfile that matches the filter.
+     * @param {MedicalProfileFindUniqueArgs} args - Arguments to find a MedicalProfile
+     * @example
+     * // Get one MedicalProfile
+     * const medicalProfile = await prisma.medicalProfile.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MedicalProfileFindUniqueArgs>(args: SelectSubset<T, MedicalProfileFindUniqueArgs<ExtArgs>>): Prisma__MedicalProfileClient<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MedicalProfile that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MedicalProfileFindUniqueOrThrowArgs} args - Arguments to find a MedicalProfile
+     * @example
+     * // Get one MedicalProfile
+     * const medicalProfile = await prisma.medicalProfile.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MedicalProfileFindUniqueOrThrowArgs>(args: SelectSubset<T, MedicalProfileFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MedicalProfileClient<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MedicalProfile that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalProfileFindFirstArgs} args - Arguments to find a MedicalProfile
+     * @example
+     * // Get one MedicalProfile
+     * const medicalProfile = await prisma.medicalProfile.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MedicalProfileFindFirstArgs>(args?: SelectSubset<T, MedicalProfileFindFirstArgs<ExtArgs>>): Prisma__MedicalProfileClient<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MedicalProfile that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalProfileFindFirstOrThrowArgs} args - Arguments to find a MedicalProfile
+     * @example
+     * // Get one MedicalProfile
+     * const medicalProfile = await prisma.medicalProfile.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MedicalProfileFindFirstOrThrowArgs>(args?: SelectSubset<T, MedicalProfileFindFirstOrThrowArgs<ExtArgs>>): Prisma__MedicalProfileClient<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MedicalProfiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalProfileFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MedicalProfiles
+     * const medicalProfiles = await prisma.medicalProfile.findMany()
+     * 
+     * // Get first 10 MedicalProfiles
+     * const medicalProfiles = await prisma.medicalProfile.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const medicalProfileWithIdOnly = await prisma.medicalProfile.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MedicalProfileFindManyArgs>(args?: SelectSubset<T, MedicalProfileFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MedicalProfile.
+     * @param {MedicalProfileCreateArgs} args - Arguments to create a MedicalProfile.
+     * @example
+     * // Create one MedicalProfile
+     * const MedicalProfile = await prisma.medicalProfile.create({
+     *   data: {
+     *     // ... data to create a MedicalProfile
+     *   }
+     * })
+     * 
+     */
+    create<T extends MedicalProfileCreateArgs>(args: SelectSubset<T, MedicalProfileCreateArgs<ExtArgs>>): Prisma__MedicalProfileClient<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MedicalProfiles.
+     * @param {MedicalProfileCreateManyArgs} args - Arguments to create many MedicalProfiles.
+     * @example
+     * // Create many MedicalProfiles
+     * const medicalProfile = await prisma.medicalProfile.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MedicalProfileCreateManyArgs>(args?: SelectSubset<T, MedicalProfileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MedicalProfiles and returns the data saved in the database.
+     * @param {MedicalProfileCreateManyAndReturnArgs} args - Arguments to create many MedicalProfiles.
+     * @example
+     * // Create many MedicalProfiles
+     * const medicalProfile = await prisma.medicalProfile.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MedicalProfiles and only return the `id`
+     * const medicalProfileWithIdOnly = await prisma.medicalProfile.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MedicalProfileCreateManyAndReturnArgs>(args?: SelectSubset<T, MedicalProfileCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MedicalProfile.
+     * @param {MedicalProfileDeleteArgs} args - Arguments to delete one MedicalProfile.
+     * @example
+     * // Delete one MedicalProfile
+     * const MedicalProfile = await prisma.medicalProfile.delete({
+     *   where: {
+     *     // ... filter to delete one MedicalProfile
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MedicalProfileDeleteArgs>(args: SelectSubset<T, MedicalProfileDeleteArgs<ExtArgs>>): Prisma__MedicalProfileClient<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MedicalProfile.
+     * @param {MedicalProfileUpdateArgs} args - Arguments to update one MedicalProfile.
+     * @example
+     * // Update one MedicalProfile
+     * const medicalProfile = await prisma.medicalProfile.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MedicalProfileUpdateArgs>(args: SelectSubset<T, MedicalProfileUpdateArgs<ExtArgs>>): Prisma__MedicalProfileClient<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MedicalProfiles.
+     * @param {MedicalProfileDeleteManyArgs} args - Arguments to filter MedicalProfiles to delete.
+     * @example
+     * // Delete a few MedicalProfiles
+     * const { count } = await prisma.medicalProfile.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MedicalProfileDeleteManyArgs>(args?: SelectSubset<T, MedicalProfileDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MedicalProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalProfileUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MedicalProfiles
+     * const medicalProfile = await prisma.medicalProfile.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MedicalProfileUpdateManyArgs>(args: SelectSubset<T, MedicalProfileUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MedicalProfiles and returns the data updated in the database.
+     * @param {MedicalProfileUpdateManyAndReturnArgs} args - Arguments to update many MedicalProfiles.
+     * @example
+     * // Update many MedicalProfiles
+     * const medicalProfile = await prisma.medicalProfile.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MedicalProfiles and only return the `id`
+     * const medicalProfileWithIdOnly = await prisma.medicalProfile.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MedicalProfileUpdateManyAndReturnArgs>(args: SelectSubset<T, MedicalProfileUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MedicalProfile.
+     * @param {MedicalProfileUpsertArgs} args - Arguments to update or create a MedicalProfile.
+     * @example
+     * // Update or create a MedicalProfile
+     * const medicalProfile = await prisma.medicalProfile.upsert({
+     *   create: {
+     *     // ... data to create a MedicalProfile
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MedicalProfile we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MedicalProfileUpsertArgs>(args: SelectSubset<T, MedicalProfileUpsertArgs<ExtArgs>>): Prisma__MedicalProfileClient<$Result.GetResult<Prisma.$MedicalProfilePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MedicalProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalProfileCountArgs} args - Arguments to filter MedicalProfiles to count.
+     * @example
+     * // Count the number of MedicalProfiles
+     * const count = await prisma.medicalProfile.count({
+     *   where: {
+     *     // ... the filter for the MedicalProfiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends MedicalProfileCountArgs>(
+      args?: Subset<T, MedicalProfileCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MedicalProfileCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MedicalProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalProfileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MedicalProfileAggregateArgs>(args: Subset<T, MedicalProfileAggregateArgs>): Prisma.PrismaPromise<GetMedicalProfileAggregateType<T>>
+
+    /**
+     * Group by MedicalProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalProfileGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MedicalProfileGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MedicalProfileGroupByArgs['orderBy'] }
+        : { orderBy?: MedicalProfileGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MedicalProfileGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMedicalProfileGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MedicalProfile model
+   */
+  readonly fields: MedicalProfileFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MedicalProfile.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MedicalProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MedicalProfile model
+   */
+  interface MedicalProfileFieldRefs {
+    readonly id: FieldRef<"MedicalProfile", 'String'>
+    readonly userId: FieldRef<"MedicalProfile", 'String'>
+    readonly conditions: FieldRef<"MedicalProfile", 'Json'>
+    readonly medications: FieldRef<"MedicalProfile", 'Json'>
+    readonly allergies: FieldRef<"MedicalProfile", 'Json'>
+    readonly surgeries: FieldRef<"MedicalProfile", 'Json'>
+    readonly familyHistory: FieldRef<"MedicalProfile", 'Json'>
+    readonly immunizations: FieldRef<"MedicalProfile", 'Json'>
+    readonly labResults: FieldRef<"MedicalProfile", 'Json'>
+    readonly riskFactors: FieldRef<"MedicalProfile", 'Json'>
+    readonly rawDocumentIds: FieldRef<"MedicalProfile", 'String[]'>
+    readonly confidence: FieldRef<"MedicalProfile", 'Float'>
+    readonly lastUpdated: FieldRef<"MedicalProfile", 'DateTime'>
+    readonly createdAt: FieldRef<"MedicalProfile", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MedicalProfile findUnique
+   */
+  export type MedicalProfileFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicalProfile to fetch.
+     */
+    where: MedicalProfileWhereUniqueInput
+  }
+
+  /**
+   * MedicalProfile findUniqueOrThrow
+   */
+  export type MedicalProfileFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicalProfile to fetch.
+     */
+    where: MedicalProfileWhereUniqueInput
+  }
+
+  /**
+   * MedicalProfile findFirst
+   */
+  export type MedicalProfileFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicalProfile to fetch.
+     */
+    where?: MedicalProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MedicalProfiles to fetch.
+     */
+    orderBy?: MedicalProfileOrderByWithRelationInput | MedicalProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MedicalProfiles.
+     */
+    cursor?: MedicalProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MedicalProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MedicalProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MedicalProfiles.
+     */
+    distinct?: MedicalProfileScalarFieldEnum | MedicalProfileScalarFieldEnum[]
+  }
+
+  /**
+   * MedicalProfile findFirstOrThrow
+   */
+  export type MedicalProfileFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicalProfile to fetch.
+     */
+    where?: MedicalProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MedicalProfiles to fetch.
+     */
+    orderBy?: MedicalProfileOrderByWithRelationInput | MedicalProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MedicalProfiles.
+     */
+    cursor?: MedicalProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MedicalProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MedicalProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MedicalProfiles.
+     */
+    distinct?: MedicalProfileScalarFieldEnum | MedicalProfileScalarFieldEnum[]
+  }
+
+  /**
+   * MedicalProfile findMany
+   */
+  export type MedicalProfileFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicalProfiles to fetch.
+     */
+    where?: MedicalProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MedicalProfiles to fetch.
+     */
+    orderBy?: MedicalProfileOrderByWithRelationInput | MedicalProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MedicalProfiles.
+     */
+    cursor?: MedicalProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MedicalProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MedicalProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MedicalProfiles.
+     */
+    distinct?: MedicalProfileScalarFieldEnum | MedicalProfileScalarFieldEnum[]
+  }
+
+  /**
+   * MedicalProfile create
+   */
+  export type MedicalProfileCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MedicalProfile.
+     */
+    data: XOR<MedicalProfileCreateInput, MedicalProfileUncheckedCreateInput>
+  }
+
+  /**
+   * MedicalProfile createMany
+   */
+  export type MedicalProfileCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MedicalProfiles.
+     */
+    data: MedicalProfileCreateManyInput | MedicalProfileCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MedicalProfile createManyAndReturn
+   */
+  export type MedicalProfileCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * The data used to create many MedicalProfiles.
+     */
+    data: MedicalProfileCreateManyInput | MedicalProfileCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MedicalProfile update
+   */
+  export type MedicalProfileUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MedicalProfile.
+     */
+    data: XOR<MedicalProfileUpdateInput, MedicalProfileUncheckedUpdateInput>
+    /**
+     * Choose, which MedicalProfile to update.
+     */
+    where: MedicalProfileWhereUniqueInput
+  }
+
+  /**
+   * MedicalProfile updateMany
+   */
+  export type MedicalProfileUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MedicalProfiles.
+     */
+    data: XOR<MedicalProfileUpdateManyMutationInput, MedicalProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which MedicalProfiles to update
+     */
+    where?: MedicalProfileWhereInput
+    /**
+     * Limit how many MedicalProfiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MedicalProfile updateManyAndReturn
+   */
+  export type MedicalProfileUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * The data used to update MedicalProfiles.
+     */
+    data: XOR<MedicalProfileUpdateManyMutationInput, MedicalProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which MedicalProfiles to update
+     */
+    where?: MedicalProfileWhereInput
+    /**
+     * Limit how many MedicalProfiles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MedicalProfile upsert
+   */
+  export type MedicalProfileUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MedicalProfile to update in case it exists.
+     */
+    where: MedicalProfileWhereUniqueInput
+    /**
+     * In case the MedicalProfile found by the `where` argument doesn't exist, create a new MedicalProfile with this data.
+     */
+    create: XOR<MedicalProfileCreateInput, MedicalProfileUncheckedCreateInput>
+    /**
+     * In case the MedicalProfile was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MedicalProfileUpdateInput, MedicalProfileUncheckedUpdateInput>
+  }
+
+  /**
+   * MedicalProfile delete
+   */
+  export type MedicalProfileDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileInclude<ExtArgs> | null
+    /**
+     * Filter which MedicalProfile to delete.
+     */
+    where: MedicalProfileWhereUniqueInput
+  }
+
+  /**
+   * MedicalProfile deleteMany
+   */
+  export type MedicalProfileDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MedicalProfiles to delete
+     */
+    where?: MedicalProfileWhereInput
+    /**
+     * Limit how many MedicalProfiles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MedicalProfile without action
+   */
+  export type MedicalProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalProfile
+     */
+    select?: MedicalProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalProfile
+     */
+    omit?: MedicalProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalProfileInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model ChatConversation
    */
 
@@ -15866,6 +17158,26 @@ export namespace Prisma {
   export type ExtractedPlanScalarFieldEnum = (typeof ExtractedPlanScalarFieldEnum)[keyof typeof ExtractedPlanScalarFieldEnum]
 
 
+  export const MedicalProfileScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    conditions: 'conditions',
+    medications: 'medications',
+    allergies: 'allergies',
+    surgeries: 'surgeries',
+    familyHistory: 'familyHistory',
+    immunizations: 'immunizations',
+    labResults: 'labResults',
+    riskFactors: 'riskFactors',
+    rawDocumentIds: 'rawDocumentIds',
+    confidence: 'confidence',
+    lastUpdated: 'lastUpdated',
+    createdAt: 'createdAt'
+  };
+
+  export type MedicalProfileScalarFieldEnum = (typeof MedicalProfileScalarFieldEnum)[keyof typeof MedicalProfileScalarFieldEnum]
+
+
   export const ChatConversationScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -16171,6 +17483,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
+    medicalProfile?: XOR<MedicalProfileNullableScalarRelationFilter, MedicalProfileWhereInput> | null
     consentLogs?: ConsentLogListRelationFilter
     authenticators?: AuthenticatorListRelationFilter
     chatConversations?: ChatConversationListRelationFilter
@@ -16188,6 +17501,7 @@ export namespace Prisma {
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     profile?: ProfileOrderByWithRelationInput
+    medicalProfile?: MedicalProfileOrderByWithRelationInput
     consentLogs?: ConsentLogOrderByRelationAggregateInput
     authenticators?: AuthenticatorOrderByRelationAggregateInput
     chatConversations?: ChatConversationOrderByRelationAggregateInput
@@ -16208,6 +17522,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
+    medicalProfile?: XOR<MedicalProfileNullableScalarRelationFilter, MedicalProfileWhereInput> | null
     consentLogs?: ConsentLogListRelationFilter
     authenticators?: AuthenticatorListRelationFilter
     chatConversations?: ChatConversationListRelationFilter
@@ -16866,6 +18181,108 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"ExtractedPlan"> | Date | string
   }
 
+  export type MedicalProfileWhereInput = {
+    AND?: MedicalProfileWhereInput | MedicalProfileWhereInput[]
+    OR?: MedicalProfileWhereInput[]
+    NOT?: MedicalProfileWhereInput | MedicalProfileWhereInput[]
+    id?: StringFilter<"MedicalProfile"> | string
+    userId?: StringFilter<"MedicalProfile"> | string
+    conditions?: JsonFilter<"MedicalProfile">
+    medications?: JsonFilter<"MedicalProfile">
+    allergies?: JsonFilter<"MedicalProfile">
+    surgeries?: JsonFilter<"MedicalProfile">
+    familyHistory?: JsonFilter<"MedicalProfile">
+    immunizations?: JsonFilter<"MedicalProfile">
+    labResults?: JsonFilter<"MedicalProfile">
+    riskFactors?: JsonFilter<"MedicalProfile">
+    rawDocumentIds?: StringNullableListFilter<"MedicalProfile">
+    confidence?: FloatFilter<"MedicalProfile"> | number
+    lastUpdated?: DateTimeFilter<"MedicalProfile"> | Date | string
+    createdAt?: DateTimeFilter<"MedicalProfile"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MedicalProfileOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conditions?: SortOrder
+    medications?: SortOrder
+    allergies?: SortOrder
+    surgeries?: SortOrder
+    familyHistory?: SortOrder
+    immunizations?: SortOrder
+    labResults?: SortOrder
+    riskFactors?: SortOrder
+    rawDocumentIds?: SortOrder
+    confidence?: SortOrder
+    lastUpdated?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type MedicalProfileWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: MedicalProfileWhereInput | MedicalProfileWhereInput[]
+    OR?: MedicalProfileWhereInput[]
+    NOT?: MedicalProfileWhereInput | MedicalProfileWhereInput[]
+    conditions?: JsonFilter<"MedicalProfile">
+    medications?: JsonFilter<"MedicalProfile">
+    allergies?: JsonFilter<"MedicalProfile">
+    surgeries?: JsonFilter<"MedicalProfile">
+    familyHistory?: JsonFilter<"MedicalProfile">
+    immunizations?: JsonFilter<"MedicalProfile">
+    labResults?: JsonFilter<"MedicalProfile">
+    riskFactors?: JsonFilter<"MedicalProfile">
+    rawDocumentIds?: StringNullableListFilter<"MedicalProfile">
+    confidence?: FloatFilter<"MedicalProfile"> | number
+    lastUpdated?: DateTimeFilter<"MedicalProfile"> | Date | string
+    createdAt?: DateTimeFilter<"MedicalProfile"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type MedicalProfileOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conditions?: SortOrder
+    medications?: SortOrder
+    allergies?: SortOrder
+    surgeries?: SortOrder
+    familyHistory?: SortOrder
+    immunizations?: SortOrder
+    labResults?: SortOrder
+    riskFactors?: SortOrder
+    rawDocumentIds?: SortOrder
+    confidence?: SortOrder
+    lastUpdated?: SortOrder
+    createdAt?: SortOrder
+    _count?: MedicalProfileCountOrderByAggregateInput
+    _avg?: MedicalProfileAvgOrderByAggregateInput
+    _max?: MedicalProfileMaxOrderByAggregateInput
+    _min?: MedicalProfileMinOrderByAggregateInput
+    _sum?: MedicalProfileSumOrderByAggregateInput
+  }
+
+  export type MedicalProfileScalarWhereWithAggregatesInput = {
+    AND?: MedicalProfileScalarWhereWithAggregatesInput | MedicalProfileScalarWhereWithAggregatesInput[]
+    OR?: MedicalProfileScalarWhereWithAggregatesInput[]
+    NOT?: MedicalProfileScalarWhereWithAggregatesInput | MedicalProfileScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MedicalProfile"> | string
+    userId?: StringWithAggregatesFilter<"MedicalProfile"> | string
+    conditions?: JsonWithAggregatesFilter<"MedicalProfile">
+    medications?: JsonWithAggregatesFilter<"MedicalProfile">
+    allergies?: JsonWithAggregatesFilter<"MedicalProfile">
+    surgeries?: JsonWithAggregatesFilter<"MedicalProfile">
+    familyHistory?: JsonWithAggregatesFilter<"MedicalProfile">
+    immunizations?: JsonWithAggregatesFilter<"MedicalProfile">
+    labResults?: JsonWithAggregatesFilter<"MedicalProfile">
+    riskFactors?: JsonWithAggregatesFilter<"MedicalProfile">
+    rawDocumentIds?: StringNullableListFilter<"MedicalProfile">
+    confidence?: FloatWithAggregatesFilter<"MedicalProfile"> | number
+    lastUpdated?: DateTimeWithAggregatesFilter<"MedicalProfile"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"MedicalProfile"> | Date | string
+  }
+
   export type ChatConversationWhereInput = {
     AND?: ChatConversationWhereInput | ChatConversationWhereInput[]
     OR?: ChatConversationWhereInput[]
@@ -17113,6 +18530,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
@@ -17130,6 +18548,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
@@ -17147,6 +18566,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
@@ -17164,6 +18584,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
@@ -17904,6 +19325,124 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MedicalProfileCreateInput = {
+    id?: string
+    conditions: JsonNullValueInput | InputJsonValue
+    medications: JsonNullValueInput | InputJsonValue
+    allergies: JsonNullValueInput | InputJsonValue
+    surgeries: JsonNullValueInput | InputJsonValue
+    familyHistory: JsonNullValueInput | InputJsonValue
+    immunizations: JsonNullValueInput | InputJsonValue
+    labResults: JsonNullValueInput | InputJsonValue
+    riskFactors: JsonNullValueInput | InputJsonValue
+    rawDocumentIds?: MedicalProfileCreaterawDocumentIdsInput | string[]
+    confidence?: number
+    lastUpdated?: Date | string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutMedicalProfileInput
+  }
+
+  export type MedicalProfileUncheckedCreateInput = {
+    id?: string
+    userId: string
+    conditions: JsonNullValueInput | InputJsonValue
+    medications: JsonNullValueInput | InputJsonValue
+    allergies: JsonNullValueInput | InputJsonValue
+    surgeries: JsonNullValueInput | InputJsonValue
+    familyHistory: JsonNullValueInput | InputJsonValue
+    immunizations: JsonNullValueInput | InputJsonValue
+    labResults: JsonNullValueInput | InputJsonValue
+    riskFactors: JsonNullValueInput | InputJsonValue
+    rawDocumentIds?: MedicalProfileCreaterawDocumentIdsInput | string[]
+    confidence?: number
+    lastUpdated?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type MedicalProfileUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conditions?: JsonNullValueInput | InputJsonValue
+    medications?: JsonNullValueInput | InputJsonValue
+    allergies?: JsonNullValueInput | InputJsonValue
+    surgeries?: JsonNullValueInput | InputJsonValue
+    familyHistory?: JsonNullValueInput | InputJsonValue
+    immunizations?: JsonNullValueInput | InputJsonValue
+    labResults?: JsonNullValueInput | InputJsonValue
+    riskFactors?: JsonNullValueInput | InputJsonValue
+    rawDocumentIds?: MedicalProfileUpdaterawDocumentIdsInput | string[]
+    confidence?: FloatFieldUpdateOperationsInput | number
+    lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMedicalProfileNestedInput
+  }
+
+  export type MedicalProfileUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    conditions?: JsonNullValueInput | InputJsonValue
+    medications?: JsonNullValueInput | InputJsonValue
+    allergies?: JsonNullValueInput | InputJsonValue
+    surgeries?: JsonNullValueInput | InputJsonValue
+    familyHistory?: JsonNullValueInput | InputJsonValue
+    immunizations?: JsonNullValueInput | InputJsonValue
+    labResults?: JsonNullValueInput | InputJsonValue
+    riskFactors?: JsonNullValueInput | InputJsonValue
+    rawDocumentIds?: MedicalProfileUpdaterawDocumentIdsInput | string[]
+    confidence?: FloatFieldUpdateOperationsInput | number
+    lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MedicalProfileCreateManyInput = {
+    id?: string
+    userId: string
+    conditions: JsonNullValueInput | InputJsonValue
+    medications: JsonNullValueInput | InputJsonValue
+    allergies: JsonNullValueInput | InputJsonValue
+    surgeries: JsonNullValueInput | InputJsonValue
+    familyHistory: JsonNullValueInput | InputJsonValue
+    immunizations: JsonNullValueInput | InputJsonValue
+    labResults: JsonNullValueInput | InputJsonValue
+    riskFactors: JsonNullValueInput | InputJsonValue
+    rawDocumentIds?: MedicalProfileCreaterawDocumentIdsInput | string[]
+    confidence?: number
+    lastUpdated?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type MedicalProfileUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conditions?: JsonNullValueInput | InputJsonValue
+    medications?: JsonNullValueInput | InputJsonValue
+    allergies?: JsonNullValueInput | InputJsonValue
+    surgeries?: JsonNullValueInput | InputJsonValue
+    familyHistory?: JsonNullValueInput | InputJsonValue
+    immunizations?: JsonNullValueInput | InputJsonValue
+    labResults?: JsonNullValueInput | InputJsonValue
+    riskFactors?: JsonNullValueInput | InputJsonValue
+    rawDocumentIds?: MedicalProfileUpdaterawDocumentIdsInput | string[]
+    confidence?: FloatFieldUpdateOperationsInput | number
+    lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MedicalProfileUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    conditions?: JsonNullValueInput | InputJsonValue
+    medications?: JsonNullValueInput | InputJsonValue
+    allergies?: JsonNullValueInput | InputJsonValue
+    surgeries?: JsonNullValueInput | InputJsonValue
+    familyHistory?: JsonNullValueInput | InputJsonValue
+    immunizations?: JsonNullValueInput | InputJsonValue
+    labResults?: JsonNullValueInput | InputJsonValue
+    riskFactors?: JsonNullValueInput | InputJsonValue
+    rawDocumentIds?: MedicalProfileUpdaterawDocumentIdsInput | string[]
+    confidence?: FloatFieldUpdateOperationsInput | number
+    lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ChatConversationCreateInput = {
     id?: string
     guestSessionId?: string | null
@@ -18228,6 +19767,11 @@ export namespace Prisma {
   export type ProfileNullableScalarRelationFilter = {
     is?: ProfileWhereInput | null
     isNot?: ProfileWhereInput | null
+  }
+
+  export type MedicalProfileNullableScalarRelationFilter = {
+    is?: MedicalProfileWhereInput | null
+    isNot?: MedicalProfileWhereInput | null
   }
 
   export type ConsentLogListRelationFilter = {
@@ -19018,6 +20562,82 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type MedicalProfileCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    conditions?: SortOrder
+    medications?: SortOrder
+    allergies?: SortOrder
+    surgeries?: SortOrder
+    familyHistory?: SortOrder
+    immunizations?: SortOrder
+    labResults?: SortOrder
+    riskFactors?: SortOrder
+    rawDocumentIds?: SortOrder
+    confidence?: SortOrder
+    lastUpdated?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MedicalProfileAvgOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type MedicalProfileMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    confidence?: SortOrder
+    lastUpdated?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MedicalProfileMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    confidence?: SortOrder
+    lastUpdated?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MedicalProfileSumOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -19182,6 +20802,12 @@ export namespace Prisma {
     connect?: ProfileWhereUniqueInput
   }
 
+  export type MedicalProfileCreateNestedOneWithoutUserInput = {
+    create?: XOR<MedicalProfileCreateWithoutUserInput, MedicalProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: MedicalProfileCreateOrConnectWithoutUserInput
+    connect?: MedicalProfileWhereUniqueInput
+  }
+
   export type ConsentLogCreateNestedManyWithoutUserInput = {
     create?: XOR<ConsentLogCreateWithoutUserInput, ConsentLogUncheckedCreateWithoutUserInput> | ConsentLogCreateWithoutUserInput[] | ConsentLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ConsentLogCreateOrConnectWithoutUserInput | ConsentLogCreateOrConnectWithoutUserInput[]
@@ -19221,6 +20847,12 @@ export namespace Prisma {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
     connect?: ProfileWhereUniqueInput
+  }
+
+  export type MedicalProfileUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<MedicalProfileCreateWithoutUserInput, MedicalProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: MedicalProfileCreateOrConnectWithoutUserInput
+    connect?: MedicalProfileWhereUniqueInput
   }
 
   export type ConsentLogUncheckedCreateNestedManyWithoutUserInput = {
@@ -19296,6 +20928,16 @@ export namespace Prisma {
     delete?: ProfileWhereInput | boolean
     connect?: ProfileWhereUniqueInput
     update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutUserInput, ProfileUpdateWithoutUserInput>, ProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MedicalProfileUpdateOneWithoutUserNestedInput = {
+    create?: XOR<MedicalProfileCreateWithoutUserInput, MedicalProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: MedicalProfileCreateOrConnectWithoutUserInput
+    upsert?: MedicalProfileUpsertWithoutUserInput
+    disconnect?: MedicalProfileWhereInput | boolean
+    delete?: MedicalProfileWhereInput | boolean
+    connect?: MedicalProfileWhereUniqueInput
+    update?: XOR<XOR<MedicalProfileUpdateToOneWithWhereWithoutUserInput, MedicalProfileUpdateWithoutUserInput>, MedicalProfileUncheckedUpdateWithoutUserInput>
   }
 
   export type ConsentLogUpdateManyWithoutUserNestedInput = {
@@ -19376,6 +21018,16 @@ export namespace Prisma {
     delete?: ProfileWhereInput | boolean
     connect?: ProfileWhereUniqueInput
     update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutUserInput, ProfileUpdateWithoutUserInput>, ProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MedicalProfileUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<MedicalProfileCreateWithoutUserInput, MedicalProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: MedicalProfileCreateOrConnectWithoutUserInput
+    upsert?: MedicalProfileUpsertWithoutUserInput
+    disconnect?: MedicalProfileWhereInput | boolean
+    delete?: MedicalProfileWhereInput | boolean
+    connect?: MedicalProfileWhereUniqueInput
+    update?: XOR<XOR<MedicalProfileUpdateToOneWithWhereWithoutUserInput, MedicalProfileUpdateWithoutUserInput>, MedicalProfileUncheckedUpdateWithoutUserInput>
   }
 
   export type ConsentLogUncheckedUpdateManyWithoutUserNestedInput = {
@@ -19540,6 +21192,37 @@ export namespace Prisma {
 
   export type EnumPlanTypeFieldUpdateOperationsInput = {
     set?: $Enums.PlanType
+  }
+
+  export type MedicalProfileCreaterawDocumentIdsInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutMedicalProfileInput = {
+    create?: XOR<UserCreateWithoutMedicalProfileInput, UserUncheckedCreateWithoutMedicalProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMedicalProfileInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MedicalProfileUpdaterawDocumentIdsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutMedicalProfileNestedInput = {
+    create?: XOR<UserCreateWithoutMedicalProfileInput, UserUncheckedCreateWithoutMedicalProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMedicalProfileInput
+    upsert?: UserUpsertWithoutMedicalProfileInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMedicalProfileInput, UserUpdateWithoutMedicalProfileInput>, UserUncheckedUpdateWithoutMedicalProfileInput>
   }
 
   export type UserCreateNestedOneWithoutChatConversationsInput = {
@@ -20053,6 +21736,22 @@ export namespace Prisma {
     _max?: NestedEnumPlanTypeFilter<$PrismaModel>
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type AccountCreateWithoutUserInput = {
     type: string
     provider: string
@@ -20154,6 +21853,43 @@ export namespace Prisma {
   export type ProfileCreateOrConnectWithoutUserInput = {
     where: ProfileWhereUniqueInput
     create: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+  }
+
+  export type MedicalProfileCreateWithoutUserInput = {
+    id?: string
+    conditions: JsonNullValueInput | InputJsonValue
+    medications: JsonNullValueInput | InputJsonValue
+    allergies: JsonNullValueInput | InputJsonValue
+    surgeries: JsonNullValueInput | InputJsonValue
+    familyHistory: JsonNullValueInput | InputJsonValue
+    immunizations: JsonNullValueInput | InputJsonValue
+    labResults: JsonNullValueInput | InputJsonValue
+    riskFactors: JsonNullValueInput | InputJsonValue
+    rawDocumentIds?: MedicalProfileCreaterawDocumentIdsInput | string[]
+    confidence?: number
+    lastUpdated?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type MedicalProfileUncheckedCreateWithoutUserInput = {
+    id?: string
+    conditions: JsonNullValueInput | InputJsonValue
+    medications: JsonNullValueInput | InputJsonValue
+    allergies: JsonNullValueInput | InputJsonValue
+    surgeries: JsonNullValueInput | InputJsonValue
+    familyHistory: JsonNullValueInput | InputJsonValue
+    immunizations: JsonNullValueInput | InputJsonValue
+    labResults: JsonNullValueInput | InputJsonValue
+    riskFactors: JsonNullValueInput | InputJsonValue
+    rawDocumentIds?: MedicalProfileCreaterawDocumentIdsInput | string[]
+    confidence?: number
+    lastUpdated?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type MedicalProfileCreateOrConnectWithoutUserInput = {
+    where: MedicalProfileWhereUniqueInput
+    create: XOR<MedicalProfileCreateWithoutUserInput, MedicalProfileUncheckedCreateWithoutUserInput>
   }
 
   export type ConsentLogCreateWithoutUserInput = {
@@ -20356,6 +22092,49 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MedicalProfileUpsertWithoutUserInput = {
+    update: XOR<MedicalProfileUpdateWithoutUserInput, MedicalProfileUncheckedUpdateWithoutUserInput>
+    create: XOR<MedicalProfileCreateWithoutUserInput, MedicalProfileUncheckedCreateWithoutUserInput>
+    where?: MedicalProfileWhereInput
+  }
+
+  export type MedicalProfileUpdateToOneWithWhereWithoutUserInput = {
+    where?: MedicalProfileWhereInput
+    data: XOR<MedicalProfileUpdateWithoutUserInput, MedicalProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MedicalProfileUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conditions?: JsonNullValueInput | InputJsonValue
+    medications?: JsonNullValueInput | InputJsonValue
+    allergies?: JsonNullValueInput | InputJsonValue
+    surgeries?: JsonNullValueInput | InputJsonValue
+    familyHistory?: JsonNullValueInput | InputJsonValue
+    immunizations?: JsonNullValueInput | InputJsonValue
+    labResults?: JsonNullValueInput | InputJsonValue
+    riskFactors?: JsonNullValueInput | InputJsonValue
+    rawDocumentIds?: MedicalProfileUpdaterawDocumentIdsInput | string[]
+    confidence?: FloatFieldUpdateOperationsInput | number
+    lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MedicalProfileUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conditions?: JsonNullValueInput | InputJsonValue
+    medications?: JsonNullValueInput | InputJsonValue
+    allergies?: JsonNullValueInput | InputJsonValue
+    surgeries?: JsonNullValueInput | InputJsonValue
+    familyHistory?: JsonNullValueInput | InputJsonValue
+    immunizations?: JsonNullValueInput | InputJsonValue
+    labResults?: JsonNullValueInput | InputJsonValue
+    riskFactors?: JsonNullValueInput | InputJsonValue
+    rawDocumentIds?: MedicalProfileUpdaterawDocumentIdsInput | string[]
+    confidence?: FloatFieldUpdateOperationsInput | number
+    lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ConsentLogUpsertWithWhereUniqueWithoutUserInput = {
     where: ConsentLogWhereUniqueInput
     update: XOR<ConsentLogUpdateWithoutUserInput, ConsentLogUncheckedUpdateWithoutUserInput>
@@ -20457,6 +22236,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
@@ -20473,6 +22253,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
@@ -20505,6 +22286,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
@@ -20521,6 +22303,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
@@ -20537,6 +22320,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
@@ -20553,6 +22337,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
@@ -20585,6 +22370,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
@@ -20601,6 +22387,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
@@ -20618,6 +22405,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
   }
@@ -20634,6 +22422,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
   }
@@ -20666,6 +22455,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
   }
@@ -20682,6 +22472,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -20697,6 +22488,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
@@ -20713,6 +22505,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
@@ -20745,6 +22538,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
@@ -20761,6 +22555,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
@@ -20778,6 +22573,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
   }
@@ -20794,6 +22590,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
   }
@@ -20826,6 +22623,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
   }
@@ -20842,6 +22640,91 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
+    authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutMedicalProfileInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    passwordHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
+    authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
+    chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMedicalProfileInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    passwordHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
+    authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMedicalProfileInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMedicalProfileInput, UserUncheckedCreateWithoutMedicalProfileInput>
+  }
+
+  export type UserUpsertWithoutMedicalProfileInput = {
+    update: XOR<UserUpdateWithoutMedicalProfileInput, UserUncheckedUpdateWithoutMedicalProfileInput>
+    create: XOR<UserCreateWithoutMedicalProfileInput, UserUncheckedCreateWithoutMedicalProfileInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMedicalProfileInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMedicalProfileInput, UserUncheckedUpdateWithoutMedicalProfileInput>
+  }
+
+  export type UserUpdateWithoutMedicalProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
+    authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
+    chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMedicalProfileInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -20858,6 +22741,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
   }
@@ -20874,6 +22758,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
   }
@@ -20966,6 +22851,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
   }
@@ -20982,6 +22868,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
   }

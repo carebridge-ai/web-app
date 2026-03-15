@@ -79,6 +79,7 @@ model User {
   accounts          Account[]
   sessions          Session[]
   profile           Profile?
+  medicalProfile    MedicalProfile?
   consentLogs       ConsentLog[]
   authenticators    Authenticator[]
   chatConversations ChatConversation[]
@@ -221,6 +222,26 @@ model ExtractedPlan {
   @@index([planType, jurisdiction])
   @@index([carrier])
   @@map("extracted_plans")
+}
+
+model MedicalProfile {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  conditions     Json // Array of diagnosed conditions
+  medications    Json // Array of current medications
+  allergies      Json // Array of known allergies
+  surgeries      Json // Array of past surgeries
+  familyHistory  Json // Array of family medical history items
+  immunizations  Json // Array of immunization records
+  labResults     Json // Array of lab/test results
+  riskFactors    Json // Array of lifestyle/genetic risk factors
+  rawDocumentIds String[] // IDs of source documents used for extraction
+  confidence     Float    @default(0)
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lastUpdated    DateTime @default(now())
+  createdAt      DateTime @default(now())
+
+  @@map("medical_profiles")
 }
 
 model ChatConversation {

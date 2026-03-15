@@ -232,6 +232,23 @@ exports.Prisma.ExtractedPlanScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MedicalProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  conditions: 'conditions',
+  medications: 'medications',
+  allergies: 'allergies',
+  surgeries: 'surgeries',
+  familyHistory: 'familyHistory',
+  immunizations: 'immunizations',
+  labResults: 'labResults',
+  riskFactors: 'riskFactors',
+  rawDocumentIds: 'rawDocumentIds',
+  confidence: 'confidence',
+  lastUpdated: 'lastUpdated',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.ChatConversationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -369,6 +386,7 @@ exports.Prisma.ModelName = {
   ConsentLog: 'ConsentLog',
   Plan: 'Plan',
   ExtractedPlan: 'ExtractedPlan',
+  MedicalProfile: 'MedicalProfile',
   ChatConversation: 'ChatConversation',
   ChatMessage: 'ChatMessage',
   ChatRetrievalHit: 'ChatRetrievalHit'
