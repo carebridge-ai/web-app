@@ -218,6 +218,20 @@ exports.Prisma.PlanScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ExtractedPlanScalarFieldEnum = {
+  id: 'id',
+  sourceFile: 'sourceFile',
+  planName: 'planName',
+  planType: 'planType',
+  carrier: 'carrier',
+  jurisdiction: 'jurisdiction',
+  extractedData: 'extractedData',
+  mlFeatures: 'mlFeatures',
+  extractionConfidence: 'extractionConfidence',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.ChatConversationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -354,6 +368,7 @@ exports.Prisma.ModelName = {
   Profile: 'Profile',
   ConsentLog: 'ConsentLog',
   Plan: 'Plan',
+  ExtractedPlan: 'ExtractedPlan',
   ChatConversation: 'ChatConversation',
   ChatMessage: 'ChatMessage',
   ChatRetrievalHit: 'ChatRetrievalHit'

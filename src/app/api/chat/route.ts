@@ -9,6 +9,7 @@ import {
 } from '@/lib/medical-feature-pipeline'
 import { lookupDrug } from '@/lib/rxnorm-client'
 import { searchProviders, normalizeProvider } from '@/lib/npi-registry'
+import { getQuickEligibility } from '@/lib/recommendation-engine'
 import { prisma } from '@/lib/prisma'
 
 export const runtime = 'nodejs'
@@ -20,11 +21,28 @@ const messageSchema = z.object({
   content: z.string().min(1),
 })
 
+const profileSchema = z.object({
+  province: z.string(),
+  immigrationStatus: z.enum([
+    'citizen', 'permanent_resident', 'work_permit', 'student_visa',
+    'refugee', 'asylum_seeker', 'undocumented', 'unknown',
+  ]),
+  residencyStartDate: z.string(),
+  ageBand: z.enum(['0-17', '18-25', '26-35', '36-45', '46-55', '56-64', '65+']),
+  employmentStatus: z.enum(['student', 'employed', 'self_employed', 'unemployed', 'retiree']),
+  hasEmployerBenefits: z.enum(['yes', 'no', 'unknown']),
+  dependants: z.object({ spouse: z.boolean(), children: z.number().int().min(0) }),
+  incomeBand: z.enum(['low', 'medium', 'high', 'prefer_not_to_say']),
+  specialCategory: z.enum(['refugee', 'temp_foreign_worker', 'intl_student', 'asylum_seeker']).nullable(),
+  language: z.string().default('en'),
+}).optional()
+
 const chatSchema = z.object({
   conversationId: z.string().optional(),
   guestSessionId: z.string().optional(),
   messages: z.array(messageSchema).min(1),
   patientContext: medicalFeaturePipelineInputSchema.optional(),
+  userProfile: profileSchema,
 })
 
 function getLatestUserMessage(messages: Array<{ role: 'user' | 'assistant'; content: string }>) {
@@ -61,12 +79,15 @@ export async function POST(request: Request) {
 
   const latestUserMessage = getLatestUserMessage(parsed.data.messages)
 
-  // Run coverage search and medical features in parallel
-  const [coverageMatches, medicalFeatures] = await Promise.all([
+  // Run coverage search, medical features, and eligibility in parallel
+  const [coverageMatches, medicalFeatures, eligibilitySignals] = await Promise.all([
     searchCoverageDocs(latestUserMessage, 5).catch(() => []),
     parsed.data.patientContext
       ? buildMedicalMlFeatures(parsed.data.patientContext).catch(() => null)
       : Promise.resolve(null),
+    parsed.data.userProfile
+      ? getQuickEligibility(parsed.data.userProfile as import('@/lib/profile').UserProfile).catch(() => [])
+      : Promise.resolve([]),
   ])
 
   const medicalExtractionJson = medicalFeatures?.extraction
@@ -77,18 +98,31 @@ export async function POST(request: Request) {
 
   let text: string
   try {
+    // Build eligibility context string
+    const eligibilityContext = eligibilitySignals.length > 0
+      ? `User eligibility assessment:\n${eligibilitySignals.map((s) => `- ${s.planName}: ${s.eligible} — ${s.reason}`).join('\n')}`
+      : ''
+
+    // Build user profile context string
+    const profileContext = parsed.data.userProfile
+      ? `User profile: ${parsed.data.userProfile.immigrationStatus.replace(/_/g, ' ')} in ${parsed.data.userProfile.province}, age ${parsed.data.userProfile.ageBand}, ${parsed.data.userProfile.employmentStatus.replace(/_/g, ' ')}, income: ${parsed.data.userProfile.incomeBand}${parsed.data.userProfile.specialCategory ? `, special category: ${parsed.data.userProfile.specialCategory}` : ''}`
+      : ''
+
     text = await generateChatText({
       model: chatModelName,
       system:
         [
-          'You are CareBridge, a healthcare coverage support assistant.',
-          'You have access to live data from official US healthcare APIs (CMS, NPI Registry, RxNorm, OpenFDA).',
-          'Answer using the live API data and retrieved coverage documents.',
-          'Be explicit when information is missing.',
-          'Do not claim a benefit is covered unless the source context supports it.',
-          'Keep answers practical and readable.',
+          'You are CareBridge AI, a compassionate healthcare coverage support assistant for people living in Canada.',
+          'You help users understand their healthcare coverage options including provincial health plans (OHIP, RAMQ, MSP, etc.), federal programs (IFHP, CDCP, PSHCP), and private insurance (Sun Life, Manulife, Blue Cross).',
+          'You have access to official coverage documents, live drug/provider data, and the user\'s eligibility assessment.',
+          'Be warm and supportive — users may be newcomers, refugees, students, or people navigating an unfamiliar system.',
+          'Be explicit when information is missing. Do not claim a benefit is covered unless the source context supports it.',
+          'Keep answers practical, readable, and actionable. Include concrete next steps when appropriate.',
           'When referencing drug information, note that it comes from RxNorm/FDA databases.',
           'When referencing provider information, note that it comes from the NPI Registry.',
+          '',
+          profileContext,
+          eligibilityContext,
           '',
           'Retrieved coverage context:',
           formatCoverageContext(coverageMatches),

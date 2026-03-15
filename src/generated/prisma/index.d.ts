@@ -54,6 +54,11 @@ export type ConsentLog = $Result.DefaultSelection<Prisma.$ConsentLogPayload>
  */
 export type Plan = $Result.DefaultSelection<Prisma.$PlanPayload>
 /**
+ * Model ExtractedPlan
+ * 
+ */
+export type ExtractedPlan = $Result.DefaultSelection<Prisma.$ExtractedPlanPayload>
+/**
  * Model ChatConversation
  * 
  */
@@ -392,6 +397,16 @@ export class PrismaClient<
     * ```
     */
   get plan(): Prisma.PlanDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.extractedPlan`: Exposes CRUD operations for the **ExtractedPlan** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ExtractedPlans
+    * const extractedPlans = await prisma.extractedPlan.findMany()
+    * ```
+    */
+  get extractedPlan(): Prisma.ExtractedPlanDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.chatConversation`: Exposes CRUD operations for the **ChatConversation** model.
@@ -864,6 +879,7 @@ export namespace Prisma {
     Profile: 'Profile',
     ConsentLog: 'ConsentLog',
     Plan: 'Plan',
+    ExtractedPlan: 'ExtractedPlan',
     ChatConversation: 'ChatConversation',
     ChatMessage: 'ChatMessage',
     ChatRetrievalHit: 'ChatRetrievalHit'
@@ -882,7 +898,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "profile" | "consentLog" | "plan" | "chatConversation" | "chatMessage" | "chatRetrievalHit"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "profile" | "consentLog" | "plan" | "extractedPlan" | "chatConversation" | "chatMessage" | "chatRetrievalHit"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1478,6 +1494,80 @@ export namespace Prisma {
           }
         }
       }
+      ExtractedPlan: {
+        payload: Prisma.$ExtractedPlanPayload<ExtArgs>
+        fields: Prisma.ExtractedPlanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ExtractedPlanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtractedPlanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ExtractedPlanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtractedPlanPayload>
+          }
+          findFirst: {
+            args: Prisma.ExtractedPlanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtractedPlanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ExtractedPlanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtractedPlanPayload>
+          }
+          findMany: {
+            args: Prisma.ExtractedPlanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtractedPlanPayload>[]
+          }
+          create: {
+            args: Prisma.ExtractedPlanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtractedPlanPayload>
+          }
+          createMany: {
+            args: Prisma.ExtractedPlanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ExtractedPlanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtractedPlanPayload>[]
+          }
+          delete: {
+            args: Prisma.ExtractedPlanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtractedPlanPayload>
+          }
+          update: {
+            args: Prisma.ExtractedPlanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtractedPlanPayload>
+          }
+          deleteMany: {
+            args: Prisma.ExtractedPlanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ExtractedPlanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ExtractedPlanUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtractedPlanPayload>[]
+          }
+          upsert: {
+            args: Prisma.ExtractedPlanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExtractedPlanPayload>
+          }
+          aggregate: {
+            args: Prisma.ExtractedPlanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateExtractedPlan>
+          }
+          groupBy: {
+            args: Prisma.ExtractedPlanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ExtractedPlanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ExtractedPlanCountArgs<ExtArgs>
+            result: $Utils.Optional<ExtractedPlanCountAggregateOutputType> | number
+          }
+        }
+      }
       ChatConversation: {
         payload: Prisma.$ChatConversationPayload<ExtArgs>
         fields: Prisma.ChatConversationFieldRefs
@@ -1816,6 +1906,7 @@ export namespace Prisma {
     profile?: ProfileOmit
     consentLog?: ConsentLogOmit
     plan?: PlanOmit
+    extractedPlan?: ExtractedPlanOmit
     chatConversation?: ChatConversationOmit
     chatMessage?: ChatMessageOmit
     chatRetrievalHit?: ChatRetrievalHitOmit
@@ -11083,6 +11174,1076 @@ export namespace Prisma {
 
 
   /**
+   * Model ExtractedPlan
+   */
+
+  export type AggregateExtractedPlan = {
+    _count: ExtractedPlanCountAggregateOutputType | null
+    _min: ExtractedPlanMinAggregateOutputType | null
+    _max: ExtractedPlanMaxAggregateOutputType | null
+  }
+
+  export type ExtractedPlanMinAggregateOutputType = {
+    id: string | null
+    sourceFile: string | null
+    planName: string | null
+    planType: string | null
+    carrier: string | null
+    jurisdiction: string | null
+    extractionConfidence: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ExtractedPlanMaxAggregateOutputType = {
+    id: string | null
+    sourceFile: string | null
+    planName: string | null
+    planType: string | null
+    carrier: string | null
+    jurisdiction: string | null
+    extractionConfidence: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ExtractedPlanCountAggregateOutputType = {
+    id: number
+    sourceFile: number
+    planName: number
+    planType: number
+    carrier: number
+    jurisdiction: number
+    extractedData: number
+    mlFeatures: number
+    extractionConfidence: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ExtractedPlanMinAggregateInputType = {
+    id?: true
+    sourceFile?: true
+    planName?: true
+    planType?: true
+    carrier?: true
+    jurisdiction?: true
+    extractionConfidence?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ExtractedPlanMaxAggregateInputType = {
+    id?: true
+    sourceFile?: true
+    planName?: true
+    planType?: true
+    carrier?: true
+    jurisdiction?: true
+    extractionConfidence?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ExtractedPlanCountAggregateInputType = {
+    id?: true
+    sourceFile?: true
+    planName?: true
+    planType?: true
+    carrier?: true
+    jurisdiction?: true
+    extractedData?: true
+    mlFeatures?: true
+    extractionConfidence?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ExtractedPlanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExtractedPlan to aggregate.
+     */
+    where?: ExtractedPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExtractedPlans to fetch.
+     */
+    orderBy?: ExtractedPlanOrderByWithRelationInput | ExtractedPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ExtractedPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExtractedPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExtractedPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ExtractedPlans
+    **/
+    _count?: true | ExtractedPlanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ExtractedPlanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ExtractedPlanMaxAggregateInputType
+  }
+
+  export type GetExtractedPlanAggregateType<T extends ExtractedPlanAggregateArgs> = {
+        [P in keyof T & keyof AggregateExtractedPlan]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateExtractedPlan[P]>
+      : GetScalarType<T[P], AggregateExtractedPlan[P]>
+  }
+
+
+
+
+  export type ExtractedPlanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExtractedPlanWhereInput
+    orderBy?: ExtractedPlanOrderByWithAggregationInput | ExtractedPlanOrderByWithAggregationInput[]
+    by: ExtractedPlanScalarFieldEnum[] | ExtractedPlanScalarFieldEnum
+    having?: ExtractedPlanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ExtractedPlanCountAggregateInputType | true
+    _min?: ExtractedPlanMinAggregateInputType
+    _max?: ExtractedPlanMaxAggregateInputType
+  }
+
+  export type ExtractedPlanGroupByOutputType = {
+    id: string
+    sourceFile: string
+    planName: string
+    planType: string
+    carrier: string
+    jurisdiction: string
+    extractedData: JsonValue
+    mlFeatures: JsonValue
+    extractionConfidence: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ExtractedPlanCountAggregateOutputType | null
+    _min: ExtractedPlanMinAggregateOutputType | null
+    _max: ExtractedPlanMaxAggregateOutputType | null
+  }
+
+  type GetExtractedPlanGroupByPayload<T extends ExtractedPlanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ExtractedPlanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ExtractedPlanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ExtractedPlanGroupByOutputType[P]>
+            : GetScalarType<T[P], ExtractedPlanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ExtractedPlanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sourceFile?: boolean
+    planName?: boolean
+    planType?: boolean
+    carrier?: boolean
+    jurisdiction?: boolean
+    extractedData?: boolean
+    mlFeatures?: boolean
+    extractionConfidence?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["extractedPlan"]>
+
+  export type ExtractedPlanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sourceFile?: boolean
+    planName?: boolean
+    planType?: boolean
+    carrier?: boolean
+    jurisdiction?: boolean
+    extractedData?: boolean
+    mlFeatures?: boolean
+    extractionConfidence?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["extractedPlan"]>
+
+  export type ExtractedPlanSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sourceFile?: boolean
+    planName?: boolean
+    planType?: boolean
+    carrier?: boolean
+    jurisdiction?: boolean
+    extractedData?: boolean
+    mlFeatures?: boolean
+    extractionConfidence?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["extractedPlan"]>
+
+  export type ExtractedPlanSelectScalar = {
+    id?: boolean
+    sourceFile?: boolean
+    planName?: boolean
+    planType?: boolean
+    carrier?: boolean
+    jurisdiction?: boolean
+    extractedData?: boolean
+    mlFeatures?: boolean
+    extractionConfidence?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ExtractedPlanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sourceFile" | "planName" | "planType" | "carrier" | "jurisdiction" | "extractedData" | "mlFeatures" | "extractionConfidence" | "createdAt" | "updatedAt", ExtArgs["result"]["extractedPlan"]>
+
+  export type $ExtractedPlanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ExtractedPlan"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      sourceFile: string
+      planName: string
+      planType: string
+      carrier: string
+      jurisdiction: string
+      extractedData: Prisma.JsonValue
+      mlFeatures: Prisma.JsonValue
+      extractionConfidence: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["extractedPlan"]>
+    composites: {}
+  }
+
+  type ExtractedPlanGetPayload<S extends boolean | null | undefined | ExtractedPlanDefaultArgs> = $Result.GetResult<Prisma.$ExtractedPlanPayload, S>
+
+  type ExtractedPlanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ExtractedPlanFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ExtractedPlanCountAggregateInputType | true
+    }
+
+  export interface ExtractedPlanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ExtractedPlan'], meta: { name: 'ExtractedPlan' } }
+    /**
+     * Find zero or one ExtractedPlan that matches the filter.
+     * @param {ExtractedPlanFindUniqueArgs} args - Arguments to find a ExtractedPlan
+     * @example
+     * // Get one ExtractedPlan
+     * const extractedPlan = await prisma.extractedPlan.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ExtractedPlanFindUniqueArgs>(args: SelectSubset<T, ExtractedPlanFindUniqueArgs<ExtArgs>>): Prisma__ExtractedPlanClient<$Result.GetResult<Prisma.$ExtractedPlanPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ExtractedPlan that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ExtractedPlanFindUniqueOrThrowArgs} args - Arguments to find a ExtractedPlan
+     * @example
+     * // Get one ExtractedPlan
+     * const extractedPlan = await prisma.extractedPlan.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ExtractedPlanFindUniqueOrThrowArgs>(args: SelectSubset<T, ExtractedPlanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ExtractedPlanClient<$Result.GetResult<Prisma.$ExtractedPlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExtractedPlan that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtractedPlanFindFirstArgs} args - Arguments to find a ExtractedPlan
+     * @example
+     * // Get one ExtractedPlan
+     * const extractedPlan = await prisma.extractedPlan.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ExtractedPlanFindFirstArgs>(args?: SelectSubset<T, ExtractedPlanFindFirstArgs<ExtArgs>>): Prisma__ExtractedPlanClient<$Result.GetResult<Prisma.$ExtractedPlanPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExtractedPlan that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtractedPlanFindFirstOrThrowArgs} args - Arguments to find a ExtractedPlan
+     * @example
+     * // Get one ExtractedPlan
+     * const extractedPlan = await prisma.extractedPlan.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ExtractedPlanFindFirstOrThrowArgs>(args?: SelectSubset<T, ExtractedPlanFindFirstOrThrowArgs<ExtArgs>>): Prisma__ExtractedPlanClient<$Result.GetResult<Prisma.$ExtractedPlanPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ExtractedPlans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtractedPlanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ExtractedPlans
+     * const extractedPlans = await prisma.extractedPlan.findMany()
+     * 
+     * // Get first 10 ExtractedPlans
+     * const extractedPlans = await prisma.extractedPlan.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const extractedPlanWithIdOnly = await prisma.extractedPlan.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ExtractedPlanFindManyArgs>(args?: SelectSubset<T, ExtractedPlanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExtractedPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ExtractedPlan.
+     * @param {ExtractedPlanCreateArgs} args - Arguments to create a ExtractedPlan.
+     * @example
+     * // Create one ExtractedPlan
+     * const ExtractedPlan = await prisma.extractedPlan.create({
+     *   data: {
+     *     // ... data to create a ExtractedPlan
+     *   }
+     * })
+     * 
+     */
+    create<T extends ExtractedPlanCreateArgs>(args: SelectSubset<T, ExtractedPlanCreateArgs<ExtArgs>>): Prisma__ExtractedPlanClient<$Result.GetResult<Prisma.$ExtractedPlanPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ExtractedPlans.
+     * @param {ExtractedPlanCreateManyArgs} args - Arguments to create many ExtractedPlans.
+     * @example
+     * // Create many ExtractedPlans
+     * const extractedPlan = await prisma.extractedPlan.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ExtractedPlanCreateManyArgs>(args?: SelectSubset<T, ExtractedPlanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ExtractedPlans and returns the data saved in the database.
+     * @param {ExtractedPlanCreateManyAndReturnArgs} args - Arguments to create many ExtractedPlans.
+     * @example
+     * // Create many ExtractedPlans
+     * const extractedPlan = await prisma.extractedPlan.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ExtractedPlans and only return the `id`
+     * const extractedPlanWithIdOnly = await prisma.extractedPlan.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ExtractedPlanCreateManyAndReturnArgs>(args?: SelectSubset<T, ExtractedPlanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExtractedPlanPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ExtractedPlan.
+     * @param {ExtractedPlanDeleteArgs} args - Arguments to delete one ExtractedPlan.
+     * @example
+     * // Delete one ExtractedPlan
+     * const ExtractedPlan = await prisma.extractedPlan.delete({
+     *   where: {
+     *     // ... filter to delete one ExtractedPlan
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ExtractedPlanDeleteArgs>(args: SelectSubset<T, ExtractedPlanDeleteArgs<ExtArgs>>): Prisma__ExtractedPlanClient<$Result.GetResult<Prisma.$ExtractedPlanPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ExtractedPlan.
+     * @param {ExtractedPlanUpdateArgs} args - Arguments to update one ExtractedPlan.
+     * @example
+     * // Update one ExtractedPlan
+     * const extractedPlan = await prisma.extractedPlan.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ExtractedPlanUpdateArgs>(args: SelectSubset<T, ExtractedPlanUpdateArgs<ExtArgs>>): Prisma__ExtractedPlanClient<$Result.GetResult<Prisma.$ExtractedPlanPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ExtractedPlans.
+     * @param {ExtractedPlanDeleteManyArgs} args - Arguments to filter ExtractedPlans to delete.
+     * @example
+     * // Delete a few ExtractedPlans
+     * const { count } = await prisma.extractedPlan.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ExtractedPlanDeleteManyArgs>(args?: SelectSubset<T, ExtractedPlanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExtractedPlans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtractedPlanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ExtractedPlans
+     * const extractedPlan = await prisma.extractedPlan.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ExtractedPlanUpdateManyArgs>(args: SelectSubset<T, ExtractedPlanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExtractedPlans and returns the data updated in the database.
+     * @param {ExtractedPlanUpdateManyAndReturnArgs} args - Arguments to update many ExtractedPlans.
+     * @example
+     * // Update many ExtractedPlans
+     * const extractedPlan = await prisma.extractedPlan.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ExtractedPlans and only return the `id`
+     * const extractedPlanWithIdOnly = await prisma.extractedPlan.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ExtractedPlanUpdateManyAndReturnArgs>(args: SelectSubset<T, ExtractedPlanUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExtractedPlanPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ExtractedPlan.
+     * @param {ExtractedPlanUpsertArgs} args - Arguments to update or create a ExtractedPlan.
+     * @example
+     * // Update or create a ExtractedPlan
+     * const extractedPlan = await prisma.extractedPlan.upsert({
+     *   create: {
+     *     // ... data to create a ExtractedPlan
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ExtractedPlan we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ExtractedPlanUpsertArgs>(args: SelectSubset<T, ExtractedPlanUpsertArgs<ExtArgs>>): Prisma__ExtractedPlanClient<$Result.GetResult<Prisma.$ExtractedPlanPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ExtractedPlans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtractedPlanCountArgs} args - Arguments to filter ExtractedPlans to count.
+     * @example
+     * // Count the number of ExtractedPlans
+     * const count = await prisma.extractedPlan.count({
+     *   where: {
+     *     // ... the filter for the ExtractedPlans we want to count
+     *   }
+     * })
+    **/
+    count<T extends ExtractedPlanCountArgs>(
+      args?: Subset<T, ExtractedPlanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ExtractedPlanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ExtractedPlan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtractedPlanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ExtractedPlanAggregateArgs>(args: Subset<T, ExtractedPlanAggregateArgs>): Prisma.PrismaPromise<GetExtractedPlanAggregateType<T>>
+
+    /**
+     * Group by ExtractedPlan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExtractedPlanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ExtractedPlanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ExtractedPlanGroupByArgs['orderBy'] }
+        : { orderBy?: ExtractedPlanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ExtractedPlanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetExtractedPlanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ExtractedPlan model
+   */
+  readonly fields: ExtractedPlanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ExtractedPlan.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ExtractedPlanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ExtractedPlan model
+   */
+  interface ExtractedPlanFieldRefs {
+    readonly id: FieldRef<"ExtractedPlan", 'String'>
+    readonly sourceFile: FieldRef<"ExtractedPlan", 'String'>
+    readonly planName: FieldRef<"ExtractedPlan", 'String'>
+    readonly planType: FieldRef<"ExtractedPlan", 'String'>
+    readonly carrier: FieldRef<"ExtractedPlan", 'String'>
+    readonly jurisdiction: FieldRef<"ExtractedPlan", 'String'>
+    readonly extractedData: FieldRef<"ExtractedPlan", 'Json'>
+    readonly mlFeatures: FieldRef<"ExtractedPlan", 'Json'>
+    readonly extractionConfidence: FieldRef<"ExtractedPlan", 'String'>
+    readonly createdAt: FieldRef<"ExtractedPlan", 'DateTime'>
+    readonly updatedAt: FieldRef<"ExtractedPlan", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ExtractedPlan findUnique
+   */
+  export type ExtractedPlanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedPlan
+     */
+    select?: ExtractedPlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedPlan
+     */
+    omit?: ExtractedPlanOmit<ExtArgs> | null
+    /**
+     * Filter, which ExtractedPlan to fetch.
+     */
+    where: ExtractedPlanWhereUniqueInput
+  }
+
+  /**
+   * ExtractedPlan findUniqueOrThrow
+   */
+  export type ExtractedPlanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedPlan
+     */
+    select?: ExtractedPlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedPlan
+     */
+    omit?: ExtractedPlanOmit<ExtArgs> | null
+    /**
+     * Filter, which ExtractedPlan to fetch.
+     */
+    where: ExtractedPlanWhereUniqueInput
+  }
+
+  /**
+   * ExtractedPlan findFirst
+   */
+  export type ExtractedPlanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedPlan
+     */
+    select?: ExtractedPlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedPlan
+     */
+    omit?: ExtractedPlanOmit<ExtArgs> | null
+    /**
+     * Filter, which ExtractedPlan to fetch.
+     */
+    where?: ExtractedPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExtractedPlans to fetch.
+     */
+    orderBy?: ExtractedPlanOrderByWithRelationInput | ExtractedPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExtractedPlans.
+     */
+    cursor?: ExtractedPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExtractedPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExtractedPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExtractedPlans.
+     */
+    distinct?: ExtractedPlanScalarFieldEnum | ExtractedPlanScalarFieldEnum[]
+  }
+
+  /**
+   * ExtractedPlan findFirstOrThrow
+   */
+  export type ExtractedPlanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedPlan
+     */
+    select?: ExtractedPlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedPlan
+     */
+    omit?: ExtractedPlanOmit<ExtArgs> | null
+    /**
+     * Filter, which ExtractedPlan to fetch.
+     */
+    where?: ExtractedPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExtractedPlans to fetch.
+     */
+    orderBy?: ExtractedPlanOrderByWithRelationInput | ExtractedPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExtractedPlans.
+     */
+    cursor?: ExtractedPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExtractedPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExtractedPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExtractedPlans.
+     */
+    distinct?: ExtractedPlanScalarFieldEnum | ExtractedPlanScalarFieldEnum[]
+  }
+
+  /**
+   * ExtractedPlan findMany
+   */
+  export type ExtractedPlanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedPlan
+     */
+    select?: ExtractedPlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedPlan
+     */
+    omit?: ExtractedPlanOmit<ExtArgs> | null
+    /**
+     * Filter, which ExtractedPlans to fetch.
+     */
+    where?: ExtractedPlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExtractedPlans to fetch.
+     */
+    orderBy?: ExtractedPlanOrderByWithRelationInput | ExtractedPlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ExtractedPlans.
+     */
+    cursor?: ExtractedPlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExtractedPlans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExtractedPlans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExtractedPlans.
+     */
+    distinct?: ExtractedPlanScalarFieldEnum | ExtractedPlanScalarFieldEnum[]
+  }
+
+  /**
+   * ExtractedPlan create
+   */
+  export type ExtractedPlanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedPlan
+     */
+    select?: ExtractedPlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedPlan
+     */
+    omit?: ExtractedPlanOmit<ExtArgs> | null
+    /**
+     * The data needed to create a ExtractedPlan.
+     */
+    data: XOR<ExtractedPlanCreateInput, ExtractedPlanUncheckedCreateInput>
+  }
+
+  /**
+   * ExtractedPlan createMany
+   */
+  export type ExtractedPlanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ExtractedPlans.
+     */
+    data: ExtractedPlanCreateManyInput | ExtractedPlanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ExtractedPlan createManyAndReturn
+   */
+  export type ExtractedPlanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedPlan
+     */
+    select?: ExtractedPlanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedPlan
+     */
+    omit?: ExtractedPlanOmit<ExtArgs> | null
+    /**
+     * The data used to create many ExtractedPlans.
+     */
+    data: ExtractedPlanCreateManyInput | ExtractedPlanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ExtractedPlan update
+   */
+  export type ExtractedPlanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedPlan
+     */
+    select?: ExtractedPlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedPlan
+     */
+    omit?: ExtractedPlanOmit<ExtArgs> | null
+    /**
+     * The data needed to update a ExtractedPlan.
+     */
+    data: XOR<ExtractedPlanUpdateInput, ExtractedPlanUncheckedUpdateInput>
+    /**
+     * Choose, which ExtractedPlan to update.
+     */
+    where: ExtractedPlanWhereUniqueInput
+  }
+
+  /**
+   * ExtractedPlan updateMany
+   */
+  export type ExtractedPlanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ExtractedPlans.
+     */
+    data: XOR<ExtractedPlanUpdateManyMutationInput, ExtractedPlanUncheckedUpdateManyInput>
+    /**
+     * Filter which ExtractedPlans to update
+     */
+    where?: ExtractedPlanWhereInput
+    /**
+     * Limit how many ExtractedPlans to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExtractedPlan updateManyAndReturn
+   */
+  export type ExtractedPlanUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedPlan
+     */
+    select?: ExtractedPlanSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedPlan
+     */
+    omit?: ExtractedPlanOmit<ExtArgs> | null
+    /**
+     * The data used to update ExtractedPlans.
+     */
+    data: XOR<ExtractedPlanUpdateManyMutationInput, ExtractedPlanUncheckedUpdateManyInput>
+    /**
+     * Filter which ExtractedPlans to update
+     */
+    where?: ExtractedPlanWhereInput
+    /**
+     * Limit how many ExtractedPlans to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExtractedPlan upsert
+   */
+  export type ExtractedPlanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedPlan
+     */
+    select?: ExtractedPlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedPlan
+     */
+    omit?: ExtractedPlanOmit<ExtArgs> | null
+    /**
+     * The filter to search for the ExtractedPlan to update in case it exists.
+     */
+    where: ExtractedPlanWhereUniqueInput
+    /**
+     * In case the ExtractedPlan found by the `where` argument doesn't exist, create a new ExtractedPlan with this data.
+     */
+    create: XOR<ExtractedPlanCreateInput, ExtractedPlanUncheckedCreateInput>
+    /**
+     * In case the ExtractedPlan was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ExtractedPlanUpdateInput, ExtractedPlanUncheckedUpdateInput>
+  }
+
+  /**
+   * ExtractedPlan delete
+   */
+  export type ExtractedPlanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedPlan
+     */
+    select?: ExtractedPlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedPlan
+     */
+    omit?: ExtractedPlanOmit<ExtArgs> | null
+    /**
+     * Filter which ExtractedPlan to delete.
+     */
+    where: ExtractedPlanWhereUniqueInput
+  }
+
+  /**
+   * ExtractedPlan deleteMany
+   */
+  export type ExtractedPlanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExtractedPlans to delete
+     */
+    where?: ExtractedPlanWhereInput
+    /**
+     * Limit how many ExtractedPlans to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExtractedPlan without action
+   */
+  export type ExtractedPlanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedPlan
+     */
+    select?: ExtractedPlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedPlan
+     */
+    omit?: ExtractedPlanOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model ChatConversation
    */
 
@@ -14688,6 +15849,23 @@ export namespace Prisma {
   export type PlanScalarFieldEnum = (typeof PlanScalarFieldEnum)[keyof typeof PlanScalarFieldEnum]
 
 
+  export const ExtractedPlanScalarFieldEnum: {
+    id: 'id',
+    sourceFile: 'sourceFile',
+    planName: 'planName',
+    planType: 'planType',
+    carrier: 'carrier',
+    jurisdiction: 'jurisdiction',
+    extractedData: 'extractedData',
+    mlFeatures: 'mlFeatures',
+    extractionConfidence: 'extractionConfidence',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ExtractedPlanScalarFieldEnum = (typeof ExtractedPlanScalarFieldEnum)[keyof typeof ExtractedPlanScalarFieldEnum]
+
+
   export const ChatConversationScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -15604,6 +16782,88 @@ export namespace Prisma {
     providerNetwork?: JsonWithAggregatesFilter<"Plan">
     createdAt?: DateTimeWithAggregatesFilter<"Plan"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Plan"> | Date | string
+  }
+
+  export type ExtractedPlanWhereInput = {
+    AND?: ExtractedPlanWhereInput | ExtractedPlanWhereInput[]
+    OR?: ExtractedPlanWhereInput[]
+    NOT?: ExtractedPlanWhereInput | ExtractedPlanWhereInput[]
+    id?: StringFilter<"ExtractedPlan"> | string
+    sourceFile?: StringFilter<"ExtractedPlan"> | string
+    planName?: StringFilter<"ExtractedPlan"> | string
+    planType?: StringFilter<"ExtractedPlan"> | string
+    carrier?: StringFilter<"ExtractedPlan"> | string
+    jurisdiction?: StringFilter<"ExtractedPlan"> | string
+    extractedData?: JsonFilter<"ExtractedPlan">
+    mlFeatures?: JsonFilter<"ExtractedPlan">
+    extractionConfidence?: StringFilter<"ExtractedPlan"> | string
+    createdAt?: DateTimeFilter<"ExtractedPlan"> | Date | string
+    updatedAt?: DateTimeFilter<"ExtractedPlan"> | Date | string
+  }
+
+  export type ExtractedPlanOrderByWithRelationInput = {
+    id?: SortOrder
+    sourceFile?: SortOrder
+    planName?: SortOrder
+    planType?: SortOrder
+    carrier?: SortOrder
+    jurisdiction?: SortOrder
+    extractedData?: SortOrder
+    mlFeatures?: SortOrder
+    extractionConfidence?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExtractedPlanWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    sourceFile?: string
+    AND?: ExtractedPlanWhereInput | ExtractedPlanWhereInput[]
+    OR?: ExtractedPlanWhereInput[]
+    NOT?: ExtractedPlanWhereInput | ExtractedPlanWhereInput[]
+    planName?: StringFilter<"ExtractedPlan"> | string
+    planType?: StringFilter<"ExtractedPlan"> | string
+    carrier?: StringFilter<"ExtractedPlan"> | string
+    jurisdiction?: StringFilter<"ExtractedPlan"> | string
+    extractedData?: JsonFilter<"ExtractedPlan">
+    mlFeatures?: JsonFilter<"ExtractedPlan">
+    extractionConfidence?: StringFilter<"ExtractedPlan"> | string
+    createdAt?: DateTimeFilter<"ExtractedPlan"> | Date | string
+    updatedAt?: DateTimeFilter<"ExtractedPlan"> | Date | string
+  }, "id" | "sourceFile">
+
+  export type ExtractedPlanOrderByWithAggregationInput = {
+    id?: SortOrder
+    sourceFile?: SortOrder
+    planName?: SortOrder
+    planType?: SortOrder
+    carrier?: SortOrder
+    jurisdiction?: SortOrder
+    extractedData?: SortOrder
+    mlFeatures?: SortOrder
+    extractionConfidence?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ExtractedPlanCountOrderByAggregateInput
+    _max?: ExtractedPlanMaxOrderByAggregateInput
+    _min?: ExtractedPlanMinOrderByAggregateInput
+  }
+
+  export type ExtractedPlanScalarWhereWithAggregatesInput = {
+    AND?: ExtractedPlanScalarWhereWithAggregatesInput | ExtractedPlanScalarWhereWithAggregatesInput[]
+    OR?: ExtractedPlanScalarWhereWithAggregatesInput[]
+    NOT?: ExtractedPlanScalarWhereWithAggregatesInput | ExtractedPlanScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ExtractedPlan"> | string
+    sourceFile?: StringWithAggregatesFilter<"ExtractedPlan"> | string
+    planName?: StringWithAggregatesFilter<"ExtractedPlan"> | string
+    planType?: StringWithAggregatesFilter<"ExtractedPlan"> | string
+    carrier?: StringWithAggregatesFilter<"ExtractedPlan"> | string
+    jurisdiction?: StringWithAggregatesFilter<"ExtractedPlan"> | string
+    extractedData?: JsonWithAggregatesFilter<"ExtractedPlan">
+    mlFeatures?: JsonWithAggregatesFilter<"ExtractedPlan">
+    extractionConfidence?: StringWithAggregatesFilter<"ExtractedPlan"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ExtractedPlan"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ExtractedPlan"> | Date | string
   }
 
   export type ChatConversationWhereInput = {
@@ -16542,6 +17802,104 @@ export namespace Prisma {
     specialistCopay?: IntFieldUpdateOperationsInput | number
     formulary?: JsonNullValueInput | InputJsonValue
     providerNetwork?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExtractedPlanCreateInput = {
+    id?: string
+    sourceFile: string
+    planName: string
+    planType: string
+    carrier: string
+    jurisdiction: string
+    extractedData: JsonNullValueInput | InputJsonValue
+    mlFeatures: JsonNullValueInput | InputJsonValue
+    extractionConfidence?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExtractedPlanUncheckedCreateInput = {
+    id?: string
+    sourceFile: string
+    planName: string
+    planType: string
+    carrier: string
+    jurisdiction: string
+    extractedData: JsonNullValueInput | InputJsonValue
+    mlFeatures: JsonNullValueInput | InputJsonValue
+    extractionConfidence?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExtractedPlanUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sourceFile?: StringFieldUpdateOperationsInput | string
+    planName?: StringFieldUpdateOperationsInput | string
+    planType?: StringFieldUpdateOperationsInput | string
+    carrier?: StringFieldUpdateOperationsInput | string
+    jurisdiction?: StringFieldUpdateOperationsInput | string
+    extractedData?: JsonNullValueInput | InputJsonValue
+    mlFeatures?: JsonNullValueInput | InputJsonValue
+    extractionConfidence?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExtractedPlanUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sourceFile?: StringFieldUpdateOperationsInput | string
+    planName?: StringFieldUpdateOperationsInput | string
+    planType?: StringFieldUpdateOperationsInput | string
+    carrier?: StringFieldUpdateOperationsInput | string
+    jurisdiction?: StringFieldUpdateOperationsInput | string
+    extractedData?: JsonNullValueInput | InputJsonValue
+    mlFeatures?: JsonNullValueInput | InputJsonValue
+    extractionConfidence?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExtractedPlanCreateManyInput = {
+    id?: string
+    sourceFile: string
+    planName: string
+    planType: string
+    carrier: string
+    jurisdiction: string
+    extractedData: JsonNullValueInput | InputJsonValue
+    mlFeatures: JsonNullValueInput | InputJsonValue
+    extractionConfidence?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExtractedPlanUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sourceFile?: StringFieldUpdateOperationsInput | string
+    planName?: StringFieldUpdateOperationsInput | string
+    planType?: StringFieldUpdateOperationsInput | string
+    carrier?: StringFieldUpdateOperationsInput | string
+    jurisdiction?: StringFieldUpdateOperationsInput | string
+    extractedData?: JsonNullValueInput | InputJsonValue
+    mlFeatures?: JsonNullValueInput | InputJsonValue
+    extractionConfidence?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExtractedPlanUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sourceFile?: StringFieldUpdateOperationsInput | string
+    planName?: StringFieldUpdateOperationsInput | string
+    planType?: StringFieldUpdateOperationsInput | string
+    carrier?: StringFieldUpdateOperationsInput | string
+    jurisdiction?: StringFieldUpdateOperationsInput | string
+    extractedData?: JsonNullValueInput | InputJsonValue
+    mlFeatures?: JsonNullValueInput | InputJsonValue
+    extractionConfidence?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17620,6 +18978,44 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPlanTypeFilter<$PrismaModel>
     _max?: NestedEnumPlanTypeFilter<$PrismaModel>
+  }
+
+  export type ExtractedPlanCountOrderByAggregateInput = {
+    id?: SortOrder
+    sourceFile?: SortOrder
+    planName?: SortOrder
+    planType?: SortOrder
+    carrier?: SortOrder
+    jurisdiction?: SortOrder
+    extractedData?: SortOrder
+    mlFeatures?: SortOrder
+    extractionConfidence?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExtractedPlanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    sourceFile?: SortOrder
+    planName?: SortOrder
+    planType?: SortOrder
+    carrier?: SortOrder
+    jurisdiction?: SortOrder
+    extractionConfidence?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExtractedPlanMinOrderByAggregateInput = {
+    id?: SortOrder
+    sourceFile?: SortOrder
+    planName?: SortOrder
+    planType?: SortOrder
+    carrier?: SortOrder
+    jurisdiction?: SortOrder
+    extractionConfidence?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserNullableScalarRelationFilter = {

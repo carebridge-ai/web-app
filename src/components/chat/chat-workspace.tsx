@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useProfile } from '@/lib/profile-context'
 
 type Source = {
   title: string
@@ -26,6 +27,7 @@ type HistoryConversation = {
 }
 
 export function ChatWorkspace() {
+  const { profile } = useProfile()
   const [question, setQuestion] = useState('What does the Sunlife standard plan say about prescription drug coverage and major exclusions?')
   const [answer, setAnswer] = useState('')
   const [sources, setSources] = useState<Source[]>([])
@@ -90,6 +92,7 @@ export function ChatWorkspace() {
           conversationId: conversationId || undefined,
           guestSessionId: guestSessionId || undefined,
           messages: [{ role: 'user', content: trimmedQuestion }],
+          userProfile: profile ?? undefined,
         }),
       })
 
