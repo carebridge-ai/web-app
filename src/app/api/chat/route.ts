@@ -11,6 +11,8 @@ import { lookupDrug } from '@/lib/rxnorm-client'
 import { searchProviders, normalizeProvider } from '@/lib/npi-registry'
 import { getQuickEligibility } from '@/lib/recommendation-engine'
 import { prisma } from '@/lib/prisma'
+import { maybeGenerateMemory } from '@/lib/memory'
+import { loadUserPortfolio, buildPortfolioPrompt } from '@/lib/portfolio'
 
 export const runtime = 'nodejs'
 
@@ -79,8 +81,8 @@ export async function POST(request: Request) {
 
   const latestUserMessage = getLatestUserMessage(parsed.data.messages)
 
-  // Run coverage search, medical features, and eligibility in parallel
-  const [coverageMatches, medicalFeatures, eligibilitySignals] = await Promise.all([
+  // Run coverage search, medical features, eligibility, and portfolio in parallel
+  const [coverageMatches, medicalFeatures, eligibilitySignals, portfolioPrompt] = await Promise.all([
     searchCoverageDocs(latestUserMessage, 5).catch(() => []),
     parsed.data.patientContext
       ? buildMedicalMlFeatures(parsed.data.patientContext).catch(() => null)
@@ -88,6 +90,9 @@ export async function POST(request: Request) {
     parsed.data.userProfile
       ? getQuickEligibility(parsed.data.userProfile as import('@/lib/profile').UserProfile).catch(() => [])
       : Promise.resolve([]),
+    session?.user?.id
+      ? loadUserPortfolio(session.user.id).then(buildPortfolioPrompt).catch(() => '')
+      : Promise.resolve(''),
   ])
 
   const medicalExtractionJson = medicalFeatures?.extraction
@@ -121,6 +126,7 @@ export async function POST(request: Request) {
           'When referencing drug information, note that it comes from RxNorm/FDA databases.',
           'When referencing provider information, note that it comes from the NPI Registry.',
           '',
+          portfolioPrompt ? `User context from portfolio:\n${portfolioPrompt}` : '',
           profileContext,
           eligibilityContext,
           '',
@@ -239,6 +245,10 @@ export async function POST(request: Request) {
         })
       }
     })
+    // Fire-and-forget: generate memory if threshold crossed
+    if (conversationId) {
+      void maybeGenerateMemory(conversationId)
+    }
   } catch {
     // Database persistence failed — still return the LLM answer
   }
