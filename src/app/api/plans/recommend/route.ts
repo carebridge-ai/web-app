@@ -37,6 +37,22 @@ function parseProviderQuery(query: string) {
   return { organizationName: trimmed }
 }
 
+function ageBandFromAge(age: number): string {
+  if (age < 18) return 'AGE_0_17'
+  if (age <= 25) return 'AGE_18_25'
+  if (age <= 35) return 'AGE_26_35'
+  if (age <= 45) return 'AGE_36_45'
+  if (age <= 55) return 'AGE_46_55'
+  if (age <= 64) return 'AGE_56_64'
+  return 'AGE_65_PLUS'
+}
+
+function incomeBandFromIncome(income: number): string {
+  if (income < 25000) return 'low'
+  if (income <= 60000) return 'medium'
+  return 'high'
+}
+
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null)
   const parsed = schema.safeParse(body)
@@ -107,9 +123,67 @@ export async function POST(request: Request) {
       r.results.slice(0, 2).map(normalizeProvider)
     )
 
-    // Build LLM context for personalized ranking
+    // --- ML service: compute user feature vector and get ML scores ---
+    let mlScoredPlans = filteredPlans
+    let mlScores: Record<string, { probability: number; suitabilityClass: number; suitabilityLabel: string }> = {}
+
+    if (filteredPlans.length > 0) {
+      try {
+        const mlResponse = await fetch(
+          `${process.env.ML_SERVICE_URL ?? 'http://localhost:8000'}/predict`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              profile: {
+                ageBand: ageBandFromAge(age),
+                province: lookupStateByZip(zip) ?? 'unknown',
+                incomeBand: income ? incomeBandFromIncome(income) : 'medium',
+                employmentStatus: 'employed',
+                hasEmployerBenefits: 'unknown',
+                immigrationStatus: 'citizen',
+                dependants: Array.from({ length: householdSize - 1 }, () => 'dependent'),
+              },
+              plan_ids: filteredPlans.map((p) => p.id),
+            }),
+            signal: AbortSignal.timeout(5000),
+          }
+        )
+
+        if (mlResponse.ok) {
+          const mlData = (await mlResponse.json()) as {
+            all_scores: Array<{
+              plan_id: string
+              probability: number
+              suitability_class: number
+              suitability_label: string
+            }>
+          }
+
+          for (const s of mlData.all_scores) {
+            mlScores[s.plan_id] = {
+              probability: s.probability,
+              suitabilityClass: s.suitability_class,
+              suitabilityLabel: s.suitability_label,
+            }
+          }
+
+          // Sort plans by ML probability, take top 10 for LLM ranking
+          mlScoredPlans = [...filteredPlans].sort((a, b) => {
+            const scoreA = mlScores[a.id]?.probability ?? 0
+            const scoreB = mlScores[b.id]?.probability ?? 0
+            return scoreB - scoreA
+          }).slice(0, 10)
+        }
+      } catch (mlErr) {
+        // ML service unavailable — fall through to LLM-only ranking
+        console.warn('ML service unavailable, falling back to LLM-only ranking:', mlErr)
+      }
+    }
+
+    // Build LLM context for personalized ranking (using ML-filtered top 10)
     const llmContext = buildLlmContext({
-      plans: filteredPlans,
+      plans: mlScoredPlans,
       drugs: drugResults,
       providers: foundProviders,
       zip,
@@ -118,23 +192,52 @@ export async function POST(request: Request) {
       householdSize,
     })
 
-    // Ask Groq to rank and explain
+    // Ask Groq to rank and explain the ML-selected top plans
     let recommendations: RankedRecommendation[] = []
 
-    if (filteredPlans.length > 0) {
-      recommendations = await generateRecommendations(llmContext, filteredPlans)
+    if (mlScoredPlans.length > 0) {
+      recommendations = await generateRecommendations(llmContext, mlScoredPlans)
+
+      // Blend ML scores into the final output
+      recommendations = recommendations.map((rec) => {
+        const ml = mlScores[rec.id]
+        if (ml) {
+          return {
+            ...rec,
+            score: Math.round(rec.score * 0.6 + ml.probability * 100 * 0.4),
+            matchReasons: [
+              ...rec.matchReasons,
+              `ML suitability: ${ml.suitabilityLabel} (${Math.round(ml.probability * 100)}%)`,
+            ],
+          }
+        }
+        return rec
+      }).sort((a, b) => b.score - a.score)
+    }
+
+    // --- What-if scenarios: generate based on user's conditions & top plans ---
+    const top3Plans = recommendations.length > 0
+      ? recommendations.slice(0, 3)
+      : filteredPlans.slice(0, 3).map((p) => ({
+          ...p,
+          score: 0,
+          matchReasons: ['Matches your ZIP code and budget filters'],
+          explanation: 'This plan is available in your area.',
+        }))
+
+    let scenarios: WhatIfScenario[] = []
+    if (top3Plans.length > 0) {
+      scenarios = await generateWhatIfScenarios(
+        llmContext,
+        top3Plans.map((p) => p.name),
+        drugResults.map((d) => d.normalizedName),
+      ).catch(() => [])
     }
 
     return NextResponse.json({
       ok: true,
-      plans: recommendations.length > 0
-        ? recommendations
-        : filteredPlans.map((p) => ({
-            ...p,
-            score: 0,
-            matchReasons: ['Matches your ZIP code and budget filters'],
-            explanation: 'This plan is available in your area.',
-          })),
+      plans: top3Plans,
+      scenarios,
       drugInfo: drugResults.map((d) => ({
         query: d.query,
         normalizedName: d.normalizedName,
@@ -155,6 +258,11 @@ type RankedRecommendation = NormalizedPlan & {
   score: number
   matchReasons: string[]
   explanation: string
+}
+
+type WhatIfScenario = {
+  scenario: string
+  plans: Array<{ planName: string; coveragePct: number }>
 }
 
 function mapMetalTier(level: string | null | undefined): MetalTier {
@@ -424,4 +532,69 @@ Consider: medication coverage likelihood (based on plan tier and formulary), pro
       explanation: 'This plan matches your ZIP code and filters.',
     }))
   }
+}
+
+async function generateWhatIfScenarios(
+  context: string,
+  planNames: string[],
+  medications: string[],
+): Promise<WhatIfScenario[]> {
+  const medsClause = medications.length
+    ? `The user takes these medications: ${medications.join(', ')}.`
+    : 'The user has not listed specific medications.'
+
+  const text = await generateChatText({
+    system: `You are a healthcare coverage advisor. Given a user's profile and their top insurance plans, generate exactly 3 what-if medical scenarios that are specifically relevant to this user's medications, age, and health situation. Do NOT use generic scenarios — tailor them to the user's actual conditions and drugs.
+
+For each scenario, estimate what percentage of the cost each plan would likely cover (0-100).
+
+Return ONLY valid JSON in this exact format (no markdown, no commentary):
+[
+  {
+    "scenario": "A specific medical situation relevant to this user",
+    "plans": [
+      { "planName": "Exact Plan Name", "coveragePct": 85 }
+    ]
+  }
+]
+
+Each scenario's "plans" array must include all ${planNames.length} plans. Use the exact plan names provided.`,
+    messages: [
+      {
+        role: 'user',
+        content: `${context}
+
+${medsClause}
+
+The top plans are: ${planNames.map((n, i) => `${i + 1}. ${n}`).join(', ')}
+
+Generate 3 what-if scenarios tailored to this user's health profile.`,
+      },
+    ],
+    maxTokens: 1000,
+  })
+
+  const cleaned = text
+    .replace(/<think>[\s\S]*?<\/think>/gi, '')
+    .replace(/```json\s*/gi, '')
+    .replace(/```\s*/gi, '')
+    .trim()
+
+  const start = cleaned.indexOf('[')
+  const end = cleaned.lastIndexOf(']')
+  if (start < 0 || end < 0) return []
+
+  const parsed = JSON.parse(cleaned.slice(start, end + 1)) as Array<{
+    scenario: string
+    plans: Array<{ planName: string; coveragePct: number }>
+  }>
+
+  // Validate and clamp
+  return parsed.slice(0, 3).map((s) => ({
+    scenario: s.scenario,
+    plans: (s.plans ?? []).map((p) => ({
+      planName: p.planName,
+      coveragePct: Math.max(0, Math.min(100, Math.round(p.coveragePct))),
+    })),
+  }))
 }
