@@ -7,7 +7,15 @@ import { prisma } from '@/lib/prisma'
 // Config
 // ---------------------------------------------------------------------------
 
-const resend = new Resend(process.env.RESEND_API_KEY ?? '')
+let _resend: Resend | null = null
+function getResend() {
+  if (!_resend) {
+    const key = process.env.RESEND_API_KEY
+    if (!key) throw new Error('RESEND_API_KEY is not set')
+    _resend = new Resend(key)
+  }
+  return _resend
+}
 const FROM_ADDRESS = process.env.NOTIFICATION_FROM ?? 'CareBridge AI <notifications@carebridge.ai>'
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 
@@ -121,7 +129,7 @@ export async function sendNotification(
   let emailSent = false
   if (user?.email && process.env.RESEND_API_KEY) {
     try {
-      await resend.emails.send({
+      await getResend().emails.send({
         from: FROM_ADDRESS,
         to: user.email,
         subject: title,
