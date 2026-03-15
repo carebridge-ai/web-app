@@ -93,6 +93,11 @@ export type CoverageScore = $Result.DefaultSelection<Prisma.$CoverageScorePayloa
  * 
  */
 export type LifeEvent = $Result.DefaultSelection<Prisma.$LifeEventPayload>
+/**
+ * Model MedicalShareLink
+ * 
+ */
+export type MedicalShareLink = $Result.DefaultSelection<Prisma.$MedicalShareLinkPayload>
 
 /**
  * Enums
@@ -497,6 +502,16 @@ export class PrismaClient<
     * ```
     */
   get lifeEvent(): Prisma.LifeEventDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.medicalShareLink`: Exposes CRUD operations for the **MedicalShareLink** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MedicalShareLinks
+    * const medicalShareLinks = await prisma.medicalShareLink.findMany()
+    * ```
+    */
+  get medicalShareLink(): Prisma.MedicalShareLinkDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -946,7 +961,8 @@ export namespace Prisma {
     ChatMessage: 'ChatMessage',
     ChatRetrievalHit: 'ChatRetrievalHit',
     CoverageScore: 'CoverageScore',
-    LifeEvent: 'LifeEvent'
+    LifeEvent: 'LifeEvent',
+    MedicalShareLink: 'MedicalShareLink'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -962,7 +978,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "profile" | "consentLog" | "plan" | "extractedPlan" | "medicalProfile" | "userMemory" | "chatConversation" | "chatMessage" | "chatRetrievalHit" | "coverageScore" | "lifeEvent"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "profile" | "consentLog" | "plan" | "extractedPlan" | "medicalProfile" | "userMemory" | "chatConversation" | "chatMessage" | "chatRetrievalHit" | "coverageScore" | "lifeEvent" | "medicalShareLink"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2150,6 +2166,80 @@ export namespace Prisma {
           }
         }
       }
+      MedicalShareLink: {
+        payload: Prisma.$MedicalShareLinkPayload<ExtArgs>
+        fields: Prisma.MedicalShareLinkFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MedicalShareLinkFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalShareLinkPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MedicalShareLinkFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalShareLinkPayload>
+          }
+          findFirst: {
+            args: Prisma.MedicalShareLinkFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalShareLinkPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MedicalShareLinkFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalShareLinkPayload>
+          }
+          findMany: {
+            args: Prisma.MedicalShareLinkFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalShareLinkPayload>[]
+          }
+          create: {
+            args: Prisma.MedicalShareLinkCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalShareLinkPayload>
+          }
+          createMany: {
+            args: Prisma.MedicalShareLinkCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MedicalShareLinkCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalShareLinkPayload>[]
+          }
+          delete: {
+            args: Prisma.MedicalShareLinkDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalShareLinkPayload>
+          }
+          update: {
+            args: Prisma.MedicalShareLinkUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalShareLinkPayload>
+          }
+          deleteMany: {
+            args: Prisma.MedicalShareLinkDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MedicalShareLinkUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MedicalShareLinkUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalShareLinkPayload>[]
+          }
+          upsert: {
+            args: Prisma.MedicalShareLinkUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicalShareLinkPayload>
+          }
+          aggregate: {
+            args: Prisma.MedicalShareLinkAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMedicalShareLink>
+          }
+          groupBy: {
+            args: Prisma.MedicalShareLinkGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MedicalShareLinkGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MedicalShareLinkCountArgs<ExtArgs>
+            result: $Utils.Optional<MedicalShareLinkCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2274,6 +2364,7 @@ export namespace Prisma {
     chatRetrievalHit?: ChatRetrievalHitOmit
     coverageScore?: CoverageScoreOmit
     lifeEvent?: LifeEventOmit
+    medicalShareLink?: MedicalShareLinkOmit
   }
 
   /* Types for Logging */
@@ -2362,6 +2453,7 @@ export namespace Prisma {
     chatConversations: number
     coverageScores: number
     lifeEvents: number
+    medicalShareLinks: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2373,6 +2465,7 @@ export namespace Prisma {
     chatConversations?: boolean | UserCountOutputTypeCountChatConversationsArgs
     coverageScores?: boolean | UserCountOutputTypeCountCoverageScoresArgs
     lifeEvents?: boolean | UserCountOutputTypeCountLifeEventsArgs
+    medicalShareLinks?: boolean | UserCountOutputTypeCountMedicalShareLinksArgs
   }
 
   // Custom InputTypes
@@ -2440,6 +2533,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountLifeEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LifeEventWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMedicalShareLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MedicalShareLinkWhereInput
   }
 
 
@@ -2685,6 +2785,7 @@ export namespace Prisma {
     chatConversations?: boolean | User$chatConversationsArgs<ExtArgs>
     coverageScores?: boolean | User$coverageScoresArgs<ExtArgs>
     lifeEvents?: boolean | User$lifeEventsArgs<ExtArgs>
+    medicalShareLinks?: boolean | User$medicalShareLinksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2733,6 +2834,7 @@ export namespace Prisma {
     chatConversations?: boolean | User$chatConversationsArgs<ExtArgs>
     coverageScores?: boolean | User$coverageScoresArgs<ExtArgs>
     lifeEvents?: boolean | User$lifeEventsArgs<ExtArgs>
+    medicalShareLinks?: boolean | User$medicalShareLinksArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2751,6 +2853,7 @@ export namespace Prisma {
       chatConversations: Prisma.$ChatConversationPayload<ExtArgs>[]
       coverageScores: Prisma.$CoverageScorePayload<ExtArgs>[]
       lifeEvents: Prisma.$LifeEventPayload<ExtArgs>[]
+      medicalShareLinks: Prisma.$MedicalShareLinkPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3165,6 +3268,7 @@ export namespace Prisma {
     chatConversations<T extends User$chatConversationsArgs<ExtArgs> = {}>(args?: Subset<T, User$chatConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     coverageScores<T extends User$coverageScoresArgs<ExtArgs> = {}>(args?: Subset<T, User$coverageScoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     lifeEvents<T extends User$lifeEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$lifeEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    medicalShareLinks<T extends User$medicalShareLinksArgs<ExtArgs> = {}>(args?: Subset<T, User$medicalShareLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicalShareLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3822,6 +3926,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LifeEventScalarFieldEnum | LifeEventScalarFieldEnum[]
+  }
+
+  /**
+   * User.medicalShareLinks
+   */
+  export type User$medicalShareLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkInclude<ExtArgs> | null
+    where?: MedicalShareLinkWhereInput
+    orderBy?: MedicalShareLinkOrderByWithRelationInput | MedicalShareLinkOrderByWithRelationInput[]
+    cursor?: MedicalShareLinkWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MedicalShareLinkScalarFieldEnum | MedicalShareLinkScalarFieldEnum[]
   }
 
   /**
@@ -20920,6 +21048,1069 @@ export namespace Prisma {
 
 
   /**
+   * Model MedicalShareLink
+   */
+
+  export type AggregateMedicalShareLink = {
+    _count: MedicalShareLinkCountAggregateOutputType | null
+    _min: MedicalShareLinkMinAggregateOutputType | null
+    _max: MedicalShareLinkMaxAggregateOutputType | null
+  }
+
+  export type MedicalShareLinkMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    token: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type MedicalShareLinkMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    token: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type MedicalShareLinkCountAggregateOutputType = {
+    id: number
+    userId: number
+    token: number
+    expiresAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MedicalShareLinkMinAggregateInputType = {
+    id?: true
+    userId?: true
+    token?: true
+    expiresAt?: true
+    createdAt?: true
+  }
+
+  export type MedicalShareLinkMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    token?: true
+    expiresAt?: true
+    createdAt?: true
+  }
+
+  export type MedicalShareLinkCountAggregateInputType = {
+    id?: true
+    userId?: true
+    token?: true
+    expiresAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MedicalShareLinkAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MedicalShareLink to aggregate.
+     */
+    where?: MedicalShareLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MedicalShareLinks to fetch.
+     */
+    orderBy?: MedicalShareLinkOrderByWithRelationInput | MedicalShareLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MedicalShareLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MedicalShareLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MedicalShareLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MedicalShareLinks
+    **/
+    _count?: true | MedicalShareLinkCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MedicalShareLinkMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MedicalShareLinkMaxAggregateInputType
+  }
+
+  export type GetMedicalShareLinkAggregateType<T extends MedicalShareLinkAggregateArgs> = {
+        [P in keyof T & keyof AggregateMedicalShareLink]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMedicalShareLink[P]>
+      : GetScalarType<T[P], AggregateMedicalShareLink[P]>
+  }
+
+
+
+
+  export type MedicalShareLinkGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MedicalShareLinkWhereInput
+    orderBy?: MedicalShareLinkOrderByWithAggregationInput | MedicalShareLinkOrderByWithAggregationInput[]
+    by: MedicalShareLinkScalarFieldEnum[] | MedicalShareLinkScalarFieldEnum
+    having?: MedicalShareLinkScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MedicalShareLinkCountAggregateInputType | true
+    _min?: MedicalShareLinkMinAggregateInputType
+    _max?: MedicalShareLinkMaxAggregateInputType
+  }
+
+  export type MedicalShareLinkGroupByOutputType = {
+    id: string
+    userId: string
+    token: string
+    expiresAt: Date
+    createdAt: Date
+    _count: MedicalShareLinkCountAggregateOutputType | null
+    _min: MedicalShareLinkMinAggregateOutputType | null
+    _max: MedicalShareLinkMaxAggregateOutputType | null
+  }
+
+  type GetMedicalShareLinkGroupByPayload<T extends MedicalShareLinkGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MedicalShareLinkGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MedicalShareLinkGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MedicalShareLinkGroupByOutputType[P]>
+            : GetScalarType<T[P], MedicalShareLinkGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MedicalShareLinkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["medicalShareLink"]>
+
+  export type MedicalShareLinkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["medicalShareLink"]>
+
+  export type MedicalShareLinkSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["medicalShareLink"]>
+
+  export type MedicalShareLinkSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    token?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type MedicalShareLinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "token" | "expiresAt" | "createdAt", ExtArgs["result"]["medicalShareLink"]>
+  export type MedicalShareLinkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MedicalShareLinkIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MedicalShareLinkIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MedicalShareLinkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MedicalShareLink"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      token: string
+      expiresAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["medicalShareLink"]>
+    composites: {}
+  }
+
+  type MedicalShareLinkGetPayload<S extends boolean | null | undefined | MedicalShareLinkDefaultArgs> = $Result.GetResult<Prisma.$MedicalShareLinkPayload, S>
+
+  type MedicalShareLinkCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MedicalShareLinkFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MedicalShareLinkCountAggregateInputType | true
+    }
+
+  export interface MedicalShareLinkDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MedicalShareLink'], meta: { name: 'MedicalShareLink' } }
+    /**
+     * Find zero or one MedicalShareLink that matches the filter.
+     * @param {MedicalShareLinkFindUniqueArgs} args - Arguments to find a MedicalShareLink
+     * @example
+     * // Get one MedicalShareLink
+     * const medicalShareLink = await prisma.medicalShareLink.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MedicalShareLinkFindUniqueArgs>(args: SelectSubset<T, MedicalShareLinkFindUniqueArgs<ExtArgs>>): Prisma__MedicalShareLinkClient<$Result.GetResult<Prisma.$MedicalShareLinkPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MedicalShareLink that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MedicalShareLinkFindUniqueOrThrowArgs} args - Arguments to find a MedicalShareLink
+     * @example
+     * // Get one MedicalShareLink
+     * const medicalShareLink = await prisma.medicalShareLink.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MedicalShareLinkFindUniqueOrThrowArgs>(args: SelectSubset<T, MedicalShareLinkFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MedicalShareLinkClient<$Result.GetResult<Prisma.$MedicalShareLinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MedicalShareLink that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalShareLinkFindFirstArgs} args - Arguments to find a MedicalShareLink
+     * @example
+     * // Get one MedicalShareLink
+     * const medicalShareLink = await prisma.medicalShareLink.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MedicalShareLinkFindFirstArgs>(args?: SelectSubset<T, MedicalShareLinkFindFirstArgs<ExtArgs>>): Prisma__MedicalShareLinkClient<$Result.GetResult<Prisma.$MedicalShareLinkPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MedicalShareLink that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalShareLinkFindFirstOrThrowArgs} args - Arguments to find a MedicalShareLink
+     * @example
+     * // Get one MedicalShareLink
+     * const medicalShareLink = await prisma.medicalShareLink.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MedicalShareLinkFindFirstOrThrowArgs>(args?: SelectSubset<T, MedicalShareLinkFindFirstOrThrowArgs<ExtArgs>>): Prisma__MedicalShareLinkClient<$Result.GetResult<Prisma.$MedicalShareLinkPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MedicalShareLinks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalShareLinkFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MedicalShareLinks
+     * const medicalShareLinks = await prisma.medicalShareLink.findMany()
+     * 
+     * // Get first 10 MedicalShareLinks
+     * const medicalShareLinks = await prisma.medicalShareLink.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const medicalShareLinkWithIdOnly = await prisma.medicalShareLink.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MedicalShareLinkFindManyArgs>(args?: SelectSubset<T, MedicalShareLinkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicalShareLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MedicalShareLink.
+     * @param {MedicalShareLinkCreateArgs} args - Arguments to create a MedicalShareLink.
+     * @example
+     * // Create one MedicalShareLink
+     * const MedicalShareLink = await prisma.medicalShareLink.create({
+     *   data: {
+     *     // ... data to create a MedicalShareLink
+     *   }
+     * })
+     * 
+     */
+    create<T extends MedicalShareLinkCreateArgs>(args: SelectSubset<T, MedicalShareLinkCreateArgs<ExtArgs>>): Prisma__MedicalShareLinkClient<$Result.GetResult<Prisma.$MedicalShareLinkPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MedicalShareLinks.
+     * @param {MedicalShareLinkCreateManyArgs} args - Arguments to create many MedicalShareLinks.
+     * @example
+     * // Create many MedicalShareLinks
+     * const medicalShareLink = await prisma.medicalShareLink.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MedicalShareLinkCreateManyArgs>(args?: SelectSubset<T, MedicalShareLinkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MedicalShareLinks and returns the data saved in the database.
+     * @param {MedicalShareLinkCreateManyAndReturnArgs} args - Arguments to create many MedicalShareLinks.
+     * @example
+     * // Create many MedicalShareLinks
+     * const medicalShareLink = await prisma.medicalShareLink.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MedicalShareLinks and only return the `id`
+     * const medicalShareLinkWithIdOnly = await prisma.medicalShareLink.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MedicalShareLinkCreateManyAndReturnArgs>(args?: SelectSubset<T, MedicalShareLinkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicalShareLinkPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MedicalShareLink.
+     * @param {MedicalShareLinkDeleteArgs} args - Arguments to delete one MedicalShareLink.
+     * @example
+     * // Delete one MedicalShareLink
+     * const MedicalShareLink = await prisma.medicalShareLink.delete({
+     *   where: {
+     *     // ... filter to delete one MedicalShareLink
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MedicalShareLinkDeleteArgs>(args: SelectSubset<T, MedicalShareLinkDeleteArgs<ExtArgs>>): Prisma__MedicalShareLinkClient<$Result.GetResult<Prisma.$MedicalShareLinkPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MedicalShareLink.
+     * @param {MedicalShareLinkUpdateArgs} args - Arguments to update one MedicalShareLink.
+     * @example
+     * // Update one MedicalShareLink
+     * const medicalShareLink = await prisma.medicalShareLink.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MedicalShareLinkUpdateArgs>(args: SelectSubset<T, MedicalShareLinkUpdateArgs<ExtArgs>>): Prisma__MedicalShareLinkClient<$Result.GetResult<Prisma.$MedicalShareLinkPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MedicalShareLinks.
+     * @param {MedicalShareLinkDeleteManyArgs} args - Arguments to filter MedicalShareLinks to delete.
+     * @example
+     * // Delete a few MedicalShareLinks
+     * const { count } = await prisma.medicalShareLink.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MedicalShareLinkDeleteManyArgs>(args?: SelectSubset<T, MedicalShareLinkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MedicalShareLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalShareLinkUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MedicalShareLinks
+     * const medicalShareLink = await prisma.medicalShareLink.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MedicalShareLinkUpdateManyArgs>(args: SelectSubset<T, MedicalShareLinkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MedicalShareLinks and returns the data updated in the database.
+     * @param {MedicalShareLinkUpdateManyAndReturnArgs} args - Arguments to update many MedicalShareLinks.
+     * @example
+     * // Update many MedicalShareLinks
+     * const medicalShareLink = await prisma.medicalShareLink.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MedicalShareLinks and only return the `id`
+     * const medicalShareLinkWithIdOnly = await prisma.medicalShareLink.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MedicalShareLinkUpdateManyAndReturnArgs>(args: SelectSubset<T, MedicalShareLinkUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicalShareLinkPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MedicalShareLink.
+     * @param {MedicalShareLinkUpsertArgs} args - Arguments to update or create a MedicalShareLink.
+     * @example
+     * // Update or create a MedicalShareLink
+     * const medicalShareLink = await prisma.medicalShareLink.upsert({
+     *   create: {
+     *     // ... data to create a MedicalShareLink
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MedicalShareLink we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MedicalShareLinkUpsertArgs>(args: SelectSubset<T, MedicalShareLinkUpsertArgs<ExtArgs>>): Prisma__MedicalShareLinkClient<$Result.GetResult<Prisma.$MedicalShareLinkPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MedicalShareLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalShareLinkCountArgs} args - Arguments to filter MedicalShareLinks to count.
+     * @example
+     * // Count the number of MedicalShareLinks
+     * const count = await prisma.medicalShareLink.count({
+     *   where: {
+     *     // ... the filter for the MedicalShareLinks we want to count
+     *   }
+     * })
+    **/
+    count<T extends MedicalShareLinkCountArgs>(
+      args?: Subset<T, MedicalShareLinkCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MedicalShareLinkCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MedicalShareLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalShareLinkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MedicalShareLinkAggregateArgs>(args: Subset<T, MedicalShareLinkAggregateArgs>): Prisma.PrismaPromise<GetMedicalShareLinkAggregateType<T>>
+
+    /**
+     * Group by MedicalShareLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicalShareLinkGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MedicalShareLinkGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MedicalShareLinkGroupByArgs['orderBy'] }
+        : { orderBy?: MedicalShareLinkGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MedicalShareLinkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMedicalShareLinkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MedicalShareLink model
+   */
+  readonly fields: MedicalShareLinkFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MedicalShareLink.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MedicalShareLinkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MedicalShareLink model
+   */
+  interface MedicalShareLinkFieldRefs {
+    readonly id: FieldRef<"MedicalShareLink", 'String'>
+    readonly userId: FieldRef<"MedicalShareLink", 'String'>
+    readonly token: FieldRef<"MedicalShareLink", 'String'>
+    readonly expiresAt: FieldRef<"MedicalShareLink", 'DateTime'>
+    readonly createdAt: FieldRef<"MedicalShareLink", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MedicalShareLink findUnique
+   */
+  export type MedicalShareLinkFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicalShareLink to fetch.
+     */
+    where: MedicalShareLinkWhereUniqueInput
+  }
+
+  /**
+   * MedicalShareLink findUniqueOrThrow
+   */
+  export type MedicalShareLinkFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicalShareLink to fetch.
+     */
+    where: MedicalShareLinkWhereUniqueInput
+  }
+
+  /**
+   * MedicalShareLink findFirst
+   */
+  export type MedicalShareLinkFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicalShareLink to fetch.
+     */
+    where?: MedicalShareLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MedicalShareLinks to fetch.
+     */
+    orderBy?: MedicalShareLinkOrderByWithRelationInput | MedicalShareLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MedicalShareLinks.
+     */
+    cursor?: MedicalShareLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MedicalShareLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MedicalShareLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MedicalShareLinks.
+     */
+    distinct?: MedicalShareLinkScalarFieldEnum | MedicalShareLinkScalarFieldEnum[]
+  }
+
+  /**
+   * MedicalShareLink findFirstOrThrow
+   */
+  export type MedicalShareLinkFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicalShareLink to fetch.
+     */
+    where?: MedicalShareLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MedicalShareLinks to fetch.
+     */
+    orderBy?: MedicalShareLinkOrderByWithRelationInput | MedicalShareLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MedicalShareLinks.
+     */
+    cursor?: MedicalShareLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MedicalShareLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MedicalShareLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MedicalShareLinks.
+     */
+    distinct?: MedicalShareLinkScalarFieldEnum | MedicalShareLinkScalarFieldEnum[]
+  }
+
+  /**
+   * MedicalShareLink findMany
+   */
+  export type MedicalShareLinkFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicalShareLinks to fetch.
+     */
+    where?: MedicalShareLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MedicalShareLinks to fetch.
+     */
+    orderBy?: MedicalShareLinkOrderByWithRelationInput | MedicalShareLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MedicalShareLinks.
+     */
+    cursor?: MedicalShareLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MedicalShareLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MedicalShareLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MedicalShareLinks.
+     */
+    distinct?: MedicalShareLinkScalarFieldEnum | MedicalShareLinkScalarFieldEnum[]
+  }
+
+  /**
+   * MedicalShareLink create
+   */
+  export type MedicalShareLinkCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MedicalShareLink.
+     */
+    data: XOR<MedicalShareLinkCreateInput, MedicalShareLinkUncheckedCreateInput>
+  }
+
+  /**
+   * MedicalShareLink createMany
+   */
+  export type MedicalShareLinkCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MedicalShareLinks.
+     */
+    data: MedicalShareLinkCreateManyInput | MedicalShareLinkCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MedicalShareLink createManyAndReturn
+   */
+  export type MedicalShareLinkCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * The data used to create many MedicalShareLinks.
+     */
+    data: MedicalShareLinkCreateManyInput | MedicalShareLinkCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MedicalShareLink update
+   */
+  export type MedicalShareLinkUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MedicalShareLink.
+     */
+    data: XOR<MedicalShareLinkUpdateInput, MedicalShareLinkUncheckedUpdateInput>
+    /**
+     * Choose, which MedicalShareLink to update.
+     */
+    where: MedicalShareLinkWhereUniqueInput
+  }
+
+  /**
+   * MedicalShareLink updateMany
+   */
+  export type MedicalShareLinkUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MedicalShareLinks.
+     */
+    data: XOR<MedicalShareLinkUpdateManyMutationInput, MedicalShareLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which MedicalShareLinks to update
+     */
+    where?: MedicalShareLinkWhereInput
+    /**
+     * Limit how many MedicalShareLinks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MedicalShareLink updateManyAndReturn
+   */
+  export type MedicalShareLinkUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * The data used to update MedicalShareLinks.
+     */
+    data: XOR<MedicalShareLinkUpdateManyMutationInput, MedicalShareLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which MedicalShareLinks to update
+     */
+    where?: MedicalShareLinkWhereInput
+    /**
+     * Limit how many MedicalShareLinks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MedicalShareLink upsert
+   */
+  export type MedicalShareLinkUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MedicalShareLink to update in case it exists.
+     */
+    where: MedicalShareLinkWhereUniqueInput
+    /**
+     * In case the MedicalShareLink found by the `where` argument doesn't exist, create a new MedicalShareLink with this data.
+     */
+    create: XOR<MedicalShareLinkCreateInput, MedicalShareLinkUncheckedCreateInput>
+    /**
+     * In case the MedicalShareLink was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MedicalShareLinkUpdateInput, MedicalShareLinkUncheckedUpdateInput>
+  }
+
+  /**
+   * MedicalShareLink delete
+   */
+  export type MedicalShareLinkDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkInclude<ExtArgs> | null
+    /**
+     * Filter which MedicalShareLink to delete.
+     */
+    where: MedicalShareLinkWhereUniqueInput
+  }
+
+  /**
+   * MedicalShareLink deleteMany
+   */
+  export type MedicalShareLinkDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MedicalShareLinks to delete
+     */
+    where?: MedicalShareLinkWhereInput
+    /**
+     * Limit how many MedicalShareLinks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MedicalShareLink without action
+   */
+  export type MedicalShareLinkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicalShareLink
+     */
+    select?: MedicalShareLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicalShareLink
+     */
+    omit?: MedicalShareLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicalShareLinkInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -21193,6 +22384,17 @@ export namespace Prisma {
   export type LifeEventScalarFieldEnum = (typeof LifeEventScalarFieldEnum)[keyof typeof LifeEventScalarFieldEnum]
 
 
+  export const MedicalShareLinkScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    token: 'token',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt'
+  };
+
+  export type MedicalShareLinkScalarFieldEnum = (typeof MedicalShareLinkScalarFieldEnum)[keyof typeof MedicalShareLinkScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -21460,6 +22662,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationListRelationFilter
     coverageScores?: CoverageScoreListRelationFilter
     lifeEvents?: LifeEventListRelationFilter
+    medicalShareLinks?: MedicalShareLinkListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -21481,6 +22684,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationOrderByRelationAggregateInput
     coverageScores?: CoverageScoreOrderByRelationAggregateInput
     lifeEvents?: LifeEventOrderByRelationAggregateInput
+    medicalShareLinks?: MedicalShareLinkOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -21505,6 +22709,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationListRelationFilter
     coverageScores?: CoverageScoreListRelationFilter
     lifeEvents?: LifeEventListRelationFilter
+    medicalShareLinks?: MedicalShareLinkListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -22779,6 +23984,61 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"LifeEvent"> | Date | string
   }
 
+  export type MedicalShareLinkWhereInput = {
+    AND?: MedicalShareLinkWhereInput | MedicalShareLinkWhereInput[]
+    OR?: MedicalShareLinkWhereInput[]
+    NOT?: MedicalShareLinkWhereInput | MedicalShareLinkWhereInput[]
+    id?: StringFilter<"MedicalShareLink"> | string
+    userId?: StringFilter<"MedicalShareLink"> | string
+    token?: StringFilter<"MedicalShareLink"> | string
+    expiresAt?: DateTimeFilter<"MedicalShareLink"> | Date | string
+    createdAt?: DateTimeFilter<"MedicalShareLink"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MedicalShareLinkOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type MedicalShareLinkWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    token?: string
+    AND?: MedicalShareLinkWhereInput | MedicalShareLinkWhereInput[]
+    OR?: MedicalShareLinkWhereInput[]
+    NOT?: MedicalShareLinkWhereInput | MedicalShareLinkWhereInput[]
+    userId?: StringFilter<"MedicalShareLink"> | string
+    expiresAt?: DateTimeFilter<"MedicalShareLink"> | Date | string
+    createdAt?: DateTimeFilter<"MedicalShareLink"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "token">
+
+  export type MedicalShareLinkOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: MedicalShareLinkCountOrderByAggregateInput
+    _max?: MedicalShareLinkMaxOrderByAggregateInput
+    _min?: MedicalShareLinkMinOrderByAggregateInput
+  }
+
+  export type MedicalShareLinkScalarWhereWithAggregatesInput = {
+    AND?: MedicalShareLinkScalarWhereWithAggregatesInput | MedicalShareLinkScalarWhereWithAggregatesInput[]
+    OR?: MedicalShareLinkScalarWhereWithAggregatesInput[]
+    NOT?: MedicalShareLinkScalarWhereWithAggregatesInput | MedicalShareLinkScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MedicalShareLink"> | string
+    userId?: StringWithAggregatesFilter<"MedicalShareLink"> | string
+    token?: StringWithAggregatesFilter<"MedicalShareLink"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"MedicalShareLink"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"MedicalShareLink"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -22798,6 +24058,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -22819,6 +24080,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -22840,6 +24102,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -22861,6 +24124,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -24299,6 +25563,61 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MedicalShareLinkCreateInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutMedicalShareLinksInput
+  }
+
+  export type MedicalShareLinkUncheckedCreateInput = {
+    id?: string
+    userId: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type MedicalShareLinkUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMedicalShareLinksNestedInput
+  }
+
+  export type MedicalShareLinkUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MedicalShareLinkCreateManyInput = {
+    id?: string
+    userId: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type MedicalShareLinkUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MedicalShareLinkUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -24409,6 +25728,12 @@ export namespace Prisma {
     none?: LifeEventWhereInput
   }
 
+  export type MedicalShareLinkListRelationFilter = {
+    every?: MedicalShareLinkWhereInput
+    some?: MedicalShareLinkWhereInput
+    none?: MedicalShareLinkWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -24443,6 +25768,10 @@ export namespace Prisma {
   }
 
   export type LifeEventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MedicalShareLinkOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -25564,6 +26893,30 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type MedicalShareLinkCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MedicalShareLinkMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MedicalShareLinkMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    token?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -25632,6 +26985,13 @@ export namespace Prisma {
     connect?: LifeEventWhereUniqueInput | LifeEventWhereUniqueInput[]
   }
 
+  export type MedicalShareLinkCreateNestedManyWithoutUserInput = {
+    create?: XOR<MedicalShareLinkCreateWithoutUserInput, MedicalShareLinkUncheckedCreateWithoutUserInput> | MedicalShareLinkCreateWithoutUserInput[] | MedicalShareLinkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MedicalShareLinkCreateOrConnectWithoutUserInput | MedicalShareLinkCreateOrConnectWithoutUserInput[]
+    createMany?: MedicalShareLinkCreateManyUserInputEnvelope
+    connect?: MedicalShareLinkWhereUniqueInput | MedicalShareLinkWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -25698,6 +27058,13 @@ export namespace Prisma {
     connectOrCreate?: LifeEventCreateOrConnectWithoutUserInput | LifeEventCreateOrConnectWithoutUserInput[]
     createMany?: LifeEventCreateManyUserInputEnvelope
     connect?: LifeEventWhereUniqueInput | LifeEventWhereUniqueInput[]
+  }
+
+  export type MedicalShareLinkUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MedicalShareLinkCreateWithoutUserInput, MedicalShareLinkUncheckedCreateWithoutUserInput> | MedicalShareLinkCreateWithoutUserInput[] | MedicalShareLinkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MedicalShareLinkCreateOrConnectWithoutUserInput | MedicalShareLinkCreateOrConnectWithoutUserInput[]
+    createMany?: MedicalShareLinkCreateManyUserInputEnvelope
+    connect?: MedicalShareLinkWhereUniqueInput | MedicalShareLinkWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -25848,6 +27215,20 @@ export namespace Prisma {
     deleteMany?: LifeEventScalarWhereInput | LifeEventScalarWhereInput[]
   }
 
+  export type MedicalShareLinkUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MedicalShareLinkCreateWithoutUserInput, MedicalShareLinkUncheckedCreateWithoutUserInput> | MedicalShareLinkCreateWithoutUserInput[] | MedicalShareLinkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MedicalShareLinkCreateOrConnectWithoutUserInput | MedicalShareLinkCreateOrConnectWithoutUserInput[]
+    upsert?: MedicalShareLinkUpsertWithWhereUniqueWithoutUserInput | MedicalShareLinkUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MedicalShareLinkCreateManyUserInputEnvelope
+    set?: MedicalShareLinkWhereUniqueInput | MedicalShareLinkWhereUniqueInput[]
+    disconnect?: MedicalShareLinkWhereUniqueInput | MedicalShareLinkWhereUniqueInput[]
+    delete?: MedicalShareLinkWhereUniqueInput | MedicalShareLinkWhereUniqueInput[]
+    connect?: MedicalShareLinkWhereUniqueInput | MedicalShareLinkWhereUniqueInput[]
+    update?: MedicalShareLinkUpdateWithWhereUniqueWithoutUserInput | MedicalShareLinkUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MedicalShareLinkUpdateManyWithWhereWithoutUserInput | MedicalShareLinkUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MedicalShareLinkScalarWhereInput | MedicalShareLinkScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -25978,6 +27359,20 @@ export namespace Prisma {
     update?: LifeEventUpdateWithWhereUniqueWithoutUserInput | LifeEventUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: LifeEventUpdateManyWithWhereWithoutUserInput | LifeEventUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: LifeEventScalarWhereInput | LifeEventScalarWhereInput[]
+  }
+
+  export type MedicalShareLinkUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MedicalShareLinkCreateWithoutUserInput, MedicalShareLinkUncheckedCreateWithoutUserInput> | MedicalShareLinkCreateWithoutUserInput[] | MedicalShareLinkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MedicalShareLinkCreateOrConnectWithoutUserInput | MedicalShareLinkCreateOrConnectWithoutUserInput[]
+    upsert?: MedicalShareLinkUpsertWithWhereUniqueWithoutUserInput | MedicalShareLinkUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MedicalShareLinkCreateManyUserInputEnvelope
+    set?: MedicalShareLinkWhereUniqueInput | MedicalShareLinkWhereUniqueInput[]
+    disconnect?: MedicalShareLinkWhereUniqueInput | MedicalShareLinkWhereUniqueInput[]
+    delete?: MedicalShareLinkWhereUniqueInput | MedicalShareLinkWhereUniqueInput[]
+    connect?: MedicalShareLinkWhereUniqueInput | MedicalShareLinkWhereUniqueInput[]
+    update?: MedicalShareLinkUpdateWithWhereUniqueWithoutUserInput | MedicalShareLinkUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MedicalShareLinkUpdateManyWithWhereWithoutUserInput | MedicalShareLinkUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MedicalShareLinkScalarWhereInput | MedicalShareLinkScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -26301,6 +27696,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutLifeEventsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLifeEventsInput, UserUpdateWithoutLifeEventsInput>, UserUncheckedUpdateWithoutLifeEventsInput>
+  }
+
+  export type UserCreateNestedOneWithoutMedicalShareLinksInput = {
+    create?: XOR<UserCreateWithoutMedicalShareLinksInput, UserUncheckedCreateWithoutMedicalShareLinksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMedicalShareLinksInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutMedicalShareLinksNestedInput = {
+    create?: XOR<UserCreateWithoutMedicalShareLinksInput, UserUncheckedCreateWithoutMedicalShareLinksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMedicalShareLinksInput
+    upsert?: UserUpsertWithoutMedicalShareLinksInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMedicalShareLinksInput, UserUpdateWithoutMedicalShareLinksInput>, UserUncheckedUpdateWithoutMedicalShareLinksInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -27034,6 +28443,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MedicalShareLinkCreateWithoutUserInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type MedicalShareLinkUncheckedCreateWithoutUserInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type MedicalShareLinkCreateOrConnectWithoutUserInput = {
+    where: MedicalShareLinkWhereUniqueInput
+    create: XOR<MedicalShareLinkCreateWithoutUserInput, MedicalShareLinkUncheckedCreateWithoutUserInput>
+  }
+
+  export type MedicalShareLinkCreateManyUserInputEnvelope = {
+    data: MedicalShareLinkCreateManyUserInput | MedicalShareLinkCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -27367,6 +28800,33 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LifeEvent"> | Date | string
   }
 
+  export type MedicalShareLinkUpsertWithWhereUniqueWithoutUserInput = {
+    where: MedicalShareLinkWhereUniqueInput
+    update: XOR<MedicalShareLinkUpdateWithoutUserInput, MedicalShareLinkUncheckedUpdateWithoutUserInput>
+    create: XOR<MedicalShareLinkCreateWithoutUserInput, MedicalShareLinkUncheckedCreateWithoutUserInput>
+  }
+
+  export type MedicalShareLinkUpdateWithWhereUniqueWithoutUserInput = {
+    where: MedicalShareLinkWhereUniqueInput
+    data: XOR<MedicalShareLinkUpdateWithoutUserInput, MedicalShareLinkUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MedicalShareLinkUpdateManyWithWhereWithoutUserInput = {
+    where: MedicalShareLinkScalarWhereInput
+    data: XOR<MedicalShareLinkUpdateManyMutationInput, MedicalShareLinkUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type MedicalShareLinkScalarWhereInput = {
+    AND?: MedicalShareLinkScalarWhereInput | MedicalShareLinkScalarWhereInput[]
+    OR?: MedicalShareLinkScalarWhereInput[]
+    NOT?: MedicalShareLinkScalarWhereInput | MedicalShareLinkScalarWhereInput[]
+    id?: StringFilter<"MedicalShareLink"> | string
+    userId?: StringFilter<"MedicalShareLink"> | string
+    token?: StringFilter<"MedicalShareLink"> | string
+    expiresAt?: DateTimeFilter<"MedicalShareLink"> | Date | string
+    createdAt?: DateTimeFilter<"MedicalShareLink"> | Date | string
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -27385,6 +28845,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -27405,6 +28866,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -27441,6 +28903,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -27461,6 +28924,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -27481,6 +28945,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -27501,6 +28966,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -27537,6 +29003,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -27557,6 +29024,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAuthenticatorsInput = {
@@ -27577,6 +29045,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuthenticatorsInput = {
@@ -27597,6 +29066,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuthenticatorsInput = {
@@ -27633,6 +29103,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuthenticatorsInput = {
@@ -27653,6 +29124,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProfileInput = {
@@ -27673,6 +29145,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -27693,6 +29166,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -27729,6 +29203,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -27749,6 +29224,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutConsentLogsInput = {
@@ -27769,6 +29245,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutConsentLogsInput = {
@@ -27789,6 +29266,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutConsentLogsInput = {
@@ -27825,6 +29303,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConsentLogsInput = {
@@ -27845,6 +29324,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMedicalProfileInput = {
@@ -27865,6 +29345,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMedicalProfileInput = {
@@ -27885,6 +29366,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMedicalProfileInput = {
@@ -27921,6 +29403,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMedicalProfileInput = {
@@ -27941,6 +29424,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMemoriesInput = {
@@ -27961,6 +29445,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMemoriesInput = {
@@ -27981,6 +29466,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMemoriesInput = {
@@ -28017,6 +29503,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMemoriesInput = {
@@ -28037,6 +29524,7 @@ export namespace Prisma {
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutChatConversationsInput = {
@@ -28057,6 +29545,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChatConversationsInput = {
@@ -28077,6 +29566,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChatConversationsInput = {
@@ -28173,6 +29663,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChatConversationsInput = {
@@ -28193,6 +29684,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChatMessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -28425,6 +29917,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCoverageScoresInput = {
@@ -28445,6 +29938,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCoverageScoresInput = {
@@ -28481,6 +29975,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCoverageScoresInput = {
@@ -28501,6 +29996,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutLifeEventsInput = {
@@ -28521,6 +30017,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLifeEventsInput = {
@@ -28541,6 +30038,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
+    medicalShareLinks?: MedicalShareLinkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLifeEventsInput = {
@@ -28577,6 +30075,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLifeEventsInput = {
@@ -28597,6 +30096,107 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
+    medicalShareLinks?: MedicalShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutMedicalShareLinksInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    passwordHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
+    memories?: UserMemoryCreateNestedManyWithoutUserInput
+    consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
+    authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
+    chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMedicalShareLinksInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    passwordHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
+    memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
+    consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
+    authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMedicalShareLinksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMedicalShareLinksInput, UserUncheckedCreateWithoutMedicalShareLinksInput>
+  }
+
+  export type UserUpsertWithoutMedicalShareLinksInput = {
+    update: XOR<UserUpdateWithoutMedicalShareLinksInput, UserUncheckedUpdateWithoutMedicalShareLinksInput>
+    create: XOR<UserCreateWithoutMedicalShareLinksInput, UserUncheckedCreateWithoutMedicalShareLinksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMedicalShareLinksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMedicalShareLinksInput, UserUncheckedUpdateWithoutMedicalShareLinksInput>
+  }
+
+  export type UserUpdateWithoutMedicalShareLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUpdateManyWithoutUserNestedInput
+    consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
+    authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
+    chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMedicalShareLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
+    consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
+    authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -28683,6 +30283,13 @@ export namespace Prisma {
     eventDate?: Date | string
     processed?: boolean
     processedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type MedicalShareLinkCreateManyUserInput = {
+    id?: string
+    token: string
+    expiresAt: Date | string
     createdAt?: Date | string
   }
 
@@ -28948,6 +30555,27 @@ export namespace Prisma {
     eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
     processed?: BoolFieldUpdateOperationsInput | boolean
     processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MedicalShareLinkUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MedicalShareLinkUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MedicalShareLinkUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

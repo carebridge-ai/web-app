@@ -86,6 +86,7 @@ model User {
   chatConversations ChatConversation[]
   coverageScores    CoverageScore[]
   lifeEvents        LifeEvent[]
+  medicalShareLinks MedicalShareLink[]
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
 
@@ -358,4 +359,16 @@ model LifeEvent {
 
   @@index([userId, processed])
   @@map("life_events")
+}
+
+model MedicalShareLink {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@map("medical_share_links")
 }
