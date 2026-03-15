@@ -87,6 +87,7 @@ model User {
   coverageScores   CoverageScore[]
   lifeEvents       LifeEvent[]
   medicalShareLinks MedicalShareLink[]
+  notifications    Notification[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 
@@ -371,4 +372,21 @@ model MedicalShareLink {
 
   @@index([token])
   @@map("medical_share_links")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String   // coverage_gap_alert, life_event_checkin, enrollment_countdown
+  title     String
+  body      String
+  emailSent Boolean  @default(false)
+  read      Boolean  @default(false)
+  readAt    DateTime?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+  @@index([userId, createdAt])
+  @@map("notifications")
 }

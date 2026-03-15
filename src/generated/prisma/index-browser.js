@@ -340,6 +340,18 @@ exports.Prisma.MedicalShareLinkScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  title: 'title',
+  body: 'body',
+  emailSent: 'emailSent',
+  read: 'read',
+  readAt: 'readAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -448,7 +460,8 @@ exports.Prisma.ModelName = {
   ChatRetrievalHit: 'ChatRetrievalHit',
   CoverageScore: 'CoverageScore',
   LifeEvent: 'LifeEvent',
-  MedicalShareLink: 'MedicalShareLink'
+  MedicalShareLink: 'MedicalShareLink',
+  Notification: 'Notification'
 };
 
 /**
