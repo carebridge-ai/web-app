@@ -85,6 +85,7 @@ model User {
   authenticators   Authenticator[]
   chatConversations ChatConversation[]
   coverageScores   CoverageScore[]
+  lifeEvents       LifeEvent[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 
@@ -342,4 +343,19 @@ model CoverageScore {
 
   @@index([userId, createdAt])
   @@map("coverage_scores")
+}
+
+model LifeEvent {
+  id          String    @id @default(cuid())
+  userId      String
+  eventType   String    // job_change, new_baby, marriage, move, birthday, lost_coverage
+  description String?
+  eventDate   DateTime  @default(now())
+  processed   Boolean   @default(false)
+  processedAt DateTime?
+  createdAt   DateTime  @default(now())
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, processed])
+  @@map("life_events")
 }

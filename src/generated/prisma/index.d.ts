@@ -88,6 +88,11 @@ export type ChatRetrievalHit = $Result.DefaultSelection<Prisma.$ChatRetrievalHit
  * 
  */
 export type CoverageScore = $Result.DefaultSelection<Prisma.$CoverageScorePayload>
+/**
+ * Model LifeEvent
+ * 
+ */
+export type LifeEvent = $Result.DefaultSelection<Prisma.$LifeEventPayload>
 
 /**
  * Enums
@@ -482,6 +487,16 @@ export class PrismaClient<
     * ```
     */
   get coverageScore(): Prisma.CoverageScoreDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.lifeEvent`: Exposes CRUD operations for the **LifeEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LifeEvents
+    * const lifeEvents = await prisma.lifeEvent.findMany()
+    * ```
+    */
+  get lifeEvent(): Prisma.LifeEventDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -930,7 +945,8 @@ export namespace Prisma {
     ChatConversation: 'ChatConversation',
     ChatMessage: 'ChatMessage',
     ChatRetrievalHit: 'ChatRetrievalHit',
-    CoverageScore: 'CoverageScore'
+    CoverageScore: 'CoverageScore',
+    LifeEvent: 'LifeEvent'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -946,7 +962,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "profile" | "consentLog" | "plan" | "extractedPlan" | "medicalProfile" | "userMemory" | "chatConversation" | "chatMessage" | "chatRetrievalHit" | "coverageScore"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "profile" | "consentLog" | "plan" | "extractedPlan" | "medicalProfile" | "userMemory" | "chatConversation" | "chatMessage" | "chatRetrievalHit" | "coverageScore" | "lifeEvent"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2060,6 +2076,80 @@ export namespace Prisma {
           }
         }
       }
+      LifeEvent: {
+        payload: Prisma.$LifeEventPayload<ExtArgs>
+        fields: Prisma.LifeEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LifeEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LifeEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LifeEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LifeEventPayload>
+          }
+          findFirst: {
+            args: Prisma.LifeEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LifeEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LifeEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LifeEventPayload>
+          }
+          findMany: {
+            args: Prisma.LifeEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LifeEventPayload>[]
+          }
+          create: {
+            args: Prisma.LifeEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LifeEventPayload>
+          }
+          createMany: {
+            args: Prisma.LifeEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LifeEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LifeEventPayload>[]
+          }
+          delete: {
+            args: Prisma.LifeEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LifeEventPayload>
+          }
+          update: {
+            args: Prisma.LifeEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LifeEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.LifeEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LifeEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LifeEventUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LifeEventPayload>[]
+          }
+          upsert: {
+            args: Prisma.LifeEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LifeEventPayload>
+          }
+          aggregate: {
+            args: Prisma.LifeEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLifeEvent>
+          }
+          groupBy: {
+            args: Prisma.LifeEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LifeEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LifeEventCountArgs<ExtArgs>
+            result: $Utils.Optional<LifeEventCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2183,6 +2273,7 @@ export namespace Prisma {
     chatMessage?: ChatMessageOmit
     chatRetrievalHit?: ChatRetrievalHitOmit
     coverageScore?: CoverageScoreOmit
+    lifeEvent?: LifeEventOmit
   }
 
   /* Types for Logging */
@@ -2270,6 +2361,7 @@ export namespace Prisma {
     authenticators: number
     chatConversations: number
     coverageScores: number
+    lifeEvents: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2280,6 +2372,7 @@ export namespace Prisma {
     authenticators?: boolean | UserCountOutputTypeCountAuthenticatorsArgs
     chatConversations?: boolean | UserCountOutputTypeCountChatConversationsArgs
     coverageScores?: boolean | UserCountOutputTypeCountCoverageScoresArgs
+    lifeEvents?: boolean | UserCountOutputTypeCountLifeEventsArgs
   }
 
   // Custom InputTypes
@@ -2340,6 +2433,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCoverageScoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CoverageScoreWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLifeEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LifeEventWhereInput
   }
 
 
@@ -2584,6 +2684,7 @@ export namespace Prisma {
     authenticators?: boolean | User$authenticatorsArgs<ExtArgs>
     chatConversations?: boolean | User$chatConversationsArgs<ExtArgs>
     coverageScores?: boolean | User$coverageScoresArgs<ExtArgs>
+    lifeEvents?: boolean | User$lifeEventsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2631,6 +2732,7 @@ export namespace Prisma {
     authenticators?: boolean | User$authenticatorsArgs<ExtArgs>
     chatConversations?: boolean | User$chatConversationsArgs<ExtArgs>
     coverageScores?: boolean | User$coverageScoresArgs<ExtArgs>
+    lifeEvents?: boolean | User$lifeEventsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2648,6 +2750,7 @@ export namespace Prisma {
       authenticators: Prisma.$AuthenticatorPayload<ExtArgs>[]
       chatConversations: Prisma.$ChatConversationPayload<ExtArgs>[]
       coverageScores: Prisma.$CoverageScorePayload<ExtArgs>[]
+      lifeEvents: Prisma.$LifeEventPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3061,6 +3164,7 @@ export namespace Prisma {
     authenticators<T extends User$authenticatorsArgs<ExtArgs> = {}>(args?: Subset<T, User$authenticatorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthenticatorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     chatConversations<T extends User$chatConversationsArgs<ExtArgs> = {}>(args?: Subset<T, User$chatConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     coverageScores<T extends User$coverageScoresArgs<ExtArgs> = {}>(args?: Subset<T, User$coverageScoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    lifeEvents<T extends User$lifeEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$lifeEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3694,6 +3798,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CoverageScoreScalarFieldEnum | CoverageScoreScalarFieldEnum[]
+  }
+
+  /**
+   * User.lifeEvents
+   */
+  export type User$lifeEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventInclude<ExtArgs> | null
+    where?: LifeEventWhereInput
+    orderBy?: LifeEventOrderByWithRelationInput | LifeEventOrderByWithRelationInput[]
+    cursor?: LifeEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LifeEventScalarFieldEnum | LifeEventScalarFieldEnum[]
   }
 
   /**
@@ -19690,6 +19818,1108 @@ export namespace Prisma {
 
 
   /**
+   * Model LifeEvent
+   */
+
+  export type AggregateLifeEvent = {
+    _count: LifeEventCountAggregateOutputType | null
+    _min: LifeEventMinAggregateOutputType | null
+    _max: LifeEventMaxAggregateOutputType | null
+  }
+
+  export type LifeEventMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    eventType: string | null
+    description: string | null
+    eventDate: Date | null
+    processed: boolean | null
+    processedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type LifeEventMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    eventType: string | null
+    description: string | null
+    eventDate: Date | null
+    processed: boolean | null
+    processedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type LifeEventCountAggregateOutputType = {
+    id: number
+    userId: number
+    eventType: number
+    description: number
+    eventDate: number
+    processed: number
+    processedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type LifeEventMinAggregateInputType = {
+    id?: true
+    userId?: true
+    eventType?: true
+    description?: true
+    eventDate?: true
+    processed?: true
+    processedAt?: true
+    createdAt?: true
+  }
+
+  export type LifeEventMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    eventType?: true
+    description?: true
+    eventDate?: true
+    processed?: true
+    processedAt?: true
+    createdAt?: true
+  }
+
+  export type LifeEventCountAggregateInputType = {
+    id?: true
+    userId?: true
+    eventType?: true
+    description?: true
+    eventDate?: true
+    processed?: true
+    processedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type LifeEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LifeEvent to aggregate.
+     */
+    where?: LifeEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LifeEvents to fetch.
+     */
+    orderBy?: LifeEventOrderByWithRelationInput | LifeEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LifeEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LifeEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LifeEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LifeEvents
+    **/
+    _count?: true | LifeEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LifeEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LifeEventMaxAggregateInputType
+  }
+
+  export type GetLifeEventAggregateType<T extends LifeEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateLifeEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLifeEvent[P]>
+      : GetScalarType<T[P], AggregateLifeEvent[P]>
+  }
+
+
+
+
+  export type LifeEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LifeEventWhereInput
+    orderBy?: LifeEventOrderByWithAggregationInput | LifeEventOrderByWithAggregationInput[]
+    by: LifeEventScalarFieldEnum[] | LifeEventScalarFieldEnum
+    having?: LifeEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LifeEventCountAggregateInputType | true
+    _min?: LifeEventMinAggregateInputType
+    _max?: LifeEventMaxAggregateInputType
+  }
+
+  export type LifeEventGroupByOutputType = {
+    id: string
+    userId: string
+    eventType: string
+    description: string | null
+    eventDate: Date
+    processed: boolean
+    processedAt: Date | null
+    createdAt: Date
+    _count: LifeEventCountAggregateOutputType | null
+    _min: LifeEventMinAggregateOutputType | null
+    _max: LifeEventMaxAggregateOutputType | null
+  }
+
+  type GetLifeEventGroupByPayload<T extends LifeEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LifeEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LifeEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LifeEventGroupByOutputType[P]>
+            : GetScalarType<T[P], LifeEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LifeEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    eventType?: boolean
+    description?: boolean
+    eventDate?: boolean
+    processed?: boolean
+    processedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lifeEvent"]>
+
+  export type LifeEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    eventType?: boolean
+    description?: boolean
+    eventDate?: boolean
+    processed?: boolean
+    processedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lifeEvent"]>
+
+  export type LifeEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    eventType?: boolean
+    description?: boolean
+    eventDate?: boolean
+    processed?: boolean
+    processedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lifeEvent"]>
+
+  export type LifeEventSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    eventType?: boolean
+    description?: boolean
+    eventDate?: boolean
+    processed?: boolean
+    processedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type LifeEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "eventType" | "description" | "eventDate" | "processed" | "processedAt" | "createdAt", ExtArgs["result"]["lifeEvent"]>
+  export type LifeEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LifeEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LifeEventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LifeEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LifeEvent"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      eventType: string
+      description: string | null
+      eventDate: Date
+      processed: boolean
+      processedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["lifeEvent"]>
+    composites: {}
+  }
+
+  type LifeEventGetPayload<S extends boolean | null | undefined | LifeEventDefaultArgs> = $Result.GetResult<Prisma.$LifeEventPayload, S>
+
+  type LifeEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LifeEventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LifeEventCountAggregateInputType | true
+    }
+
+  export interface LifeEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LifeEvent'], meta: { name: 'LifeEvent' } }
+    /**
+     * Find zero or one LifeEvent that matches the filter.
+     * @param {LifeEventFindUniqueArgs} args - Arguments to find a LifeEvent
+     * @example
+     * // Get one LifeEvent
+     * const lifeEvent = await prisma.lifeEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LifeEventFindUniqueArgs>(args: SelectSubset<T, LifeEventFindUniqueArgs<ExtArgs>>): Prisma__LifeEventClient<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LifeEvent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LifeEventFindUniqueOrThrowArgs} args - Arguments to find a LifeEvent
+     * @example
+     * // Get one LifeEvent
+     * const lifeEvent = await prisma.lifeEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LifeEventFindUniqueOrThrowArgs>(args: SelectSubset<T, LifeEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LifeEventClient<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LifeEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LifeEventFindFirstArgs} args - Arguments to find a LifeEvent
+     * @example
+     * // Get one LifeEvent
+     * const lifeEvent = await prisma.lifeEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LifeEventFindFirstArgs>(args?: SelectSubset<T, LifeEventFindFirstArgs<ExtArgs>>): Prisma__LifeEventClient<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LifeEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LifeEventFindFirstOrThrowArgs} args - Arguments to find a LifeEvent
+     * @example
+     * // Get one LifeEvent
+     * const lifeEvent = await prisma.lifeEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LifeEventFindFirstOrThrowArgs>(args?: SelectSubset<T, LifeEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__LifeEventClient<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LifeEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LifeEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LifeEvents
+     * const lifeEvents = await prisma.lifeEvent.findMany()
+     * 
+     * // Get first 10 LifeEvents
+     * const lifeEvents = await prisma.lifeEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lifeEventWithIdOnly = await prisma.lifeEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LifeEventFindManyArgs>(args?: SelectSubset<T, LifeEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LifeEvent.
+     * @param {LifeEventCreateArgs} args - Arguments to create a LifeEvent.
+     * @example
+     * // Create one LifeEvent
+     * const LifeEvent = await prisma.lifeEvent.create({
+     *   data: {
+     *     // ... data to create a LifeEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends LifeEventCreateArgs>(args: SelectSubset<T, LifeEventCreateArgs<ExtArgs>>): Prisma__LifeEventClient<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LifeEvents.
+     * @param {LifeEventCreateManyArgs} args - Arguments to create many LifeEvents.
+     * @example
+     * // Create many LifeEvents
+     * const lifeEvent = await prisma.lifeEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LifeEventCreateManyArgs>(args?: SelectSubset<T, LifeEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LifeEvents and returns the data saved in the database.
+     * @param {LifeEventCreateManyAndReturnArgs} args - Arguments to create many LifeEvents.
+     * @example
+     * // Create many LifeEvents
+     * const lifeEvent = await prisma.lifeEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LifeEvents and only return the `id`
+     * const lifeEventWithIdOnly = await prisma.lifeEvent.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LifeEventCreateManyAndReturnArgs>(args?: SelectSubset<T, LifeEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LifeEvent.
+     * @param {LifeEventDeleteArgs} args - Arguments to delete one LifeEvent.
+     * @example
+     * // Delete one LifeEvent
+     * const LifeEvent = await prisma.lifeEvent.delete({
+     *   where: {
+     *     // ... filter to delete one LifeEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LifeEventDeleteArgs>(args: SelectSubset<T, LifeEventDeleteArgs<ExtArgs>>): Prisma__LifeEventClient<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LifeEvent.
+     * @param {LifeEventUpdateArgs} args - Arguments to update one LifeEvent.
+     * @example
+     * // Update one LifeEvent
+     * const lifeEvent = await prisma.lifeEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LifeEventUpdateArgs>(args: SelectSubset<T, LifeEventUpdateArgs<ExtArgs>>): Prisma__LifeEventClient<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LifeEvents.
+     * @param {LifeEventDeleteManyArgs} args - Arguments to filter LifeEvents to delete.
+     * @example
+     * // Delete a few LifeEvents
+     * const { count } = await prisma.lifeEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LifeEventDeleteManyArgs>(args?: SelectSubset<T, LifeEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LifeEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LifeEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LifeEvents
+     * const lifeEvent = await prisma.lifeEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LifeEventUpdateManyArgs>(args: SelectSubset<T, LifeEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LifeEvents and returns the data updated in the database.
+     * @param {LifeEventUpdateManyAndReturnArgs} args - Arguments to update many LifeEvents.
+     * @example
+     * // Update many LifeEvents
+     * const lifeEvent = await prisma.lifeEvent.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LifeEvents and only return the `id`
+     * const lifeEventWithIdOnly = await prisma.lifeEvent.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LifeEventUpdateManyAndReturnArgs>(args: SelectSubset<T, LifeEventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LifeEvent.
+     * @param {LifeEventUpsertArgs} args - Arguments to update or create a LifeEvent.
+     * @example
+     * // Update or create a LifeEvent
+     * const lifeEvent = await prisma.lifeEvent.upsert({
+     *   create: {
+     *     // ... data to create a LifeEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LifeEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LifeEventUpsertArgs>(args: SelectSubset<T, LifeEventUpsertArgs<ExtArgs>>): Prisma__LifeEventClient<$Result.GetResult<Prisma.$LifeEventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LifeEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LifeEventCountArgs} args - Arguments to filter LifeEvents to count.
+     * @example
+     * // Count the number of LifeEvents
+     * const count = await prisma.lifeEvent.count({
+     *   where: {
+     *     // ... the filter for the LifeEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends LifeEventCountArgs>(
+      args?: Subset<T, LifeEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LifeEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LifeEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LifeEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LifeEventAggregateArgs>(args: Subset<T, LifeEventAggregateArgs>): Prisma.PrismaPromise<GetLifeEventAggregateType<T>>
+
+    /**
+     * Group by LifeEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LifeEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LifeEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LifeEventGroupByArgs['orderBy'] }
+        : { orderBy?: LifeEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LifeEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLifeEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LifeEvent model
+   */
+  readonly fields: LifeEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LifeEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LifeEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LifeEvent model
+   */
+  interface LifeEventFieldRefs {
+    readonly id: FieldRef<"LifeEvent", 'String'>
+    readonly userId: FieldRef<"LifeEvent", 'String'>
+    readonly eventType: FieldRef<"LifeEvent", 'String'>
+    readonly description: FieldRef<"LifeEvent", 'String'>
+    readonly eventDate: FieldRef<"LifeEvent", 'DateTime'>
+    readonly processed: FieldRef<"LifeEvent", 'Boolean'>
+    readonly processedAt: FieldRef<"LifeEvent", 'DateTime'>
+    readonly createdAt: FieldRef<"LifeEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LifeEvent findUnique
+   */
+  export type LifeEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventInclude<ExtArgs> | null
+    /**
+     * Filter, which LifeEvent to fetch.
+     */
+    where: LifeEventWhereUniqueInput
+  }
+
+  /**
+   * LifeEvent findUniqueOrThrow
+   */
+  export type LifeEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventInclude<ExtArgs> | null
+    /**
+     * Filter, which LifeEvent to fetch.
+     */
+    where: LifeEventWhereUniqueInput
+  }
+
+  /**
+   * LifeEvent findFirst
+   */
+  export type LifeEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventInclude<ExtArgs> | null
+    /**
+     * Filter, which LifeEvent to fetch.
+     */
+    where?: LifeEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LifeEvents to fetch.
+     */
+    orderBy?: LifeEventOrderByWithRelationInput | LifeEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LifeEvents.
+     */
+    cursor?: LifeEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LifeEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LifeEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LifeEvents.
+     */
+    distinct?: LifeEventScalarFieldEnum | LifeEventScalarFieldEnum[]
+  }
+
+  /**
+   * LifeEvent findFirstOrThrow
+   */
+  export type LifeEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventInclude<ExtArgs> | null
+    /**
+     * Filter, which LifeEvent to fetch.
+     */
+    where?: LifeEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LifeEvents to fetch.
+     */
+    orderBy?: LifeEventOrderByWithRelationInput | LifeEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LifeEvents.
+     */
+    cursor?: LifeEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LifeEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LifeEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LifeEvents.
+     */
+    distinct?: LifeEventScalarFieldEnum | LifeEventScalarFieldEnum[]
+  }
+
+  /**
+   * LifeEvent findMany
+   */
+  export type LifeEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventInclude<ExtArgs> | null
+    /**
+     * Filter, which LifeEvents to fetch.
+     */
+    where?: LifeEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LifeEvents to fetch.
+     */
+    orderBy?: LifeEventOrderByWithRelationInput | LifeEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LifeEvents.
+     */
+    cursor?: LifeEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LifeEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LifeEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LifeEvents.
+     */
+    distinct?: LifeEventScalarFieldEnum | LifeEventScalarFieldEnum[]
+  }
+
+  /**
+   * LifeEvent create
+   */
+  export type LifeEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LifeEvent.
+     */
+    data: XOR<LifeEventCreateInput, LifeEventUncheckedCreateInput>
+  }
+
+  /**
+   * LifeEvent createMany
+   */
+  export type LifeEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LifeEvents.
+     */
+    data: LifeEventCreateManyInput | LifeEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LifeEvent createManyAndReturn
+   */
+  export type LifeEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * The data used to create many LifeEvents.
+     */
+    data: LifeEventCreateManyInput | LifeEventCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LifeEvent update
+   */
+  export type LifeEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LifeEvent.
+     */
+    data: XOR<LifeEventUpdateInput, LifeEventUncheckedUpdateInput>
+    /**
+     * Choose, which LifeEvent to update.
+     */
+    where: LifeEventWhereUniqueInput
+  }
+
+  /**
+   * LifeEvent updateMany
+   */
+  export type LifeEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LifeEvents.
+     */
+    data: XOR<LifeEventUpdateManyMutationInput, LifeEventUncheckedUpdateManyInput>
+    /**
+     * Filter which LifeEvents to update
+     */
+    where?: LifeEventWhereInput
+    /**
+     * Limit how many LifeEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LifeEvent updateManyAndReturn
+   */
+  export type LifeEventUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * The data used to update LifeEvents.
+     */
+    data: XOR<LifeEventUpdateManyMutationInput, LifeEventUncheckedUpdateManyInput>
+    /**
+     * Filter which LifeEvents to update
+     */
+    where?: LifeEventWhereInput
+    /**
+     * Limit how many LifeEvents to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LifeEvent upsert
+   */
+  export type LifeEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LifeEvent to update in case it exists.
+     */
+    where: LifeEventWhereUniqueInput
+    /**
+     * In case the LifeEvent found by the `where` argument doesn't exist, create a new LifeEvent with this data.
+     */
+    create: XOR<LifeEventCreateInput, LifeEventUncheckedCreateInput>
+    /**
+     * In case the LifeEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LifeEventUpdateInput, LifeEventUncheckedUpdateInput>
+  }
+
+  /**
+   * LifeEvent delete
+   */
+  export type LifeEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventInclude<ExtArgs> | null
+    /**
+     * Filter which LifeEvent to delete.
+     */
+    where: LifeEventWhereUniqueInput
+  }
+
+  /**
+   * LifeEvent deleteMany
+   */
+  export type LifeEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LifeEvents to delete
+     */
+    where?: LifeEventWhereInput
+    /**
+     * Limit how many LifeEvents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LifeEvent without action
+   */
+  export type LifeEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LifeEvent
+     */
+    select?: LifeEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LifeEvent
+     */
+    omit?: LifeEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LifeEventInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -19947,6 +21177,20 @@ export namespace Prisma {
   };
 
   export type CoverageScoreScalarFieldEnum = (typeof CoverageScoreScalarFieldEnum)[keyof typeof CoverageScoreScalarFieldEnum]
+
+
+  export const LifeEventScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    eventType: 'eventType',
+    description: 'description',
+    eventDate: 'eventDate',
+    processed: 'processed',
+    processedAt: 'processedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type LifeEventScalarFieldEnum = (typeof LifeEventScalarFieldEnum)[keyof typeof LifeEventScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -20215,6 +21459,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorListRelationFilter
     chatConversations?: ChatConversationListRelationFilter
     coverageScores?: CoverageScoreListRelationFilter
+    lifeEvents?: LifeEventListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -20235,6 +21480,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorOrderByRelationAggregateInput
     chatConversations?: ChatConversationOrderByRelationAggregateInput
     coverageScores?: CoverageScoreOrderByRelationAggregateInput
+    lifeEvents?: LifeEventOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -20258,6 +21504,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorListRelationFilter
     chatConversations?: ChatConversationListRelationFilter
     coverageScores?: CoverageScoreListRelationFilter
+    lifeEvents?: LifeEventListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -21462,6 +22709,76 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"CoverageScore"> | Date | string
   }
 
+  export type LifeEventWhereInput = {
+    AND?: LifeEventWhereInput | LifeEventWhereInput[]
+    OR?: LifeEventWhereInput[]
+    NOT?: LifeEventWhereInput | LifeEventWhereInput[]
+    id?: StringFilter<"LifeEvent"> | string
+    userId?: StringFilter<"LifeEvent"> | string
+    eventType?: StringFilter<"LifeEvent"> | string
+    description?: StringNullableFilter<"LifeEvent"> | string | null
+    eventDate?: DateTimeFilter<"LifeEvent"> | Date | string
+    processed?: BoolFilter<"LifeEvent"> | boolean
+    processedAt?: DateTimeNullableFilter<"LifeEvent"> | Date | string | null
+    createdAt?: DateTimeFilter<"LifeEvent"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type LifeEventOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    eventType?: SortOrder
+    description?: SortOrderInput | SortOrder
+    eventDate?: SortOrder
+    processed?: SortOrder
+    processedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type LifeEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LifeEventWhereInput | LifeEventWhereInput[]
+    OR?: LifeEventWhereInput[]
+    NOT?: LifeEventWhereInput | LifeEventWhereInput[]
+    userId?: StringFilter<"LifeEvent"> | string
+    eventType?: StringFilter<"LifeEvent"> | string
+    description?: StringNullableFilter<"LifeEvent"> | string | null
+    eventDate?: DateTimeFilter<"LifeEvent"> | Date | string
+    processed?: BoolFilter<"LifeEvent"> | boolean
+    processedAt?: DateTimeNullableFilter<"LifeEvent"> | Date | string | null
+    createdAt?: DateTimeFilter<"LifeEvent"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type LifeEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    eventType?: SortOrder
+    description?: SortOrderInput | SortOrder
+    eventDate?: SortOrder
+    processed?: SortOrder
+    processedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: LifeEventCountOrderByAggregateInput
+    _max?: LifeEventMaxOrderByAggregateInput
+    _min?: LifeEventMinOrderByAggregateInput
+  }
+
+  export type LifeEventScalarWhereWithAggregatesInput = {
+    AND?: LifeEventScalarWhereWithAggregatesInput | LifeEventScalarWhereWithAggregatesInput[]
+    OR?: LifeEventScalarWhereWithAggregatesInput[]
+    NOT?: LifeEventScalarWhereWithAggregatesInput | LifeEventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LifeEvent"> | string
+    userId?: StringWithAggregatesFilter<"LifeEvent"> | string
+    eventType?: StringWithAggregatesFilter<"LifeEvent"> | string
+    description?: StringNullableWithAggregatesFilter<"LifeEvent"> | string | null
+    eventDate?: DateTimeWithAggregatesFilter<"LifeEvent"> | Date | string
+    processed?: BoolWithAggregatesFilter<"LifeEvent"> | boolean
+    processedAt?: DateTimeNullableWithAggregatesFilter<"LifeEvent"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"LifeEvent"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -21480,6 +22797,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -21500,6 +22818,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -21520,6 +22839,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -21540,6 +22860,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -22902,6 +24223,82 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LifeEventCreateInput = {
+    id?: string
+    eventType: string
+    description?: string | null
+    eventDate?: Date | string
+    processed?: boolean
+    processedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutLifeEventsInput
+  }
+
+  export type LifeEventUncheckedCreateInput = {
+    id?: string
+    userId: string
+    eventType: string
+    description?: string | null
+    eventDate?: Date | string
+    processed?: boolean
+    processedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type LifeEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    processed?: BoolFieldUpdateOperationsInput | boolean
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLifeEventsNestedInput
+  }
+
+  export type LifeEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    processed?: BoolFieldUpdateOperationsInput | boolean
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LifeEventCreateManyInput = {
+    id?: string
+    userId: string
+    eventType: string
+    description?: string | null
+    eventDate?: Date | string
+    processed?: boolean
+    processedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type LifeEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    processed?: BoolFieldUpdateOperationsInput | boolean
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LifeEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    processed?: BoolFieldUpdateOperationsInput | boolean
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -23006,6 +24403,12 @@ export namespace Prisma {
     none?: CoverageScoreWhereInput
   }
 
+  export type LifeEventListRelationFilter = {
+    every?: LifeEventWhereInput
+    some?: LifeEventWhereInput
+    none?: LifeEventWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -23036,6 +24439,10 @@ export namespace Prisma {
   }
 
   export type CoverageScoreOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LifeEventOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -24124,6 +25531,39 @@ export namespace Prisma {
     emergency?: SortOrder
   }
 
+  export type LifeEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    eventType?: SortOrder
+    description?: SortOrder
+    eventDate?: SortOrder
+    processed?: SortOrder
+    processedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LifeEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    eventType?: SortOrder
+    description?: SortOrder
+    eventDate?: SortOrder
+    processed?: SortOrder
+    processedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LifeEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    eventType?: SortOrder
+    description?: SortOrder
+    eventDate?: SortOrder
+    processed?: SortOrder
+    processedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -24185,6 +25625,13 @@ export namespace Prisma {
     connect?: CoverageScoreWhereUniqueInput | CoverageScoreWhereUniqueInput[]
   }
 
+  export type LifeEventCreateNestedManyWithoutUserInput = {
+    create?: XOR<LifeEventCreateWithoutUserInput, LifeEventUncheckedCreateWithoutUserInput> | LifeEventCreateWithoutUserInput[] | LifeEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LifeEventCreateOrConnectWithoutUserInput | LifeEventCreateOrConnectWithoutUserInput[]
+    createMany?: LifeEventCreateManyUserInputEnvelope
+    connect?: LifeEventWhereUniqueInput | LifeEventWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -24244,6 +25691,13 @@ export namespace Prisma {
     connectOrCreate?: CoverageScoreCreateOrConnectWithoutUserInput | CoverageScoreCreateOrConnectWithoutUserInput[]
     createMany?: CoverageScoreCreateManyUserInputEnvelope
     connect?: CoverageScoreWhereUniqueInput | CoverageScoreWhereUniqueInput[]
+  }
+
+  export type LifeEventUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LifeEventCreateWithoutUserInput, LifeEventUncheckedCreateWithoutUserInput> | LifeEventCreateWithoutUserInput[] | LifeEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LifeEventCreateOrConnectWithoutUserInput | LifeEventCreateOrConnectWithoutUserInput[]
+    createMany?: LifeEventCreateManyUserInputEnvelope
+    connect?: LifeEventWhereUniqueInput | LifeEventWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -24380,6 +25834,20 @@ export namespace Prisma {
     deleteMany?: CoverageScoreScalarWhereInput | CoverageScoreScalarWhereInput[]
   }
 
+  export type LifeEventUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LifeEventCreateWithoutUserInput, LifeEventUncheckedCreateWithoutUserInput> | LifeEventCreateWithoutUserInput[] | LifeEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LifeEventCreateOrConnectWithoutUserInput | LifeEventCreateOrConnectWithoutUserInput[]
+    upsert?: LifeEventUpsertWithWhereUniqueWithoutUserInput | LifeEventUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LifeEventCreateManyUserInputEnvelope
+    set?: LifeEventWhereUniqueInput | LifeEventWhereUniqueInput[]
+    disconnect?: LifeEventWhereUniqueInput | LifeEventWhereUniqueInput[]
+    delete?: LifeEventWhereUniqueInput | LifeEventWhereUniqueInput[]
+    connect?: LifeEventWhereUniqueInput | LifeEventWhereUniqueInput[]
+    update?: LifeEventUpdateWithWhereUniqueWithoutUserInput | LifeEventUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LifeEventUpdateManyWithWhereWithoutUserInput | LifeEventUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LifeEventScalarWhereInput | LifeEventScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -24496,6 +25964,20 @@ export namespace Prisma {
     update?: CoverageScoreUpdateWithWhereUniqueWithoutUserInput | CoverageScoreUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CoverageScoreUpdateManyWithWhereWithoutUserInput | CoverageScoreUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CoverageScoreScalarWhereInput | CoverageScoreScalarWhereInput[]
+  }
+
+  export type LifeEventUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LifeEventCreateWithoutUserInput, LifeEventUncheckedCreateWithoutUserInput> | LifeEventCreateWithoutUserInput[] | LifeEventUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LifeEventCreateOrConnectWithoutUserInput | LifeEventCreateOrConnectWithoutUserInput[]
+    upsert?: LifeEventUpsertWithWhereUniqueWithoutUserInput | LifeEventUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LifeEventCreateManyUserInputEnvelope
+    set?: LifeEventWhereUniqueInput | LifeEventWhereUniqueInput[]
+    disconnect?: LifeEventWhereUniqueInput | LifeEventWhereUniqueInput[]
+    delete?: LifeEventWhereUniqueInput | LifeEventWhereUniqueInput[]
+    connect?: LifeEventWhereUniqueInput | LifeEventWhereUniqueInput[]
+    update?: LifeEventUpdateWithWhereUniqueWithoutUserInput | LifeEventUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LifeEventUpdateManyWithWhereWithoutUserInput | LifeEventUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LifeEventScalarWhereInput | LifeEventScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -24805,6 +26287,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutCoverageScoresInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCoverageScoresInput, UserUpdateWithoutCoverageScoresInput>, UserUncheckedUpdateWithoutCoverageScoresInput>
+  }
+
+  export type UserCreateNestedOneWithoutLifeEventsInput = {
+    create?: XOR<UserCreateWithoutLifeEventsInput, UserUncheckedCreateWithoutLifeEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLifeEventsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutLifeEventsNestedInput = {
+    create?: XOR<UserCreateWithoutLifeEventsInput, UserUncheckedCreateWithoutLifeEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLifeEventsInput
+    upsert?: UserUpsertWithoutLifeEventsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLifeEventsInput, UserUpdateWithoutLifeEventsInput>, UserUncheckedUpdateWithoutLifeEventsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -25508,6 +27004,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LifeEventCreateWithoutUserInput = {
+    id?: string
+    eventType: string
+    description?: string | null
+    eventDate?: Date | string
+    processed?: boolean
+    processedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type LifeEventUncheckedCreateWithoutUserInput = {
+    id?: string
+    eventType: string
+    description?: string | null
+    eventDate?: Date | string
+    processed?: boolean
+    processedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type LifeEventCreateOrConnectWithoutUserInput = {
+    where: LifeEventWhereUniqueInput
+    create: XOR<LifeEventCreateWithoutUserInput, LifeEventUncheckedCreateWithoutUserInput>
+  }
+
+  export type LifeEventCreateManyUserInputEnvelope = {
+    data: LifeEventCreateManyUserInput | LifeEventCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -25811,6 +27337,36 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CoverageScore"> | Date | string
   }
 
+  export type LifeEventUpsertWithWhereUniqueWithoutUserInput = {
+    where: LifeEventWhereUniqueInput
+    update: XOR<LifeEventUpdateWithoutUserInput, LifeEventUncheckedUpdateWithoutUserInput>
+    create: XOR<LifeEventCreateWithoutUserInput, LifeEventUncheckedCreateWithoutUserInput>
+  }
+
+  export type LifeEventUpdateWithWhereUniqueWithoutUserInput = {
+    where: LifeEventWhereUniqueInput
+    data: XOR<LifeEventUpdateWithoutUserInput, LifeEventUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LifeEventUpdateManyWithWhereWithoutUserInput = {
+    where: LifeEventScalarWhereInput
+    data: XOR<LifeEventUpdateManyMutationInput, LifeEventUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type LifeEventScalarWhereInput = {
+    AND?: LifeEventScalarWhereInput | LifeEventScalarWhereInput[]
+    OR?: LifeEventScalarWhereInput[]
+    NOT?: LifeEventScalarWhereInput | LifeEventScalarWhereInput[]
+    id?: StringFilter<"LifeEvent"> | string
+    userId?: StringFilter<"LifeEvent"> | string
+    eventType?: StringFilter<"LifeEvent"> | string
+    description?: StringNullableFilter<"LifeEvent"> | string | null
+    eventDate?: DateTimeFilter<"LifeEvent"> | Date | string
+    processed?: BoolFilter<"LifeEvent"> | boolean
+    processedAt?: DateTimeNullableFilter<"LifeEvent"> | Date | string | null
+    createdAt?: DateTimeFilter<"LifeEvent"> | Date | string
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -25828,6 +27384,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -25847,6 +27404,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -25882,6 +27440,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -25901,6 +27460,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -25920,6 +27480,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -25939,6 +27500,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -25974,6 +27536,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -25993,6 +27556,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAuthenticatorsInput = {
@@ -26012,6 +27576,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuthenticatorsInput = {
@@ -26031,6 +27596,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuthenticatorsInput = {
@@ -26066,6 +27632,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuthenticatorsInput = {
@@ -26085,6 +27652,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProfileInput = {
@@ -26104,6 +27672,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -26123,6 +27692,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -26158,6 +27728,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -26177,6 +27748,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutConsentLogsInput = {
@@ -26196,6 +27768,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutConsentLogsInput = {
@@ -26215,6 +27788,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutConsentLogsInput = {
@@ -26250,6 +27824,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConsentLogsInput = {
@@ -26269,6 +27844,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMedicalProfileInput = {
@@ -26288,6 +27864,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMedicalProfileInput = {
@@ -26307,6 +27884,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMedicalProfileInput = {
@@ -26342,6 +27920,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMedicalProfileInput = {
@@ -26361,6 +27940,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMemoriesInput = {
@@ -26380,6 +27960,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMemoriesInput = {
@@ -26399,6 +27980,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMemoriesInput = {
@@ -26434,6 +28016,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMemoriesInput = {
@@ -26453,6 +28036,7 @@ export namespace Prisma {
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutChatConversationsInput = {
@@ -26472,6 +28056,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChatConversationsInput = {
@@ -26491,6 +28076,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChatConversationsInput = {
@@ -26586,6 +28172,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChatConversationsInput = {
@@ -26605,6 +28192,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChatMessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -26836,6 +28424,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCoverageScoresInput = {
@@ -26855,6 +28444,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+    lifeEvents?: LifeEventUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCoverageScoresInput = {
@@ -26890,6 +28480,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCoverageScoresInput = {
@@ -26909,6 +28500,103 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+    lifeEvents?: LifeEventUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutLifeEventsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    passwordHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
+    memories?: UserMemoryCreateNestedManyWithoutUserInput
+    consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
+    authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
+    chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLifeEventsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    passwordHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
+    memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
+    consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
+    authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLifeEventsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLifeEventsInput, UserUncheckedCreateWithoutLifeEventsInput>
+  }
+
+  export type UserUpsertWithoutLifeEventsInput = {
+    update: XOR<UserUpdateWithoutLifeEventsInput, UserUncheckedUpdateWithoutLifeEventsInput>
+    create: XOR<UserCreateWithoutLifeEventsInput, UserUncheckedCreateWithoutLifeEventsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLifeEventsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLifeEventsInput, UserUncheckedUpdateWithoutLifeEventsInput>
+  }
+
+  export type UserUpdateWithoutLifeEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUpdateManyWithoutUserNestedInput
+    consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
+    authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
+    chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLifeEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
+    consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
+    authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -26985,6 +28673,16 @@ export namespace Prisma {
     mentalHealth: number
     emergency: number
     rationale?: string | null
+    createdAt?: Date | string
+  }
+
+  export type LifeEventCreateManyUserInput = {
+    id?: string
+    eventType: string
+    description?: string | null
+    eventDate?: Date | string
+    processed?: boolean
+    processedAt?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -27220,6 +28918,36 @@ export namespace Prisma {
     mentalHealth?: IntFieldUpdateOperationsInput | number
     emergency?: IntFieldUpdateOperationsInput | number
     rationale?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LifeEventUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    processed?: BoolFieldUpdateOperationsInput | boolean
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LifeEventUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    processed?: BoolFieldUpdateOperationsInput | boolean
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LifeEventUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    eventDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    processed?: BoolFieldUpdateOperationsInput | boolean
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

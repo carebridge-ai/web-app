@@ -321,6 +321,17 @@ exports.Prisma.CoverageScoreScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.LifeEventScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  eventType: 'eventType',
+  description: 'description',
+  eventDate: 'eventDate',
+  processed: 'processed',
+  processedAt: 'processedAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -427,7 +438,8 @@ exports.Prisma.ModelName = {
   ChatConversation: 'ChatConversation',
   ChatMessage: 'ChatMessage',
   ChatRetrievalHit: 'ChatRetrievalHit',
-  CoverageScore: 'CoverageScore'
+  CoverageScore: 'CoverageScore',
+  LifeEvent: 'LifeEvent'
 };
 
 /**
