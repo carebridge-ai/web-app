@@ -84,6 +84,7 @@ model User {
   consentLogs       ConsentLog[]
   authenticators    Authenticator[]
   chatConversations ChatConversation[]
+  coverageScores    CoverageScore[]
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
 
@@ -322,4 +323,23 @@ model ChatRetrievalHit {
 
   @@index([conversationId, createdAt])
   @@map("chat_retrieval_hits")
+}
+
+model CoverageScore {
+  id                String   @id @default(cuid())
+  userId            String
+  planId            String?
+  overallScore      Int // 0–100 weighted average
+  hospital          Int // 0–100
+  prescriptionDrugs Int // 0–100
+  dental            Int // 0–100
+  vision            Int // 0–100
+  mentalHealth      Int // 0–100
+  emergency         Int // 0–100
+  rationale         String? // LLM-generated explanation
+  createdAt         DateTime @default(now())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@map("coverage_scores")
 }

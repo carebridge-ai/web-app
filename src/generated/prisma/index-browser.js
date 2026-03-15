@@ -306,6 +306,21 @@ exports.Prisma.ChatRetrievalHitScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.CoverageScoreScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  planId: 'planId',
+  overallScore: 'overallScore',
+  hospital: 'hospital',
+  prescriptionDrugs: 'prescriptionDrugs',
+  dental: 'dental',
+  vision: 'vision',
+  mentalHealth: 'mentalHealth',
+  emergency: 'emergency',
+  rationale: 'rationale',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -411,7 +426,8 @@ exports.Prisma.ModelName = {
   UserMemory: 'UserMemory',
   ChatConversation: 'ChatConversation',
   ChatMessage: 'ChatMessage',
-  ChatRetrievalHit: 'ChatRetrievalHit'
+  ChatRetrievalHit: 'ChatRetrievalHit',
+  CoverageScore: 'CoverageScore'
 };
 
 /**

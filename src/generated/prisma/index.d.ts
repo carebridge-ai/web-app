@@ -83,6 +83,11 @@ export type ChatMessage = $Result.DefaultSelection<Prisma.$ChatMessagePayload>
  * 
  */
 export type ChatRetrievalHit = $Result.DefaultSelection<Prisma.$ChatRetrievalHitPayload>
+/**
+ * Model CoverageScore
+ * 
+ */
+export type CoverageScore = $Result.DefaultSelection<Prisma.$CoverageScorePayload>
 
 /**
  * Enums
@@ -467,6 +472,16 @@ export class PrismaClient<
     * ```
     */
   get chatRetrievalHit(): Prisma.ChatRetrievalHitDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.coverageScore`: Exposes CRUD operations for the **CoverageScore** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CoverageScores
+    * const coverageScores = await prisma.coverageScore.findMany()
+    * ```
+    */
+  get coverageScore(): Prisma.CoverageScoreDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -914,7 +929,8 @@ export namespace Prisma {
     UserMemory: 'UserMemory',
     ChatConversation: 'ChatConversation',
     ChatMessage: 'ChatMessage',
-    ChatRetrievalHit: 'ChatRetrievalHit'
+    ChatRetrievalHit: 'ChatRetrievalHit',
+    CoverageScore: 'CoverageScore'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -930,7 +946,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "profile" | "consentLog" | "plan" | "extractedPlan" | "medicalProfile" | "userMemory" | "chatConversation" | "chatMessage" | "chatRetrievalHit"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "authenticator" | "profile" | "consentLog" | "plan" | "extractedPlan" | "medicalProfile" | "userMemory" | "chatConversation" | "chatMessage" | "chatRetrievalHit" | "coverageScore"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1970,6 +1986,80 @@ export namespace Prisma {
           }
         }
       }
+      CoverageScore: {
+        payload: Prisma.$CoverageScorePayload<ExtArgs>
+        fields: Prisma.CoverageScoreFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CoverageScoreFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoverageScorePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CoverageScoreFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoverageScorePayload>
+          }
+          findFirst: {
+            args: Prisma.CoverageScoreFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoverageScorePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CoverageScoreFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoverageScorePayload>
+          }
+          findMany: {
+            args: Prisma.CoverageScoreFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoverageScorePayload>[]
+          }
+          create: {
+            args: Prisma.CoverageScoreCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoverageScorePayload>
+          }
+          createMany: {
+            args: Prisma.CoverageScoreCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CoverageScoreCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoverageScorePayload>[]
+          }
+          delete: {
+            args: Prisma.CoverageScoreDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoverageScorePayload>
+          }
+          update: {
+            args: Prisma.CoverageScoreUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoverageScorePayload>
+          }
+          deleteMany: {
+            args: Prisma.CoverageScoreDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CoverageScoreUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CoverageScoreUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoverageScorePayload>[]
+          }
+          upsert: {
+            args: Prisma.CoverageScoreUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CoverageScorePayload>
+          }
+          aggregate: {
+            args: Prisma.CoverageScoreAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCoverageScore>
+          }
+          groupBy: {
+            args: Prisma.CoverageScoreGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CoverageScoreGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CoverageScoreCountArgs<ExtArgs>
+            result: $Utils.Optional<CoverageScoreCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2092,6 +2182,7 @@ export namespace Prisma {
     chatConversation?: ChatConversationOmit
     chatMessage?: ChatMessageOmit
     chatRetrievalHit?: ChatRetrievalHitOmit
+    coverageScore?: CoverageScoreOmit
   }
 
   /* Types for Logging */
@@ -2178,6 +2269,7 @@ export namespace Prisma {
     consentLogs: number
     authenticators: number
     chatConversations: number
+    coverageScores: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2187,6 +2279,7 @@ export namespace Prisma {
     consentLogs?: boolean | UserCountOutputTypeCountConsentLogsArgs
     authenticators?: boolean | UserCountOutputTypeCountAuthenticatorsArgs
     chatConversations?: boolean | UserCountOutputTypeCountChatConversationsArgs
+    coverageScores?: boolean | UserCountOutputTypeCountCoverageScoresArgs
   }
 
   // Custom InputTypes
@@ -2240,6 +2333,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountChatConversationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChatConversationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCoverageScoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoverageScoreWhereInput
   }
 
 
@@ -2483,6 +2583,7 @@ export namespace Prisma {
     consentLogs?: boolean | User$consentLogsArgs<ExtArgs>
     authenticators?: boolean | User$authenticatorsArgs<ExtArgs>
     chatConversations?: boolean | User$chatConversationsArgs<ExtArgs>
+    coverageScores?: boolean | User$coverageScoresArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2529,6 +2630,7 @@ export namespace Prisma {
     consentLogs?: boolean | User$consentLogsArgs<ExtArgs>
     authenticators?: boolean | User$authenticatorsArgs<ExtArgs>
     chatConversations?: boolean | User$chatConversationsArgs<ExtArgs>
+    coverageScores?: boolean | User$coverageScoresArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2545,6 +2647,7 @@ export namespace Prisma {
       consentLogs: Prisma.$ConsentLogPayload<ExtArgs>[]
       authenticators: Prisma.$AuthenticatorPayload<ExtArgs>[]
       chatConversations: Prisma.$ChatConversationPayload<ExtArgs>[]
+      coverageScores: Prisma.$CoverageScorePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2957,6 +3060,7 @@ export namespace Prisma {
     consentLogs<T extends User$consentLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$consentLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConsentLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     authenticators<T extends User$authenticatorsArgs<ExtArgs> = {}>(args?: Subset<T, User$authenticatorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthenticatorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     chatConversations<T extends User$chatConversationsArgs<ExtArgs> = {}>(args?: Subset<T, User$chatConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    coverageScores<T extends User$coverageScoresArgs<ExtArgs> = {}>(args?: Subset<T, User$coverageScoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3566,6 +3670,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ChatConversationScalarFieldEnum | ChatConversationScalarFieldEnum[]
+  }
+
+  /**
+   * User.coverageScores
+   */
+  export type User$coverageScoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreInclude<ExtArgs> | null
+    where?: CoverageScoreWhereInput
+    orderBy?: CoverageScoreOrderByWithRelationInput | CoverageScoreOrderByWithRelationInput[]
+    cursor?: CoverageScoreWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CoverageScoreScalarFieldEnum | CoverageScoreScalarFieldEnum[]
   }
 
   /**
@@ -18350,6 +18478,1218 @@ export namespace Prisma {
 
 
   /**
+   * Model CoverageScore
+   */
+
+  export type AggregateCoverageScore = {
+    _count: CoverageScoreCountAggregateOutputType | null
+    _avg: CoverageScoreAvgAggregateOutputType | null
+    _sum: CoverageScoreSumAggregateOutputType | null
+    _min: CoverageScoreMinAggregateOutputType | null
+    _max: CoverageScoreMaxAggregateOutputType | null
+  }
+
+  export type CoverageScoreAvgAggregateOutputType = {
+    overallScore: number | null
+    hospital: number | null
+    prescriptionDrugs: number | null
+    dental: number | null
+    vision: number | null
+    mentalHealth: number | null
+    emergency: number | null
+  }
+
+  export type CoverageScoreSumAggregateOutputType = {
+    overallScore: number | null
+    hospital: number | null
+    prescriptionDrugs: number | null
+    dental: number | null
+    vision: number | null
+    mentalHealth: number | null
+    emergency: number | null
+  }
+
+  export type CoverageScoreMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    planId: string | null
+    overallScore: number | null
+    hospital: number | null
+    prescriptionDrugs: number | null
+    dental: number | null
+    vision: number | null
+    mentalHealth: number | null
+    emergency: number | null
+    rationale: string | null
+    createdAt: Date | null
+  }
+
+  export type CoverageScoreMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    planId: string | null
+    overallScore: number | null
+    hospital: number | null
+    prescriptionDrugs: number | null
+    dental: number | null
+    vision: number | null
+    mentalHealth: number | null
+    emergency: number | null
+    rationale: string | null
+    createdAt: Date | null
+  }
+
+  export type CoverageScoreCountAggregateOutputType = {
+    id: number
+    userId: number
+    planId: number
+    overallScore: number
+    hospital: number
+    prescriptionDrugs: number
+    dental: number
+    vision: number
+    mentalHealth: number
+    emergency: number
+    rationale: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CoverageScoreAvgAggregateInputType = {
+    overallScore?: true
+    hospital?: true
+    prescriptionDrugs?: true
+    dental?: true
+    vision?: true
+    mentalHealth?: true
+    emergency?: true
+  }
+
+  export type CoverageScoreSumAggregateInputType = {
+    overallScore?: true
+    hospital?: true
+    prescriptionDrugs?: true
+    dental?: true
+    vision?: true
+    mentalHealth?: true
+    emergency?: true
+  }
+
+  export type CoverageScoreMinAggregateInputType = {
+    id?: true
+    userId?: true
+    planId?: true
+    overallScore?: true
+    hospital?: true
+    prescriptionDrugs?: true
+    dental?: true
+    vision?: true
+    mentalHealth?: true
+    emergency?: true
+    rationale?: true
+    createdAt?: true
+  }
+
+  export type CoverageScoreMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    planId?: true
+    overallScore?: true
+    hospital?: true
+    prescriptionDrugs?: true
+    dental?: true
+    vision?: true
+    mentalHealth?: true
+    emergency?: true
+    rationale?: true
+    createdAt?: true
+  }
+
+  export type CoverageScoreCountAggregateInputType = {
+    id?: true
+    userId?: true
+    planId?: true
+    overallScore?: true
+    hospital?: true
+    prescriptionDrugs?: true
+    dental?: true
+    vision?: true
+    mentalHealth?: true
+    emergency?: true
+    rationale?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CoverageScoreAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CoverageScore to aggregate.
+     */
+    where?: CoverageScoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoverageScores to fetch.
+     */
+    orderBy?: CoverageScoreOrderByWithRelationInput | CoverageScoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CoverageScoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoverageScores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoverageScores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CoverageScores
+    **/
+    _count?: true | CoverageScoreCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CoverageScoreAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CoverageScoreSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CoverageScoreMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CoverageScoreMaxAggregateInputType
+  }
+
+  export type GetCoverageScoreAggregateType<T extends CoverageScoreAggregateArgs> = {
+        [P in keyof T & keyof AggregateCoverageScore]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCoverageScore[P]>
+      : GetScalarType<T[P], AggregateCoverageScore[P]>
+  }
+
+
+
+
+  export type CoverageScoreGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CoverageScoreWhereInput
+    orderBy?: CoverageScoreOrderByWithAggregationInput | CoverageScoreOrderByWithAggregationInput[]
+    by: CoverageScoreScalarFieldEnum[] | CoverageScoreScalarFieldEnum
+    having?: CoverageScoreScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CoverageScoreCountAggregateInputType | true
+    _avg?: CoverageScoreAvgAggregateInputType
+    _sum?: CoverageScoreSumAggregateInputType
+    _min?: CoverageScoreMinAggregateInputType
+    _max?: CoverageScoreMaxAggregateInputType
+  }
+
+  export type CoverageScoreGroupByOutputType = {
+    id: string
+    userId: string
+    planId: string | null
+    overallScore: number
+    hospital: number
+    prescriptionDrugs: number
+    dental: number
+    vision: number
+    mentalHealth: number
+    emergency: number
+    rationale: string | null
+    createdAt: Date
+    _count: CoverageScoreCountAggregateOutputType | null
+    _avg: CoverageScoreAvgAggregateOutputType | null
+    _sum: CoverageScoreSumAggregateOutputType | null
+    _min: CoverageScoreMinAggregateOutputType | null
+    _max: CoverageScoreMaxAggregateOutputType | null
+  }
+
+  type GetCoverageScoreGroupByPayload<T extends CoverageScoreGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CoverageScoreGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CoverageScoreGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CoverageScoreGroupByOutputType[P]>
+            : GetScalarType<T[P], CoverageScoreGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CoverageScoreSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    planId?: boolean
+    overallScore?: boolean
+    hospital?: boolean
+    prescriptionDrugs?: boolean
+    dental?: boolean
+    vision?: boolean
+    mentalHealth?: boolean
+    emergency?: boolean
+    rationale?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coverageScore"]>
+
+  export type CoverageScoreSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    planId?: boolean
+    overallScore?: boolean
+    hospital?: boolean
+    prescriptionDrugs?: boolean
+    dental?: boolean
+    vision?: boolean
+    mentalHealth?: boolean
+    emergency?: boolean
+    rationale?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coverageScore"]>
+
+  export type CoverageScoreSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    planId?: boolean
+    overallScore?: boolean
+    hospital?: boolean
+    prescriptionDrugs?: boolean
+    dental?: boolean
+    vision?: boolean
+    mentalHealth?: boolean
+    emergency?: boolean
+    rationale?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["coverageScore"]>
+
+  export type CoverageScoreSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    planId?: boolean
+    overallScore?: boolean
+    hospital?: boolean
+    prescriptionDrugs?: boolean
+    dental?: boolean
+    vision?: boolean
+    mentalHealth?: boolean
+    emergency?: boolean
+    rationale?: boolean
+    createdAt?: boolean
+  }
+
+  export type CoverageScoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "planId" | "overallScore" | "hospital" | "prescriptionDrugs" | "dental" | "vision" | "mentalHealth" | "emergency" | "rationale" | "createdAt", ExtArgs["result"]["coverageScore"]>
+  export type CoverageScoreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CoverageScoreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CoverageScoreIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CoverageScorePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CoverageScore"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      planId: string | null
+      overallScore: number
+      hospital: number
+      prescriptionDrugs: number
+      dental: number
+      vision: number
+      mentalHealth: number
+      emergency: number
+      rationale: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["coverageScore"]>
+    composites: {}
+  }
+
+  type CoverageScoreGetPayload<S extends boolean | null | undefined | CoverageScoreDefaultArgs> = $Result.GetResult<Prisma.$CoverageScorePayload, S>
+
+  type CoverageScoreCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CoverageScoreFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CoverageScoreCountAggregateInputType | true
+    }
+
+  export interface CoverageScoreDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CoverageScore'], meta: { name: 'CoverageScore' } }
+    /**
+     * Find zero or one CoverageScore that matches the filter.
+     * @param {CoverageScoreFindUniqueArgs} args - Arguments to find a CoverageScore
+     * @example
+     * // Get one CoverageScore
+     * const coverageScore = await prisma.coverageScore.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CoverageScoreFindUniqueArgs>(args: SelectSubset<T, CoverageScoreFindUniqueArgs<ExtArgs>>): Prisma__CoverageScoreClient<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CoverageScore that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CoverageScoreFindUniqueOrThrowArgs} args - Arguments to find a CoverageScore
+     * @example
+     * // Get one CoverageScore
+     * const coverageScore = await prisma.coverageScore.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CoverageScoreFindUniqueOrThrowArgs>(args: SelectSubset<T, CoverageScoreFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CoverageScoreClient<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CoverageScore that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoverageScoreFindFirstArgs} args - Arguments to find a CoverageScore
+     * @example
+     * // Get one CoverageScore
+     * const coverageScore = await prisma.coverageScore.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CoverageScoreFindFirstArgs>(args?: SelectSubset<T, CoverageScoreFindFirstArgs<ExtArgs>>): Prisma__CoverageScoreClient<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CoverageScore that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoverageScoreFindFirstOrThrowArgs} args - Arguments to find a CoverageScore
+     * @example
+     * // Get one CoverageScore
+     * const coverageScore = await prisma.coverageScore.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CoverageScoreFindFirstOrThrowArgs>(args?: SelectSubset<T, CoverageScoreFindFirstOrThrowArgs<ExtArgs>>): Prisma__CoverageScoreClient<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CoverageScores that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoverageScoreFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CoverageScores
+     * const coverageScores = await prisma.coverageScore.findMany()
+     * 
+     * // Get first 10 CoverageScores
+     * const coverageScores = await prisma.coverageScore.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const coverageScoreWithIdOnly = await prisma.coverageScore.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CoverageScoreFindManyArgs>(args?: SelectSubset<T, CoverageScoreFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CoverageScore.
+     * @param {CoverageScoreCreateArgs} args - Arguments to create a CoverageScore.
+     * @example
+     * // Create one CoverageScore
+     * const CoverageScore = await prisma.coverageScore.create({
+     *   data: {
+     *     // ... data to create a CoverageScore
+     *   }
+     * })
+     * 
+     */
+    create<T extends CoverageScoreCreateArgs>(args: SelectSubset<T, CoverageScoreCreateArgs<ExtArgs>>): Prisma__CoverageScoreClient<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CoverageScores.
+     * @param {CoverageScoreCreateManyArgs} args - Arguments to create many CoverageScores.
+     * @example
+     * // Create many CoverageScores
+     * const coverageScore = await prisma.coverageScore.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CoverageScoreCreateManyArgs>(args?: SelectSubset<T, CoverageScoreCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CoverageScores and returns the data saved in the database.
+     * @param {CoverageScoreCreateManyAndReturnArgs} args - Arguments to create many CoverageScores.
+     * @example
+     * // Create many CoverageScores
+     * const coverageScore = await prisma.coverageScore.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CoverageScores and only return the `id`
+     * const coverageScoreWithIdOnly = await prisma.coverageScore.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CoverageScoreCreateManyAndReturnArgs>(args?: SelectSubset<T, CoverageScoreCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CoverageScore.
+     * @param {CoverageScoreDeleteArgs} args - Arguments to delete one CoverageScore.
+     * @example
+     * // Delete one CoverageScore
+     * const CoverageScore = await prisma.coverageScore.delete({
+     *   where: {
+     *     // ... filter to delete one CoverageScore
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CoverageScoreDeleteArgs>(args: SelectSubset<T, CoverageScoreDeleteArgs<ExtArgs>>): Prisma__CoverageScoreClient<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CoverageScore.
+     * @param {CoverageScoreUpdateArgs} args - Arguments to update one CoverageScore.
+     * @example
+     * // Update one CoverageScore
+     * const coverageScore = await prisma.coverageScore.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CoverageScoreUpdateArgs>(args: SelectSubset<T, CoverageScoreUpdateArgs<ExtArgs>>): Prisma__CoverageScoreClient<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CoverageScores.
+     * @param {CoverageScoreDeleteManyArgs} args - Arguments to filter CoverageScores to delete.
+     * @example
+     * // Delete a few CoverageScores
+     * const { count } = await prisma.coverageScore.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CoverageScoreDeleteManyArgs>(args?: SelectSubset<T, CoverageScoreDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CoverageScores.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoverageScoreUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CoverageScores
+     * const coverageScore = await prisma.coverageScore.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CoverageScoreUpdateManyArgs>(args: SelectSubset<T, CoverageScoreUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CoverageScores and returns the data updated in the database.
+     * @param {CoverageScoreUpdateManyAndReturnArgs} args - Arguments to update many CoverageScores.
+     * @example
+     * // Update many CoverageScores
+     * const coverageScore = await prisma.coverageScore.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CoverageScores and only return the `id`
+     * const coverageScoreWithIdOnly = await prisma.coverageScore.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CoverageScoreUpdateManyAndReturnArgs>(args: SelectSubset<T, CoverageScoreUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CoverageScore.
+     * @param {CoverageScoreUpsertArgs} args - Arguments to update or create a CoverageScore.
+     * @example
+     * // Update or create a CoverageScore
+     * const coverageScore = await prisma.coverageScore.upsert({
+     *   create: {
+     *     // ... data to create a CoverageScore
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CoverageScore we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CoverageScoreUpsertArgs>(args: SelectSubset<T, CoverageScoreUpsertArgs<ExtArgs>>): Prisma__CoverageScoreClient<$Result.GetResult<Prisma.$CoverageScorePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CoverageScores.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoverageScoreCountArgs} args - Arguments to filter CoverageScores to count.
+     * @example
+     * // Count the number of CoverageScores
+     * const count = await prisma.coverageScore.count({
+     *   where: {
+     *     // ... the filter for the CoverageScores we want to count
+     *   }
+     * })
+    **/
+    count<T extends CoverageScoreCountArgs>(
+      args?: Subset<T, CoverageScoreCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CoverageScoreCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CoverageScore.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoverageScoreAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CoverageScoreAggregateArgs>(args: Subset<T, CoverageScoreAggregateArgs>): Prisma.PrismaPromise<GetCoverageScoreAggregateType<T>>
+
+    /**
+     * Group by CoverageScore.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CoverageScoreGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CoverageScoreGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CoverageScoreGroupByArgs['orderBy'] }
+        : { orderBy?: CoverageScoreGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CoverageScoreGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCoverageScoreGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CoverageScore model
+   */
+  readonly fields: CoverageScoreFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CoverageScore.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CoverageScoreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CoverageScore model
+   */
+  interface CoverageScoreFieldRefs {
+    readonly id: FieldRef<"CoverageScore", 'String'>
+    readonly userId: FieldRef<"CoverageScore", 'String'>
+    readonly planId: FieldRef<"CoverageScore", 'String'>
+    readonly overallScore: FieldRef<"CoverageScore", 'Int'>
+    readonly hospital: FieldRef<"CoverageScore", 'Int'>
+    readonly prescriptionDrugs: FieldRef<"CoverageScore", 'Int'>
+    readonly dental: FieldRef<"CoverageScore", 'Int'>
+    readonly vision: FieldRef<"CoverageScore", 'Int'>
+    readonly mentalHealth: FieldRef<"CoverageScore", 'Int'>
+    readonly emergency: FieldRef<"CoverageScore", 'Int'>
+    readonly rationale: FieldRef<"CoverageScore", 'String'>
+    readonly createdAt: FieldRef<"CoverageScore", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CoverageScore findUnique
+   */
+  export type CoverageScoreFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which CoverageScore to fetch.
+     */
+    where: CoverageScoreWhereUniqueInput
+  }
+
+  /**
+   * CoverageScore findUniqueOrThrow
+   */
+  export type CoverageScoreFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which CoverageScore to fetch.
+     */
+    where: CoverageScoreWhereUniqueInput
+  }
+
+  /**
+   * CoverageScore findFirst
+   */
+  export type CoverageScoreFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which CoverageScore to fetch.
+     */
+    where?: CoverageScoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoverageScores to fetch.
+     */
+    orderBy?: CoverageScoreOrderByWithRelationInput | CoverageScoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CoverageScores.
+     */
+    cursor?: CoverageScoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoverageScores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoverageScores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoverageScores.
+     */
+    distinct?: CoverageScoreScalarFieldEnum | CoverageScoreScalarFieldEnum[]
+  }
+
+  /**
+   * CoverageScore findFirstOrThrow
+   */
+  export type CoverageScoreFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which CoverageScore to fetch.
+     */
+    where?: CoverageScoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoverageScores to fetch.
+     */
+    orderBy?: CoverageScoreOrderByWithRelationInput | CoverageScoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CoverageScores.
+     */
+    cursor?: CoverageScoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoverageScores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoverageScores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoverageScores.
+     */
+    distinct?: CoverageScoreScalarFieldEnum | CoverageScoreScalarFieldEnum[]
+  }
+
+  /**
+   * CoverageScore findMany
+   */
+  export type CoverageScoreFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreInclude<ExtArgs> | null
+    /**
+     * Filter, which CoverageScores to fetch.
+     */
+    where?: CoverageScoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CoverageScores to fetch.
+     */
+    orderBy?: CoverageScoreOrderByWithRelationInput | CoverageScoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CoverageScores.
+     */
+    cursor?: CoverageScoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CoverageScores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CoverageScores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CoverageScores.
+     */
+    distinct?: CoverageScoreScalarFieldEnum | CoverageScoreScalarFieldEnum[]
+  }
+
+  /**
+   * CoverageScore create
+   */
+  export type CoverageScoreCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CoverageScore.
+     */
+    data: XOR<CoverageScoreCreateInput, CoverageScoreUncheckedCreateInput>
+  }
+
+  /**
+   * CoverageScore createMany
+   */
+  export type CoverageScoreCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CoverageScores.
+     */
+    data: CoverageScoreCreateManyInput | CoverageScoreCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CoverageScore createManyAndReturn
+   */
+  export type CoverageScoreCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * The data used to create many CoverageScores.
+     */
+    data: CoverageScoreCreateManyInput | CoverageScoreCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CoverageScore update
+   */
+  export type CoverageScoreUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CoverageScore.
+     */
+    data: XOR<CoverageScoreUpdateInput, CoverageScoreUncheckedUpdateInput>
+    /**
+     * Choose, which CoverageScore to update.
+     */
+    where: CoverageScoreWhereUniqueInput
+  }
+
+  /**
+   * CoverageScore updateMany
+   */
+  export type CoverageScoreUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CoverageScores.
+     */
+    data: XOR<CoverageScoreUpdateManyMutationInput, CoverageScoreUncheckedUpdateManyInput>
+    /**
+     * Filter which CoverageScores to update
+     */
+    where?: CoverageScoreWhereInput
+    /**
+     * Limit how many CoverageScores to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoverageScore updateManyAndReturn
+   */
+  export type CoverageScoreUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * The data used to update CoverageScores.
+     */
+    data: XOR<CoverageScoreUpdateManyMutationInput, CoverageScoreUncheckedUpdateManyInput>
+    /**
+     * Filter which CoverageScores to update
+     */
+    where?: CoverageScoreWhereInput
+    /**
+     * Limit how many CoverageScores to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CoverageScore upsert
+   */
+  export type CoverageScoreUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CoverageScore to update in case it exists.
+     */
+    where: CoverageScoreWhereUniqueInput
+    /**
+     * In case the CoverageScore found by the `where` argument doesn't exist, create a new CoverageScore with this data.
+     */
+    create: XOR<CoverageScoreCreateInput, CoverageScoreUncheckedCreateInput>
+    /**
+     * In case the CoverageScore was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CoverageScoreUpdateInput, CoverageScoreUncheckedUpdateInput>
+  }
+
+  /**
+   * CoverageScore delete
+   */
+  export type CoverageScoreDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreInclude<ExtArgs> | null
+    /**
+     * Filter which CoverageScore to delete.
+     */
+    where: CoverageScoreWhereUniqueInput
+  }
+
+  /**
+   * CoverageScore deleteMany
+   */
+  export type CoverageScoreDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CoverageScores to delete
+     */
+    where?: CoverageScoreWhereInput
+    /**
+     * Limit how many CoverageScores to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CoverageScore without action
+   */
+  export type CoverageScoreDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CoverageScore
+     */
+    select?: CoverageScoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CoverageScore
+     */
+    omit?: CoverageScoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CoverageScoreInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -18589,6 +19929,24 @@ export namespace Prisma {
   };
 
   export type ChatRetrievalHitScalarFieldEnum = (typeof ChatRetrievalHitScalarFieldEnum)[keyof typeof ChatRetrievalHitScalarFieldEnum]
+
+
+  export const CoverageScoreScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    planId: 'planId',
+    overallScore: 'overallScore',
+    hospital: 'hospital',
+    prescriptionDrugs: 'prescriptionDrugs',
+    dental: 'dental',
+    vision: 'vision',
+    mentalHealth: 'mentalHealth',
+    emergency: 'emergency',
+    rationale: 'rationale',
+    createdAt: 'createdAt'
+  };
+
+  export type CoverageScoreScalarFieldEnum = (typeof CoverageScoreScalarFieldEnum)[keyof typeof CoverageScoreScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -18856,6 +20214,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogListRelationFilter
     authenticators?: AuthenticatorListRelationFilter
     chatConversations?: ChatConversationListRelationFilter
+    coverageScores?: CoverageScoreListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -18875,6 +20234,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogOrderByRelationAggregateInput
     authenticators?: AuthenticatorOrderByRelationAggregateInput
     chatConversations?: ChatConversationOrderByRelationAggregateInput
+    coverageScores?: CoverageScoreOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -18897,6 +20257,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogListRelationFilter
     authenticators?: AuthenticatorListRelationFilter
     chatConversations?: ChatConversationListRelationFilter
+    coverageScores?: CoverageScoreListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -20009,6 +21370,98 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"ChatRetrievalHit"> | Date | string
   }
 
+  export type CoverageScoreWhereInput = {
+    AND?: CoverageScoreWhereInput | CoverageScoreWhereInput[]
+    OR?: CoverageScoreWhereInput[]
+    NOT?: CoverageScoreWhereInput | CoverageScoreWhereInput[]
+    id?: StringFilter<"CoverageScore"> | string
+    userId?: StringFilter<"CoverageScore"> | string
+    planId?: StringNullableFilter<"CoverageScore"> | string | null
+    overallScore?: IntFilter<"CoverageScore"> | number
+    hospital?: IntFilter<"CoverageScore"> | number
+    prescriptionDrugs?: IntFilter<"CoverageScore"> | number
+    dental?: IntFilter<"CoverageScore"> | number
+    vision?: IntFilter<"CoverageScore"> | number
+    mentalHealth?: IntFilter<"CoverageScore"> | number
+    emergency?: IntFilter<"CoverageScore"> | number
+    rationale?: StringNullableFilter<"CoverageScore"> | string | null
+    createdAt?: DateTimeFilter<"CoverageScore"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type CoverageScoreOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    planId?: SortOrderInput | SortOrder
+    overallScore?: SortOrder
+    hospital?: SortOrder
+    prescriptionDrugs?: SortOrder
+    dental?: SortOrder
+    vision?: SortOrder
+    mentalHealth?: SortOrder
+    emergency?: SortOrder
+    rationale?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type CoverageScoreWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CoverageScoreWhereInput | CoverageScoreWhereInput[]
+    OR?: CoverageScoreWhereInput[]
+    NOT?: CoverageScoreWhereInput | CoverageScoreWhereInput[]
+    userId?: StringFilter<"CoverageScore"> | string
+    planId?: StringNullableFilter<"CoverageScore"> | string | null
+    overallScore?: IntFilter<"CoverageScore"> | number
+    hospital?: IntFilter<"CoverageScore"> | number
+    prescriptionDrugs?: IntFilter<"CoverageScore"> | number
+    dental?: IntFilter<"CoverageScore"> | number
+    vision?: IntFilter<"CoverageScore"> | number
+    mentalHealth?: IntFilter<"CoverageScore"> | number
+    emergency?: IntFilter<"CoverageScore"> | number
+    rationale?: StringNullableFilter<"CoverageScore"> | string | null
+    createdAt?: DateTimeFilter<"CoverageScore"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type CoverageScoreOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    planId?: SortOrderInput | SortOrder
+    overallScore?: SortOrder
+    hospital?: SortOrder
+    prescriptionDrugs?: SortOrder
+    dental?: SortOrder
+    vision?: SortOrder
+    mentalHealth?: SortOrder
+    emergency?: SortOrder
+    rationale?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: CoverageScoreCountOrderByAggregateInput
+    _avg?: CoverageScoreAvgOrderByAggregateInput
+    _max?: CoverageScoreMaxOrderByAggregateInput
+    _min?: CoverageScoreMinOrderByAggregateInput
+    _sum?: CoverageScoreSumOrderByAggregateInput
+  }
+
+  export type CoverageScoreScalarWhereWithAggregatesInput = {
+    AND?: CoverageScoreScalarWhereWithAggregatesInput | CoverageScoreScalarWhereWithAggregatesInput[]
+    OR?: CoverageScoreScalarWhereWithAggregatesInput[]
+    NOT?: CoverageScoreScalarWhereWithAggregatesInput | CoverageScoreScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CoverageScore"> | string
+    userId?: StringWithAggregatesFilter<"CoverageScore"> | string
+    planId?: StringNullableWithAggregatesFilter<"CoverageScore"> | string | null
+    overallScore?: IntWithAggregatesFilter<"CoverageScore"> | number
+    hospital?: IntWithAggregatesFilter<"CoverageScore"> | number
+    prescriptionDrugs?: IntWithAggregatesFilter<"CoverageScore"> | number
+    dental?: IntWithAggregatesFilter<"CoverageScore"> | number
+    vision?: IntWithAggregatesFilter<"CoverageScore"> | number
+    mentalHealth?: IntWithAggregatesFilter<"CoverageScore"> | number
+    emergency?: IntWithAggregatesFilter<"CoverageScore"> | number
+    rationale?: StringNullableWithAggregatesFilter<"CoverageScore"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CoverageScore"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -20026,6 +21479,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -20045,6 +21499,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -20064,6 +21519,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -20083,6 +21539,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -21341,6 +22798,110 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CoverageScoreCreateInput = {
+    id?: string
+    planId?: string | null
+    overallScore: number
+    hospital: number
+    prescriptionDrugs: number
+    dental: number
+    vision: number
+    mentalHealth: number
+    emergency: number
+    rationale?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutCoverageScoresInput
+  }
+
+  export type CoverageScoreUncheckedCreateInput = {
+    id?: string
+    userId: string
+    planId?: string | null
+    overallScore: number
+    hospital: number
+    prescriptionDrugs: number
+    dental: number
+    vision: number
+    mentalHealth: number
+    emergency: number
+    rationale?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CoverageScoreUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: NullableStringFieldUpdateOperationsInput | string | null
+    overallScore?: IntFieldUpdateOperationsInput | number
+    hospital?: IntFieldUpdateOperationsInput | number
+    prescriptionDrugs?: IntFieldUpdateOperationsInput | number
+    dental?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    mentalHealth?: IntFieldUpdateOperationsInput | number
+    emergency?: IntFieldUpdateOperationsInput | number
+    rationale?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCoverageScoresNestedInput
+  }
+
+  export type CoverageScoreUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    planId?: NullableStringFieldUpdateOperationsInput | string | null
+    overallScore?: IntFieldUpdateOperationsInput | number
+    hospital?: IntFieldUpdateOperationsInput | number
+    prescriptionDrugs?: IntFieldUpdateOperationsInput | number
+    dental?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    mentalHealth?: IntFieldUpdateOperationsInput | number
+    emergency?: IntFieldUpdateOperationsInput | number
+    rationale?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoverageScoreCreateManyInput = {
+    id?: string
+    userId: string
+    planId?: string | null
+    overallScore: number
+    hospital: number
+    prescriptionDrugs: number
+    dental: number
+    vision: number
+    mentalHealth: number
+    emergency: number
+    rationale?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CoverageScoreUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: NullableStringFieldUpdateOperationsInput | string | null
+    overallScore?: IntFieldUpdateOperationsInput | number
+    hospital?: IntFieldUpdateOperationsInput | number
+    prescriptionDrugs?: IntFieldUpdateOperationsInput | number
+    dental?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    mentalHealth?: IntFieldUpdateOperationsInput | number
+    emergency?: IntFieldUpdateOperationsInput | number
+    rationale?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoverageScoreUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    planId?: NullableStringFieldUpdateOperationsInput | string | null
+    overallScore?: IntFieldUpdateOperationsInput | number
+    hospital?: IntFieldUpdateOperationsInput | number
+    prescriptionDrugs?: IntFieldUpdateOperationsInput | number
+    dental?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    mentalHealth?: IntFieldUpdateOperationsInput | number
+    emergency?: IntFieldUpdateOperationsInput | number
+    rationale?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -21439,6 +23000,12 @@ export namespace Prisma {
     none?: ChatConversationWhereInput
   }
 
+  export type CoverageScoreListRelationFilter = {
+    every?: CoverageScoreWhereInput
+    some?: CoverageScoreWhereInput
+    none?: CoverageScoreWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -21465,6 +23032,10 @@ export namespace Prisma {
   }
 
   export type ChatConversationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CoverageScoreOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -22488,6 +24059,71 @@ export namespace Prisma {
     score?: SortOrder
   }
 
+  export type CoverageScoreCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    planId?: SortOrder
+    overallScore?: SortOrder
+    hospital?: SortOrder
+    prescriptionDrugs?: SortOrder
+    dental?: SortOrder
+    vision?: SortOrder
+    mentalHealth?: SortOrder
+    emergency?: SortOrder
+    rationale?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CoverageScoreAvgOrderByAggregateInput = {
+    overallScore?: SortOrder
+    hospital?: SortOrder
+    prescriptionDrugs?: SortOrder
+    dental?: SortOrder
+    vision?: SortOrder
+    mentalHealth?: SortOrder
+    emergency?: SortOrder
+  }
+
+  export type CoverageScoreMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    planId?: SortOrder
+    overallScore?: SortOrder
+    hospital?: SortOrder
+    prescriptionDrugs?: SortOrder
+    dental?: SortOrder
+    vision?: SortOrder
+    mentalHealth?: SortOrder
+    emergency?: SortOrder
+    rationale?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CoverageScoreMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    planId?: SortOrder
+    overallScore?: SortOrder
+    hospital?: SortOrder
+    prescriptionDrugs?: SortOrder
+    dental?: SortOrder
+    vision?: SortOrder
+    mentalHealth?: SortOrder
+    emergency?: SortOrder
+    rationale?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CoverageScoreSumOrderByAggregateInput = {
+    overallScore?: SortOrder
+    hospital?: SortOrder
+    prescriptionDrugs?: SortOrder
+    dental?: SortOrder
+    vision?: SortOrder
+    mentalHealth?: SortOrder
+    emergency?: SortOrder
+  }
+
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -22542,6 +24178,13 @@ export namespace Prisma {
     connect?: ChatConversationWhereUniqueInput | ChatConversationWhereUniqueInput[]
   }
 
+  export type CoverageScoreCreateNestedManyWithoutUserInput = {
+    create?: XOR<CoverageScoreCreateWithoutUserInput, CoverageScoreUncheckedCreateWithoutUserInput> | CoverageScoreCreateWithoutUserInput[] | CoverageScoreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CoverageScoreCreateOrConnectWithoutUserInput | CoverageScoreCreateOrConnectWithoutUserInput[]
+    createMany?: CoverageScoreCreateManyUserInputEnvelope
+    connect?: CoverageScoreWhereUniqueInput | CoverageScoreWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -22594,6 +24237,13 @@ export namespace Prisma {
     connectOrCreate?: ChatConversationCreateOrConnectWithoutUserInput | ChatConversationCreateOrConnectWithoutUserInput[]
     createMany?: ChatConversationCreateManyUserInputEnvelope
     connect?: ChatConversationWhereUniqueInput | ChatConversationWhereUniqueInput[]
+  }
+
+  export type CoverageScoreUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CoverageScoreCreateWithoutUserInput, CoverageScoreUncheckedCreateWithoutUserInput> | CoverageScoreCreateWithoutUserInput[] | CoverageScoreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CoverageScoreCreateOrConnectWithoutUserInput | CoverageScoreCreateOrConnectWithoutUserInput[]
+    createMany?: CoverageScoreCreateManyUserInputEnvelope
+    connect?: CoverageScoreWhereUniqueInput | CoverageScoreWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -22716,6 +24366,20 @@ export namespace Prisma {
     deleteMany?: ChatConversationScalarWhereInput | ChatConversationScalarWhereInput[]
   }
 
+  export type CoverageScoreUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CoverageScoreCreateWithoutUserInput, CoverageScoreUncheckedCreateWithoutUserInput> | CoverageScoreCreateWithoutUserInput[] | CoverageScoreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CoverageScoreCreateOrConnectWithoutUserInput | CoverageScoreCreateOrConnectWithoutUserInput[]
+    upsert?: CoverageScoreUpsertWithWhereUniqueWithoutUserInput | CoverageScoreUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CoverageScoreCreateManyUserInputEnvelope
+    set?: CoverageScoreWhereUniqueInput | CoverageScoreWhereUniqueInput[]
+    disconnect?: CoverageScoreWhereUniqueInput | CoverageScoreWhereUniqueInput[]
+    delete?: CoverageScoreWhereUniqueInput | CoverageScoreWhereUniqueInput[]
+    connect?: CoverageScoreWhereUniqueInput | CoverageScoreWhereUniqueInput[]
+    update?: CoverageScoreUpdateWithWhereUniqueWithoutUserInput | CoverageScoreUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CoverageScoreUpdateManyWithWhereWithoutUserInput | CoverageScoreUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CoverageScoreScalarWhereInput | CoverageScoreScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -22818,6 +24482,20 @@ export namespace Prisma {
     update?: ChatConversationUpdateWithWhereUniqueWithoutUserInput | ChatConversationUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ChatConversationUpdateManyWithWhereWithoutUserInput | ChatConversationUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ChatConversationScalarWhereInput | ChatConversationScalarWhereInput[]
+  }
+
+  export type CoverageScoreUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CoverageScoreCreateWithoutUserInput, CoverageScoreUncheckedCreateWithoutUserInput> | CoverageScoreCreateWithoutUserInput[] | CoverageScoreUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CoverageScoreCreateOrConnectWithoutUserInput | CoverageScoreCreateOrConnectWithoutUserInput[]
+    upsert?: CoverageScoreUpsertWithWhereUniqueWithoutUserInput | CoverageScoreUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CoverageScoreCreateManyUserInputEnvelope
+    set?: CoverageScoreWhereUniqueInput | CoverageScoreWhereUniqueInput[]
+    disconnect?: CoverageScoreWhereUniqueInput | CoverageScoreWhereUniqueInput[]
+    delete?: CoverageScoreWhereUniqueInput | CoverageScoreWhereUniqueInput[]
+    connect?: CoverageScoreWhereUniqueInput | CoverageScoreWhereUniqueInput[]
+    update?: CoverageScoreUpdateWithWhereUniqueWithoutUserInput | CoverageScoreUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CoverageScoreUpdateManyWithWhereWithoutUserInput | CoverageScoreUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CoverageScoreScalarWhereInput | CoverageScoreScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -23113,6 +24791,20 @@ export namespace Prisma {
     upsert?: ChatConversationUpsertWithoutRetrievalHitsInput
     connect?: ChatConversationWhereUniqueInput
     update?: XOR<XOR<ChatConversationUpdateToOneWithWhereWithoutRetrievalHitsInput, ChatConversationUpdateWithoutRetrievalHitsInput>, ChatConversationUncheckedUpdateWithoutRetrievalHitsInput>
+  }
+
+  export type UserCreateNestedOneWithoutCoverageScoresInput = {
+    create?: XOR<UserCreateWithoutCoverageScoresInput, UserUncheckedCreateWithoutCoverageScoresInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCoverageScoresInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutCoverageScoresNestedInput = {
+    create?: XOR<UserCreateWithoutCoverageScoresInput, UserUncheckedCreateWithoutCoverageScoresInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCoverageScoresInput
+    upsert?: UserUpsertWithoutCoverageScoresInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCoverageScoresInput, UserUpdateWithoutCoverageScoresInput>, UserUncheckedUpdateWithoutCoverageScoresInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -23778,6 +25470,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CoverageScoreCreateWithoutUserInput = {
+    id?: string
+    planId?: string | null
+    overallScore: number
+    hospital: number
+    prescriptionDrugs: number
+    dental: number
+    vision: number
+    mentalHealth: number
+    emergency: number
+    rationale?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CoverageScoreUncheckedCreateWithoutUserInput = {
+    id?: string
+    planId?: string | null
+    overallScore: number
+    hospital: number
+    prescriptionDrugs: number
+    dental: number
+    vision: number
+    mentalHealth: number
+    emergency: number
+    rationale?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CoverageScoreCreateOrConnectWithoutUserInput = {
+    where: CoverageScoreWhereUniqueInput
+    create: XOR<CoverageScoreCreateWithoutUserInput, CoverageScoreUncheckedCreateWithoutUserInput>
+  }
+
+  export type CoverageScoreCreateManyUserInputEnvelope = {
+    data: CoverageScoreCreateManyUserInput | CoverageScoreCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -24047,6 +25777,40 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ChatConversation"> | Date | string
   }
 
+  export type CoverageScoreUpsertWithWhereUniqueWithoutUserInput = {
+    where: CoverageScoreWhereUniqueInput
+    update: XOR<CoverageScoreUpdateWithoutUserInput, CoverageScoreUncheckedUpdateWithoutUserInput>
+    create: XOR<CoverageScoreCreateWithoutUserInput, CoverageScoreUncheckedCreateWithoutUserInput>
+  }
+
+  export type CoverageScoreUpdateWithWhereUniqueWithoutUserInput = {
+    where: CoverageScoreWhereUniqueInput
+    data: XOR<CoverageScoreUpdateWithoutUserInput, CoverageScoreUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CoverageScoreUpdateManyWithWhereWithoutUserInput = {
+    where: CoverageScoreScalarWhereInput
+    data: XOR<CoverageScoreUpdateManyMutationInput, CoverageScoreUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CoverageScoreScalarWhereInput = {
+    AND?: CoverageScoreScalarWhereInput | CoverageScoreScalarWhereInput[]
+    OR?: CoverageScoreScalarWhereInput[]
+    NOT?: CoverageScoreScalarWhereInput | CoverageScoreScalarWhereInput[]
+    id?: StringFilter<"CoverageScore"> | string
+    userId?: StringFilter<"CoverageScore"> | string
+    planId?: StringNullableFilter<"CoverageScore"> | string | null
+    overallScore?: IntFilter<"CoverageScore"> | number
+    hospital?: IntFilter<"CoverageScore"> | number
+    prescriptionDrugs?: IntFilter<"CoverageScore"> | number
+    dental?: IntFilter<"CoverageScore"> | number
+    vision?: IntFilter<"CoverageScore"> | number
+    mentalHealth?: IntFilter<"CoverageScore"> | number
+    emergency?: IntFilter<"CoverageScore"> | number
+    rationale?: StringNullableFilter<"CoverageScore"> | string | null
+    createdAt?: DateTimeFilter<"CoverageScore"> | Date | string
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -24063,6 +25827,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -24081,6 +25846,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -24115,6 +25881,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -24133,6 +25900,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -24151,6 +25919,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -24169,6 +25938,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -24203,6 +25973,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -24221,6 +25992,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAuthenticatorsInput = {
@@ -24239,6 +26011,7 @@ export namespace Prisma {
     memories?: UserMemoryCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuthenticatorsInput = {
@@ -24257,6 +26030,7 @@ export namespace Prisma {
     memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuthenticatorsInput = {
@@ -24291,6 +26065,7 @@ export namespace Prisma {
     memories?: UserMemoryUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuthenticatorsInput = {
@@ -24309,6 +26084,7 @@ export namespace Prisma {
     memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProfileInput = {
@@ -24327,6 +26103,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -24345,6 +26122,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -24379,6 +26157,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -24397,6 +26176,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutConsentLogsInput = {
@@ -24415,6 +26195,7 @@ export namespace Prisma {
     memories?: UserMemoryCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutConsentLogsInput = {
@@ -24433,6 +26214,7 @@ export namespace Prisma {
     memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutConsentLogsInput = {
@@ -24467,6 +26249,7 @@ export namespace Prisma {
     memories?: UserMemoryUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConsentLogsInput = {
@@ -24485,6 +26268,7 @@ export namespace Prisma {
     memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMedicalProfileInput = {
@@ -24503,6 +26287,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMedicalProfileInput = {
@@ -24521,6 +26306,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMedicalProfileInput = {
@@ -24555,6 +26341,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMedicalProfileInput = {
@@ -24573,6 +26360,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMemoriesInput = {
@@ -24591,6 +26379,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMemoriesInput = {
@@ -24609,6 +26398,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
     chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMemoriesInput = {
@@ -24643,6 +26433,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMemoriesInput = {
@@ -24661,6 +26452,7 @@ export namespace Prisma {
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
     chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutChatConversationsInput = {
@@ -24679,6 +26471,7 @@ export namespace Prisma {
     memories?: UserMemoryCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChatConversationsInput = {
@@ -24697,6 +26490,7 @@ export namespace Prisma {
     memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
     consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
     authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    coverageScores?: CoverageScoreUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChatConversationsInput = {
@@ -24791,6 +26585,7 @@ export namespace Prisma {
     memories?: UserMemoryUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChatConversationsInput = {
@@ -24809,6 +26604,7 @@ export namespace Prisma {
     memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
     consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
     authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    coverageScores?: CoverageScoreUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChatMessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -25023,6 +26819,98 @@ export namespace Prisma {
     messages?: ChatMessageUncheckedUpdateManyWithoutConversationNestedInput
   }
 
+  export type UserCreateWithoutCoverageScoresInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    passwordHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileCreateNestedOneWithoutUserInput
+    memories?: UserMemoryCreateNestedManyWithoutUserInput
+    consentLogs?: ConsentLogCreateNestedManyWithoutUserInput
+    authenticators?: AuthenticatorCreateNestedManyWithoutUserInput
+    chatConversations?: ChatConversationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCoverageScoresInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    passwordHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
+    medicalProfile?: MedicalProfileUncheckedCreateNestedOneWithoutUserInput
+    memories?: UserMemoryUncheckedCreateNestedManyWithoutUserInput
+    consentLogs?: ConsentLogUncheckedCreateNestedManyWithoutUserInput
+    authenticators?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
+    chatConversations?: ChatConversationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCoverageScoresInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCoverageScoresInput, UserUncheckedCreateWithoutCoverageScoresInput>
+  }
+
+  export type UserUpsertWithoutCoverageScoresInput = {
+    update: XOR<UserUpdateWithoutCoverageScoresInput, UserUncheckedUpdateWithoutCoverageScoresInput>
+    create: XOR<UserCreateWithoutCoverageScoresInput, UserUncheckedCreateWithoutCoverageScoresInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCoverageScoresInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCoverageScoresInput, UserUncheckedUpdateWithoutCoverageScoresInput>
+  }
+
+  export type UserUpdateWithoutCoverageScoresInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUpdateManyWithoutUserNestedInput
+    consentLogs?: ConsentLogUpdateManyWithoutUserNestedInput
+    authenticators?: AuthenticatorUpdateManyWithoutUserNestedInput
+    chatConversations?: ChatConversationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCoverageScoresInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
+    medicalProfile?: MedicalProfileUncheckedUpdateOneWithoutUserNestedInput
+    memories?: UserMemoryUncheckedUpdateManyWithoutUserNestedInput
+    consentLogs?: ConsentLogUncheckedUpdateManyWithoutUserNestedInput
+    authenticators?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
+    chatConversations?: ChatConversationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type AccountCreateManyUserInput = {
     type: string
     provider: string
@@ -25084,6 +26972,20 @@ export namespace Prisma {
     medicalFeatures?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type CoverageScoreCreateManyUserInput = {
+    id?: string
+    planId?: string | null
+    overallScore: number
+    hospital: number
+    prescriptionDrugs: number
+    dental: number
+    vision: number
+    mentalHealth: number
+    emergency: number
+    rationale?: string | null
+    createdAt?: Date | string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -25277,6 +27179,48 @@ export namespace Prisma {
     medicalFeatures?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoverageScoreUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: NullableStringFieldUpdateOperationsInput | string | null
+    overallScore?: IntFieldUpdateOperationsInput | number
+    hospital?: IntFieldUpdateOperationsInput | number
+    prescriptionDrugs?: IntFieldUpdateOperationsInput | number
+    dental?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    mentalHealth?: IntFieldUpdateOperationsInput | number
+    emergency?: IntFieldUpdateOperationsInput | number
+    rationale?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoverageScoreUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: NullableStringFieldUpdateOperationsInput | string | null
+    overallScore?: IntFieldUpdateOperationsInput | number
+    hospital?: IntFieldUpdateOperationsInput | number
+    prescriptionDrugs?: IntFieldUpdateOperationsInput | number
+    dental?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    mentalHealth?: IntFieldUpdateOperationsInput | number
+    emergency?: IntFieldUpdateOperationsInput | number
+    rationale?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CoverageScoreUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: NullableStringFieldUpdateOperationsInput | string | null
+    overallScore?: IntFieldUpdateOperationsInput | number
+    hospital?: IntFieldUpdateOperationsInput | number
+    prescriptionDrugs?: IntFieldUpdateOperationsInput | number
+    dental?: IntFieldUpdateOperationsInput | number
+    vision?: IntFieldUpdateOperationsInput | number
+    mentalHealth?: IntFieldUpdateOperationsInput | number
+    emergency?: IntFieldUpdateOperationsInput | number
+    rationale?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChatMessageCreateManyConversationInput = {
