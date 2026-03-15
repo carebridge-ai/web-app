@@ -191,12 +191,22 @@ model Plan {
   state             String
   metalTier         MetalTier
   planType          PlanType
+  source            String    @default("manual")   // e.g. "sunlife", "manulife", "bluecross", "manual"
+  type              String    @default("private")   // e.g. "provincial", "federal", "private", "employer"
   monthlyPremium    Int
-  deductible        Int
+  annualDeductible  Int       @default(0)
+  deductible        Int                             // kept for backwards compat
   maxOutOfPocket    Int
+  outOfPocketMax    Int       @default(0)
   coinsuranceRate   Int
   primaryCareCopay  Int
   specialistCopay   Int
+  erCopay           Int       @default(0)
+  drugCoverage      Json?                           // { formularyTier, brandCopay, genericCopay, specialtyCopay, ... }
+  coverageDetails   Json?                           // { dental, vision, mental, physio, ... }
+  eligibility       Json?                           // { provinces, immigrationStatuses, ageBands, ... }
+  features          Json?                           // ML feature vectors for recommendation engine
+  rawData           Json?                           // Original ingested data before normalization
   formulary         Json
   providerNetwork   Json
   createdAt         DateTime  @default(now())
@@ -204,6 +214,8 @@ model Plan {
 
   @@index([state, metalTier])
   @@index([carrier, state])
+  @@index([source])
+  @@index([type])
   @@map("plans")
 }
 
