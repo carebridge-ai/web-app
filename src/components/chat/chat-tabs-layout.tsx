@@ -4,14 +4,17 @@ import { useEffect, useState } from 'react'
 import { useProfile } from '@/lib/profile-context'
 import { PlanRecommendationPanel } from '@/components/chat/plan-recommendation-panel'
 import { RecommendationInsightsPanel } from '@/components/chat/recommendation-insights-panel'
+import { MedicalFileUpload } from '@/components/medical/file-upload'
+import { MedicalIntakeChat } from '@/components/medical/intake-chat'
 import Link from 'next/link'
 
-type Tab = 'support' | 'plans' | 'insights' | 'sessions' | 'copilot' | 'sources'
+type Tab = 'support' | 'plans' | 'insights' | 'medical' | 'sessions' | 'copilot' | 'sources'
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'support', label: 'Support' },
   { id: 'plans', label: 'Plan search' },
   { id: 'insights', label: 'Insights' },
+  { id: 'medical', label: 'Medical history' },
   { id: 'sessions', label: 'Saved sessions' },
   { id: 'copilot', label: 'Coverage copilot' },
   { id: 'sources', label: 'Sources' },
@@ -229,6 +232,23 @@ export function ChatTabsLayout({
       {activeTab === 'insights' && (
         <div className="page-enter">
           <RecommendationInsightsPanel />
+        </div>
+      )}
+
+      {/* ── Medical history ────────────────────────────────────── */}
+      {activeTab === 'medical' && (
+        <div className="flex flex-col gap-6 page-enter">
+          <MedicalIntakeChat onComplete={() => setActiveTab('copilot')} />
+
+          <div className="flex items-center gap-3 px-1">
+            <div className="h-px flex-1 bg-biscuit/50" />
+            <span className="font-serif text-[12px] uppercase tracking-[0.18em] text-sandstone">
+              or upload a document
+            </span>
+            <div className="h-px flex-1 bg-biscuit/50" />
+          </div>
+
+          <MedicalFileUpload />
         </div>
       )}
 

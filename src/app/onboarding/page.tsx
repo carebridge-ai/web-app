@@ -247,18 +247,18 @@ export default function OnboardingPage() {
 
       if (!response.ok) {
         setProfile(profile)
-        router.push('/chat')
+        router.push('/medical')
         return
       }
     }
 
     setProfile(profile)
-    router.push('/chat')
+    router.push('/medical')
   }
 
   function handleContinueWithout() {
     setProfile(profile)
-    router.push('/chat')
+    router.push('/medical')
   }
 
   const Icon = step < TOTAL_STEPS ? STEP_ICONS[step] : Tag
